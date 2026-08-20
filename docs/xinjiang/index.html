@@ -160,6 +160,11 @@
   .pc-tag{display:inline-block; font-size:11px; font-weight:800; border-radius:6px; padding:2px 8px; margin-left:6px; vertical-align:middle;}
   .tag-expensive{background:#fdeee8; color:#d95b2b;}
   .tag-save{background:#e6f4ec; color:#2f8f6b;}
+  /* 行程版本切换 */
+  .ver-switch{max-width:1080px; margin:20px auto 0; padding:0 20px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .ver-label{font-size:13px; font-weight:800; color:#9a8f7f;}
+  .ver-btn{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:999px; cursor:pointer;}
+  .ver-btn.on{background:var(--primary); color:#fff; border-color:var(--primary);}
   html{scroll-behavior:smooth; scroll-padding-top:64px;}
   /* 顶部导航 */
   .topnav{position:sticky; top:0; z-index:80; display:flex; gap:6px; overflow-x:auto; background:rgba(255,252,246,.96); backdrop-filter:blur(6px); padding:10px 14px; border-bottom:1px solid var(--line); scrollbar-width:none;}
@@ -210,6 +215,12 @@
     <span>天山天池备选</span><span>S21 沙漠公路</span><span>禾木晨雾</span><span>喀纳斯三湾</span>
     <span>魔鬼城落日</span><span>赛里木湖</span><span>伊昭公路</span><span>独库公路</span>
   </div>
+</div>
+
+<div class="ver-switch">
+  <span class="ver-label">📋 行程版本</span>
+  <button class="ver-btn on" data-ver="1" onclick="switchVer(1)">V1 · 伊犁深挖版</button>
+  <button class="ver-btn" data-ver="2" onclick="switchVer(2)">V2 · 北疆喀纳斯版</button>
 </div>
 
 <div class="wrap">
@@ -296,7 +307,7 @@
   <!-- 行程总览 -->
   <section id="overview">
     <div class="sec-title"><span class="ic">📅</span><h2>13 天行程总览</h2><small>精确到天 · D1–D13</small></div>
-    <table class="ovtable">
+    <table class="ovtable ver-v1">
       <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>夜宿</th></tr>
       <tr><td class="d">D1</td><td class="wk">09-24 · 周四</td><td>落地乌鲁木齐 · 市区夜游 &amp; 大巴扎</td><td class="stay">乌鲁木齐</td></tr>
       <tr><td class="d">D2</td><td class="wk">09-25 · 周五</td><td>独库公路北段（独山子→乔尔玛→那拉提）· 精华段抢先走</td><td class="stay">那拉提镇</td></tr>
@@ -310,6 +321,22 @@
       <tr><td class="d">D10</td><td class="wk">10-03 · 周六</td><td>布尔津 → 喀纳斯湖 · 观鱼台</td><td class="stay">喀纳斯/贾登峪</td></tr>
       <tr><td class="d">D11</td><td class="wk">10-04 · 周日</td><td>喀纳斯三湾徒步 → 禾木 / 白哈巴</td><td class="stay">禾木 / 白哈巴</td></tr>
       <tr><td class="d">D12</td><td class="wk">10-05 · 周一</td><td>禾木晨雾 → 阿勒泰 → S21 沙漠公路 → 乌鲁木齐</td><td class="stay">乌鲁木齐</td></tr>
+      <tr><td class="d">D13</td><td class="wk">10-06 · 周二</td><td>市区自由活动 · 下午飞机返杭</td><td class="stay">—</td></tr>
+    </table>
+    <table class="ovtable ver-v2" style="display:none">
+      <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>夜宿</th></tr>
+      <tr><td class="d">D1</td><td class="wk">09-24 · 周四</td><td>落地乌鲁木齐 → 奎屯（当天赶到独库口）</td><td class="stay">奎屯</td></tr>
+      <tr><td class="d">D2</td><td class="wk">09-25 · 周五</td><td>独库北段 + 唐布拉百里画廊 → 那拉提</td><td class="stay">那拉提镇</td></tr>
+      <tr><td class="d">D3</td><td class="wk">09-26 · 周六</td><td>那拉提空中草原 → 特克斯八卦城</td><td class="stay">特克斯</td></tr>
+      <tr><td class="d">D4</td><td class="wk">09-27 · 周日</td><td>特克斯 → 伊宁（喀赞其 / 六星街）</td><td class="stay">伊宁</td></tr>
+      <tr><td class="d">D5</td><td class="wk">09-28 · 周一</td><td>伊宁 → 果子沟大桥 → 赛里木湖</td><td class="stay">赛里木湖/博乐</td></tr>
+      <tr><td class="d">D6</td><td class="wk">09-29 · 周二</td><td>赛里木湖 → 乌尔禾魔鬼城 · 落日</td><td class="stay">克拉玛依</td></tr>
+      <tr><td class="d">D7</td><td class="wk">09-30 · 周三</td><td>乌尔禾 → 布尔津 → 白哈巴（进喀纳斯片区）</td><td class="stay">白哈巴</td></tr>
+      <tr><td class="d">D8</td><td class="wk">10-01 · 周四 🎉</td><td>白哈巴 → 接驳车 → 喀纳斯（观鱼台 · 湖 · 落日）</td><td class="stay">白哈巴</td></tr>
+      <tr><td class="d">D9</td><td class="wk">10-02 · 周五</td><td>喀纳斯三湾徒步 → 白哈巴（夜空）</td><td class="stay">白哈巴</td></tr>
+      <tr><td class="d">D10</td><td class="wk">10-03 · 周六</td><td>白哈巴晨雾 → 铁贾公路 → 贾登峪</td><td class="stay">贾登峪</td></tr>
+      <tr><td class="d">D11</td><td class="wk">10-04 · 周日</td><td>贾登峪 → 禾木（路过）→ 阿禾公路 → 阿勒泰</td><td class="stay">阿勒泰</td></tr>
+      <tr><td class="d">D12</td><td class="wk">10-05 · 周一</td><td>阿勒泰 → S21 沙漠公路 → 乌鲁木齐</td><td class="stay">乌鲁木齐</td></tr>
       <tr><td class="d">D13</td><td class="wk">10-06 · 周二</td><td>市区自由活动 · 下午飞机返杭</td><td class="stay">—</td></tr>
     </table>
   </section>
@@ -725,6 +752,270 @@
         </div>
       </div>
     </article>
+<!-- V2 · 北疆喀纳斯版（朋友建议） -->
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">1</span><span class="m">9.24</span></div>
+        <div class="day-hd-tt"><div class="route">✈️ 杭州 → 乌鲁木齐 → 奎屯</div><div class="wk">周四 · 落地即赶路</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>落地乌鲁木齐，机场租车点提车（4 人 1 车）</li>
+            <li>直接走 G30 高速 → <b>奎屯</b>（约 250km / 3h），夜宿独库口，为 D2 一早进独库</li>
+            <li>节省一个上午，换取独库北段更从容</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（奎屯）</div>
+          <div class="tags"><span class="tag">经济 约¥250–350</span><span class="tag">舒适 约¥400–550</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">奎屯大盘鸡</span><span class="tag">拌面</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">2</span><span class="m">9.25</span></div>
+        <div class="day-hd-tt"><div class="route">🏁 独库北段 + 唐布拉百里画廊 → 那拉提</div><div class="wk">周五 · 精华段 + 百里画廊</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>一早独山子进 <b>独库公路北段</b>（独山子→乔尔玛），抢在封路前先走</li>
+            <li>乔尔玛拐 <b>唐布拉百里画廊</b>（免费，河谷草原秋色），玩完回独库主线</li>
+            <li>继续南行抵 <b>那拉提镇</b>休整</li>
+          </ul>
+          <div class="alert">⚠️ 独库北段 10 月随时封路，出发当天查路况；封则 G218 绕行。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（那拉提镇）</div>
+          <div class="tags"><span class="tag">民宿 约¥350–500</span><span class="tag">酒店 约¥550–800</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">椒麻鸡</span><span class="tag">馕包肉</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">3</span><span class="m">9.26</span></div>
+        <div class="day-hd-tt"><div class="route">🌿 那拉提空中草原 → 特克斯八卦城</div><div class="wk">周六 · 半天草原 · 半天赶路</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>上午 <b>那拉提空中草原</b>（区间车上山，秋草金黄）</li>
+            <li>下午驱车 <b>特克斯</b>，晚上逛 <b>八卦城</b>（无红绿灯的迷宫城）</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（特克斯）</div>
+          <div class="tags"><span class="tag">民宿 约¥300–450</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">哈萨克马肠子</span><span class="tag">那仁</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">4</span><span class="m">9.27</span></div>
+        <div class="day-hd-tt"><div class="route">🏙️ 特克斯 → 伊宁（喀赞其 / 六星街）</div><div class="wk">周日 · 转入城市</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>八卦城晨景（可登观景台看全景）</li>
+            <li>驱车 <b>伊宁</b>，逛 <b>喀赞其</b> 蓝色老城、<b>六星街</b> 咖啡馆</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（伊宁）</div>
+          <div class="tags"><span class="tag">舒适 约¥350–500</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">伊宁烤包子</span><span class="tag">马肠子纳仁</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">5</span><span class="m">9.28</span></div>
+        <div class="day-hd-tt"><div class="route">🌉 伊宁 → 果子沟大桥 → 赛里木湖</div><div class="wk">周一 · 进湖日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>经 <b>果子沟大桥</b>（可停观景台拍桥+雪山）</li>
+            <li>环 <b>赛里木湖</b>（自驾进湖，湖边秋色+雪山倒影）</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（赛里木湖/博乐）</div>
+          <div class="tags"><span class="tag">湖畔民宿 约¥400–600</span><span class="tag">博乐市区 约¥250–350</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">高白鲑</span><span class="tag">博乐大盘鸡</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">6</span><span class="m">9.29</span></div>
+        <div class="day-hd-tt"><div class="route">🛢️ 赛里木湖 → 乌尔禾魔鬼城 → 克拉玛依</div><div class="wk">周二 · 长车日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>长途北上，经奎屯/乌尔禾（约 500km / 6h）</li>
+            <li>傍晚 <b>乌尔禾魔鬼城</b> 看雅丹落日</li>
+            <li>夜宿 <b>克拉玛依</b></li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（克拉玛依）</div>
+          <div class="tags"><span class="tag">舒适 约¥300–450</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">克拉玛依烤羊</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">7</span><span class="m">9.30</span></div>
+        <div class="day-hd-tt"><div class="route">🏡 乌尔禾 → 布尔津 → 白哈巴</div><div class="wk">周三 · 进喀纳斯片区</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>北上经 <b>布尔津</b> 补给（五彩滩视时间）</li>
+            <li>傍晚进 <b>白哈巴村</b>（需边防证），看村落黄昏</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（白哈巴）</div>
+          <div class="tags"><span class="tag">木屋民宿 约¥300–600</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">布尔津冷水鱼</span><span class="tag">酸奶疙瘩</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">8</span><span class="m">10.1</span></div>
+        <div class="day-hd-tt"><div class="route">🏔️ 白哈巴 → 喀纳斯（观鱼台 · 湖 · 落日）</div><div class="wk">周四 🎉 国庆 · 喀纳斯核心</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>白哈巴乘 <b>接驳车</b> 进喀纳斯（约 1h）</li>
+            <li><b>观鱼台</b> 俯瞰喀纳斯湖全景 → <b>喀纳斯湖</b> 湖边栈道 → 看 <b>落日</b></li>
+            <li>晚上回白哈巴（或宿喀纳斯村）</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（白哈巴/喀纳斯村）</div>
+          <div class="tags"><span class="tag">白哈巴木屋 约¥300–600</span><span class="tag">喀纳斯村 约¥500–800</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">图瓦人家宴</span><span class="tag">喀纳斯奶茶</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">9</span><span class="m">10.2</span></div>
+        <div class="day-hd-tt"><div class="route">🌲 喀纳斯三湾徒步 → 白哈巴（夜空）</div><div class="wk">周五 · 三湾 + 星空</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>上午 <b>三湾</b> 徒步（神仙湾→月亮湾→卧龙湾，约 6km）</li>
+            <li>可约 <b>图瓦家访</b> 听呼麦·苏尔</li>
+            <li>傍晚回白哈巴，夜里看 <b>星空</b>（无光污染）</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（白哈巴）</div>
+          <div class="tags"><span class="tag">木屋民宿 约¥300–600</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">奶茶</span><span class="tag">奶疙瘩</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">10</span><span class="m">10.3</span></div>
+        <div class="day-hd-tt"><div class="route">🌅 白哈巴晨雾 → 铁贾公路 → 贾登峪</div><div class="wk">周六 · 晨雾日出</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>早起 <b>白哈巴观景台</b> 看晨雾日出</li>
+            <li>走 <b>铁贾公路</b>（喀纳斯→贾登峪景观路）</li>
+            <li>夜宿 <b>贾登峪</b></li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（贾登峪）</div>
+          <div class="tags"><span class="tag">酒店 约¥300–500</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">贾登峪农家菜</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">11</span><span class="m">10.4</span></div>
+        <div class="day-hd-tt"><div class="route">🛣️ 贾登峪 → 禾木（路过）→ 阿禾公路 → 阿勒泰</div><div class="wk">周日 · 出山日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>禾木</b> 路过（不进景区 / 快速打卡，省下贵住宿）</li>
+            <li>走 <b>阿禾公路</b> 出山（桦林、溪流，抛肉喂老鹰）</li>
+            <li>夜宿 <b>阿勒泰</b></li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（阿勒泰）</div>
+          <div class="tags"><span class="tag">舒适 约¥300–450</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">阿勒泰冷水鱼</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">12</span><span class="m">10.5</span></div>
+        <div class="day-hd-tt"><div class="route">🏜️ 阿勒泰 → S21 沙漠公路 → 乌鲁木齐</div><div class="wk">周一 · 返程长车日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>走 <b>S21 沙漠公路</b>（古尔班通古特沙漠）南返</li>
+            <li>傍晚抵 <b>乌鲁木齐</b>，还车/夜宿</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（乌鲁木齐）</div>
+          <div class="tags"><span class="tag">市区 约¥350–500</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">散伙饭 · 大盘鸡</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v2" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">13</span><span class="m">10.6</span></div>
+        <div class="day-hd-tt"><div class="route">🛫 市区自由活动 · 下午返杭</div><div class="wk">周二 · 返程日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>睡到自然醒，<b>红山公园</b>/<b>大巴扎</b> 最后补货</li>
+            <li>时间够可看 <b>维吾尔歌舞/麦西来甫</b></li>
+            <li>下午机场还车，飞杭州</li>
+          </ul>
+        </div>
+      </div>
+    </article>
   </section>
 
   <!-- 行前准备与预约 -->
@@ -1098,6 +1389,17 @@ function switchPlan(t){
   document.getElementById('plan-A').style.display = (t==='A') ? '' : 'none';
   document.getElementById('plan-B').style.display = (t==='B') ? '' : 'none';
   document.querySelectorAll('.plan-tab').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-plan')===t); });
+}
+// 行程版本切换（V1 伊犁深挖 / V2 北疆喀纳斯）
+function switchVer(v){
+  var isV1 = (v === 1);
+  document.querySelectorAll('.day:not(.ver-v2)').forEach(function(x){ x.style.display = isV1 ? '' : 'none'; });
+  document.querySelectorAll('.day.ver-v2').forEach(function(x){ x.style.display = isV1 ? 'none' : ''; });
+  var t1 = document.querySelector('.ovtable.ver-v1');
+  var t2 = document.querySelector('.ovtable.ver-v2');
+  if(t1) t1.style.display = isV1 ? '' : 'none';
+  if(t2) t2.style.display = isV1 ? 'none' : '';
+  document.querySelectorAll('.ver-btn').forEach(function(b){ b.classList.toggle('on', Number(b.getAttribute('data-ver'))===v); });
 }
 // 待确认清单（勾选状态存 localStorage）
 (function(){
