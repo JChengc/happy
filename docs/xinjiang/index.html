@@ -731,44 +731,10 @@
     <div class="sec-title"><span class="ic">📮</span><h2>信息收集 · 反馈</h2><small>走完或有新情报？告诉我，回来调整攻略</small></div>
     <div class="card" style="margin-top:6px;">
       <form id="feedback-form" onsubmit="return submitFeedback(event)">
-        <div class="two">
-          <label class="fb-field"><span class="fb-label">称呼 <i>（可选）</i></span>
-            <input type="text" name="name" id="fb-name" placeholder="怎么称呼你" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;"></label>
-          <label class="fb-field"><span class="fb-label">行程天 / 路段</span>
-            <select id="fb-day" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;">
-              <option value="全程综合">全程综合</option>
-              <option value="D2 独库北段">D2 独库北段</option>
-              <option value="D3 那拉提">D3 那拉提</option>
-              <option value="D4 特克斯-琼库什台">D4 特克斯-琼库什台</option>
-              <option value="D5 昭苏">D5 昭苏</option>
-              <option value="D6 伊昭-伊宁">D6 伊昭-伊宁</option>
-              <option value="D7 果子沟-赛里木湖">D7 果子沟-赛里木湖</option>
-              <option value="D8 乌尔禾魔鬼城">D8 乌尔禾魔鬼城</option>
-              <option value="D9 布尔津">D9 布尔津</option>
-              <option value="D10 喀纳斯">D10 喀纳斯</option>
-              <option value="D11 禾木">D11 禾木</option>
-              <option value="D12 S21 回程">D12 S21 回程</option>
-            </select></label>
-          <label class="fb-field"><span class="fb-label">反馈类型</span>
-            <select id="fb-type" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;">
-              <option value="行程安排">行程安排</option>
-              <option value="住宿">住宿</option>
-              <option value="路况/封路情报">路况 / 封路情报</option>
-              <option value="餐饮">餐饮</option>
-              <option value="预算">预算</option>
-              <option value="其他">其他</option>
-            </select></label>
-          <label class="fb-field"><span class="fb-label">整体评价</span>
-            <select id="fb-score" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;">
-              <option value="很满意">😄 很满意</option>
-              <option value="满意">🙂 满意</option>
-              <option value="一般">😐 一般</option>
-              <option value="有待改进">😕 有待改进</option>
-            </select></label>
-        </div>
-        <label class="fb-field" style="margin-top:14px;"><span class="fb-label">详细反馈 <i>（必填）</i></span>
-          <textarea id="fb-msg" required placeholder="比如：独库 D2 那天下午山里起雾了、那拉提住宿可以换成哪家、哪段路程比预期久……" style="width:100%; min-height:110px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff; resize:vertical;"></textarea>
-        </label>
+        <label class="fb-field"><span class="fb-label">称呼 <i>（可选）</i></span>
+          <input type="text" id="fb-name" placeholder="你的名字" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;"></label>
+        <label class="fb-field" style="margin-top:14px;"><span class="fb-label">具体要求 <i>（必填）</i></span>
+          <textarea id="fb-msg" required placeholder="想补充或修正的行程安排、住宿、路况等具体要求……" style="width:100%; min-height:110px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff; resize:vertical;"></textarea></label>
         <button type="submit" style="margin-top:14px; background:var(--primary); color:#fff; border:none; padding:11px 26px; border-radius:999px; font-size:15px; font-weight:700; cursor:pointer;">提交反馈 →</button>
         <p style="margin-top:10px; font-size:12.5px; color:#9a8f7f;">提交后跳转 GitHub 新建 Issue，点一下即记录到本仓库，作者会据此调整攻略；不会收集任何隐私信息。</p>
       </form>
@@ -786,17 +752,11 @@
 function submitFeedback(e){
   e.preventDefault();
   var name = document.getElementById('fb-name').value.trim();
-  var day  = document.getElementById('fb-day').value;
-  var type = document.getElementById('fb-type').value;
-  var score= document.getElementById('fb-score').value;
   var msg  = document.getElementById('fb-msg').value.trim();
-  if(!msg){ alert('请填写反馈内容'); return false; }
-  var title = '【攻略反馈·新疆2026】' + type + ' · ' + day + (name ? '（' + name + '）' : '');
+  if(!msg){ alert('请填写具体要求'); return false; }
+  var title = '【攻略反馈·新疆2026】' + (name || '匿名');
   var body  = '**称呼**：' + (name || '匿名') + '\n\n' +
-              '**行程天/路段**：' + day + '\n\n' +
-              '**反馈类型**：' + type + '\n\n' +
-              '**整体评价**：' + score + '\n\n' +
-              '**详细反馈**：\n' + msg + '\n\n' +
+              '**具体要求**：\n' + msg + '\n\n' +
               '---\n提交时间：' + new Date().toLocaleString('zh-CN') + '\n（来自攻略页信息收集）';
   var url = 'https://github.com/JChengc/happy/issues/new?title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
   window.open(url, '_blank');
