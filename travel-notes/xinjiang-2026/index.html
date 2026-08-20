@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>反走北疆 + 伊犁大环线 · 2026 深秋 13 天自驾 · 4 人计划</title>
+<style>
+  :root{
+    --cream:#FFF9F2; --card:#FFFFFF; --ink:#3D3A36;
+    --primary:#E8562F; --primary2:#FF7A45; --green:#2F8F6B;
+    --gold:#D9A441; --line:#F0E6D8; --soft:#F7EFE3;
+    --tag-bg:#FCE9DF; --tag-tx:#C4481F;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--cream); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.65;}
+  .wrap{max-width:940px; margin:0 auto; padding:0 18px 80px;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#E8562F 0%,#FF8A5C 55%,#F5C26B 130%); color:#fff; border-radius:0 0 30px 30px; padding:44px 22px 38px; text-align:center;}
+  .hero .kicker{letter-spacing:3px; font-size:13px; opacity:.92; margin-bottom:10px;}
+  .hero h1{font-size:34px; font-weight:800; letter-spacing:1px; line-height:1.3;}
+  .hero .sub{margin-top:12px; font-size:15px; opacity:.95;}
+  .hero .meta{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:20px;}
+  .hero .chip{background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.45); padding:6px 14px; border-radius:999px; font-size:13px; font-weight:600;}
+  .hero .dots{margin-top:22px; display:flex; gap:6px; justify-content:center; flex-wrap:wrap;}
+  .hero .dots span{background:rgba(255,255,255,.85); padding:5px 11px; border-radius:999px; font-size:12px; color:var(--primary); font-weight:700;}
+
+  section{margin-top:44px;}
+  .sec-title{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .sec-title .ic{font-size:26px;}
+  .sec-title h2{font-size:22px; font-weight:800;}
+  .sec-title small{color:#9a8f7f; font-weight:500; font-size:12.5px;}
+  .note{background:var(--soft); border-left:4px solid var(--gold); padding:14px 16px; border-radius:0 12px 12px 0; font-size:13.5px; color:#6b6155;}
+
+  /* overview table */
+  .ovtable{width:100%; border-collapse:collapse; background:var(--card); border-radius:16px; overflow:hidden; box-shadow:0 6px 22px rgba(0,0,0,.05); font-size:13.5px;}
+  .ovtable th{background:var(--primary); color:#fff; padding:11px 10px; font-weight:600; text-align:left; font-size:13px;}
+  .ovtable td{padding:10px 10px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .ovtable tr:last-child td{border-bottom:none;}
+  .ovtable .d{font-weight:800; color:var(--primary); white-space:nowrap;}
+  .ovtable .wk{white-space:nowrap; font-size:12px; color:#9a8f7f;}
+  .ovtable .stay{color:var(--green); font-weight:600; white-space:nowrap;}
+
+  /* SVG map */
+  .mapcard{background:var(--card); border-radius:18px; padding:14px; box-shadow:0 6px 22px rgba(0,0,0,.05);}
+  .mapcard svg{width:100%; height:auto; display:block;}
+  .maplg{font-size:12px; color:#9a8f7f; text-align:center; margin-top:8px;}
+
+  /* day cards */
+  .day{background:var(--card); border-radius:20px; box-shadow:0 8px 26px rgba(0,0,0,.06); margin-top:26px; overflow:hidden; border-top:4px solid var(--primary2);}
+  .day-head{display:flex; align-items:center; gap:14px; padding:18px 20px 14px; flex-wrap:wrap; background:linear-gradient(180deg,#FFFDF9,#fff);}
+  .day-badge{width:56px; height:56px; border-radius:16px; background:var(--primary); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; flex-shrink:0;}
+  .day-badge .n{font-size:9px; letter-spacing:1px; opacity:.9;}
+  .day-badge .d{font-size:23px; font-weight:800; line-height:1;}
+  .day-badge .m{font-size:11px; font-weight:700;}
+  .day-hd-tt{flex:1; min-width:200px;}
+  .day-hd-tt .route{font-size:17px; font-weight:800;}
+  .day-hd-tt .wk{font-size:12.5px; color:#9a8f7f; margin-top:2px;}
+  .day-hd-tt .dist{font-size:12.5px; color:var(--green); font-weight:600; margin-top:3px;}
+  .day-body{padding:6px 20px 20px;}
+  .blk{margin-top:13px;}
+  .blk-label{font-size:12.5px; font-weight:800; color:var(--primary); letter-spacing:1px; margin-bottom:6px;}
+  .timeline{list-style:none; padding-left:6px;}
+  .timeline li{position:relative; padding:4px 0 4px 22px; font-size:14px;}
+  .timeline li::before{content:""; position:absolute; left:0; top:11px; width:9px; height:9px; border-radius:50%; background:var(--primary2); box-shadow:0 0 0 3px var(--tag-bg);}
+  .timeline li b{color:var(--ink);}
+  .tags{display:flex; flex-wrap:wrap; gap:7px;}
+  .tag{background:var(--tag-bg); color:var(--tag-tx); font-size:12px; padding:4px 10px; border-radius:999px; font-weight:600;}
+  .imgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:8px;}
+  .imgrid figure{position:relative; border-radius:12px; overflow:hidden; background:#eee;}
+  .imgrid img{width:100%; height:180px; object-fit:cover; display:block;}
+  .imgrid figcaption{position:absolute; left:0; right:0; bottom:0; background:linear-gradient(0deg,rgba(0,0,0,.62),transparent); color:#fff; font-size:12px; padding:26px 10px 7px;}
+  .alert{background:#FFF3E0; border:1px solid #FFD9A0; border-radius:12px; padding:10px 13px; font-size:13px; color:#8a5a00; margin-top:12px;}
+
+  /* prepare / split / budget */
+  .card{background:var(--card); border-radius:18px; padding:20px; box-shadow:0 6px 22px rgba(0,0,0,.05); margin-top:18px;}
+  .card h3{font-size:16px; font-weight:800; margin-bottom:12px; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:700px){.two{grid-template-columns:1fr;}}
+  ul.chk{list-style:none;}
+  ul.chk li{padding:3px 0 3px 26px; position:relative; font-size:13.5px;}
+  ul.chk li::before{content:"✔"; position:absolute; left:2px; color:var(--green); font-weight:800;}
+  .tbl{width:100%; border-collapse:collapse; font-size:13px;}
+  .tbl th{background:var(--soft); padding:8px 9px; text-align:left; font-size:12px; color:#6b6155;}
+  .tbl td{padding:8px 9px; border-bottom:1px solid var(--line);}
+  .chip2{display:inline-block; padding:2px 9px; border-radius:999px; font-size:11.5px; font-weight:700;}
+  .b2{background:#FDECEC; color:#C73E2B;} .w2{background:#FFF4DF; color:#B07A00;} .g2{background:#E7F4EC; color:#1F7A4D;}
+  .drop{background:var(--soft); border-radius:13px; padding:14px 16px; margin-top:14px; font-size:13.5px;}
+  .drop b{color:var(--primary);}
+  .price{color:var(--primary); font-weight:800;}
+  footer{margin-top:60px; text-align:center; font-size:12px; color:#b3a88e; line-height:1.9;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="kicker">跟着阿薪去旅行 · 反走版 · 躲避节假日拥堵</div>
+  <h1>反走北疆 + 伊犁大环线<br>13 天 12 晚 · 深秋自驾</h1>
+  <div class="sub">2026-09-24（周四）乌鲁木齐落地 → 2026-10-06（周二）下午杭州返程</div>
+  <div class="meta">
+    <span class="chip">👨‍👩‍👧‍👦 4 人 · 1 车自驾</span>
+    <span class="chip">🚗 全程约 3,300 km</span>
+    <span class="chip">🍂 喀纳斯 &amp; 独库在 10 月初为最佳秋色窗口</span>
+  </div>
+  <div class="dots">
+    <span>天山天池备选</span><span>S21 沙漠公路</span><span>禾木晨雾</span><span>喀纳斯三湾</span>
+    <span>魔鬼城落日</span><span>赛里木湖</span><span>伊昭公路</span><span>独库公路</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- 路线大图 -->
+  <section>
+    <div class="sec-title"><span class="ic">🗺️</span><h2>一图看懂路线</h2><small>反走环线，避开国庆头两天去程车流</small></div>
+    <div class="mapcard">
+      <svg viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="北疆伊犁大环线路线图">
+        <defs>
+          <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#E8562F" opacity=".7"/></marker>
+          <radialGradient id="lgrad" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#8FD8B6"/><stop offset="1" stop-color="#4FA98A"/></radialGradient>
+        </defs>
+        <rect width="1160" height="800" fill="#FBF4E8"/>
+        <!-- decorative -->
+        <text x="90" y="760" font-size="160" opacity=".07" fill="#E8562F">北疆·伊犁</text>
+        <!-- connection lines -->
+        <g fill="none" stroke="#C9B18F" stroke-width="3.5" opacity=".85" stroke-linecap="round" marker-end="url(#arr)">
+          <path d="M940,630 C920,470 900,260 880,110"/>                       <!-- U-A S21 -->
+          <path d="M880,110 C795,95 745,80 710,55"/>                           <!-- A-H 阿禾 -->
+          <path d="M710,55 C630,48 585,46 545,45"/>                            <!-- H-K -->
+          <path d="M545,45 C560,110 575,165 590,210"/>                         <!-- K-B -->
+          <path d="M590,210 C592,270 594,300 595,330"/>                        <!-- B-W -->
+          <path d="M595,330 C620,380 640,415 660,440"/>                        <!-- W-C -->
+          <path d="M660,440 C570,432 470,430 370,420"/>                        <!-- C-S -->
+          <path d="M370,420 C348,450 330,465 315,480"/>                        <!-- S-G -->
+          <path d="M315,480 C292,520 272,545 255,565"/>                        <!-- G-Y -->
+          <path d="M255,565 C215,592 175,625 150,650"/>                        <!-- Y-Z 伊昭 -->
+          <path d="M150,650 C235,662 285,665 325,665"/>                        <!-- Z-T -->
+          <path d="M325,665 C360,700 385,720 405,735"/>                        <!-- T-Q -->
+          <path d="M405,735 C480,725 525,710 565,690"/>                        <!-- Q-N -->
+          <path d="M565,690 C640,660 700,625 745,600"/>                        <!-- N-D 独库 -->
+          <path d="M745,600 C810,618 880,625 940,630"/>                        <!-- D-U -->
+        </g>
+        <!-- km labels -->
+        <g font-family="inherit" font-size="12" fill="#5B5144" text-anchor="middle">
+          <rect x="862" y="270" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="926" y="286" font-weight="800">S21 沙漠公路</text><text x="926" y="302">约 600km · 6.5h</text>
+          <rect x="638" y="86" width="130" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="703" y="102" font-weight="800">阿禾公路</text><text x="703" y="118">220km · 4h</text>
+          <rect x="470" y="90" width="122" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="531" y="106" font-weight="800">禾木-喀纳斯</text><text x="531" y="122">65km · 1.5h</text>
+          <rect x="500" y="128" width="122" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="561" y="144" font-weight="800">喀纳斯-布尔津</text><text x="561" y="160">约130km · 3h</text>
+          <rect x="500" y="258" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="564" y="274" font-weight="800">布尔津-魔鬼城</text><text x="564" y="290">约300km · 4.5h</text>
+          <rect x="470" y="380" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="534" y="396" font-weight="800">克拉玛依-赛里木</text><text x="534" y="412">450km · 5.5h</text>
+          <rect x="300" y="452" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="360" y="468" font-weight="800">赛里木-伊宁</text><text x="360" y="484">140km · 2h</text>
+          <rect x="52" y="556" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="116" y="572" font-weight="800">伊昭公路</text><text x="116" y="588">210km · 4.5h</text>
+          <rect x="420" y="640" width="126" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="483" y="656" font-weight="800">琼库什台-那拉提</text><text x="483" y="672">约300km · 6h</text>
+          <rect x="815" y="568" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="879" y="584" font-weight="800">独库北段</text><text x="879" y="600">约500km · 7h</text>
+        </g>
+        <!-- nodes -->
+        <g font-family="inherit">
+          <!-- special start/end -->
+          <g><circle cx="940" cy="630" r="17" fill="#E8562F"/><text x="940" y="626" font-size="12" fill="#fff" font-weight="800">始/终</text><text x="940" y="662" font-size="13" text-anchor="middle" font-weight="800" fill="#4A4035">乌鲁木齐</text></g>
+          <g><circle cx="880" cy="110" r="14" fill="url(#lgrad)"/><text x="880" y="90" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">阿勒泰</text><text x="880" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D2</text></g>
+          <g><circle cx="710" cy="55" r="14" fill="url(#lgrad)"/><text x="710" y="34" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">禾木</text><text x="710" y="88" font-size="11" text-anchor="middle" fill="#8a8071">D3</text></g>
+          <g><circle cx="545" cy="45" r="14" fill="url(#lgrad)"/><text x="545" y="24" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">喀纳斯</text><text x="545" y="78" font-size="11" text-anchor="middle" fill="#8a8071">D4</text></g>
+          <g><circle cx="590" cy="210" r="14" fill="url(#lgrad)"/><text x="590" y="248" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">布尔津</text><text x="590" y="270" font-size="11" text-anchor="middle" fill="#8a8071">D5</text></g>
+          <g><circle cx="595" cy="330" r="14" fill="url(#lgrad)"/><text x="595" y="368" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">魔鬼城</text><text x="595" y="386" font-size="11" text-anchor="middle" fill="#8a8071">D6</text></g>
+          <g><circle cx="660" cy="440" r="14" fill="url(#lgrad)"/><text x="660" y="478" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">克拉玛依/独山子</text><text x="660" y="496" font-size="11" text-anchor="middle" fill="#8a8071">D7</text></g>
+          <g><circle cx="370" cy="420" r="16" fill="url(#lgrad)"/><text x="410" y="414" font-size="15" text-anchor="middle" font-weight="800" fill="#2F8F6B">赛里木湖</text><text x="410" y="446" font-size="11" text-anchor="middle" fill="#8a8071">D7 夜宿</text></g>
+          <g><circle cx="315" cy="480" r="11" fill="#E8B04B"/><text x="315" y="516" font-size="12" text-anchor="middle" font-weight="800" fill="#9A6A00">果子沟大桥</text></g>
+          <g><circle cx="255" cy="565" r="14" fill="url(#lgrad)"/><text x="255" y="602" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">伊宁</text><text x="255" y="620" font-size="11" text-anchor="middle" fill="#8a8071">D8</text></g>
+          <g><circle cx="150" cy="650" r="14" fill="url(#lgrad)"/><text x="150" y="686" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">昭苏</text><text x="150" y="704" font-size="11" text-anchor="middle" fill="#8a8071">D9</text></g>
+          <g><circle cx="325" cy="665" r="13" fill="url(#lgrad)"/><text x="325" y="700" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">特克斯</text><text x="325" y="716" font-size="11" text-anchor="middle" fill="#8a8071">D10</text></g>
+          <g><circle cx="405" cy="735" r="14" fill="url(#lgrad)"/><text x="405" y="772" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">琼库什台</text><text x="405" y="788" font-size="11" text-anchor="middle" fill="#8a8071">D10 夜宿</text></g>
+          <g><circle cx="565" cy="690" r="14" fill="url(#lgrad)"/><text x="565" y="728" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">那拉提</text><text x="565" y="746" font-size="11" text-anchor="middle" fill="#8a8071">D11</text></g>
+          <g><circle cx="745" cy="600" r="12" fill="#E8B04B"/><text x="745" y="638" font-size="13" text-anchor="middle" font-weight="800" fill="#9A6A00">唐布拉</text><text x="745" y="654" font-size="11" text-anchor="middle" fill="#8a8071">D12 路过</text></g>
+        </g>
+      </svg>
+      <div class="maplg">🚗 全程约 3,300 km · 顺时针反走环线 · 先北疆枫林、后伊犁草原、最后独库回城</div>
+    </div>
+    <div class="note" style="margin-top:14px;">💡 <b>为什么「反走」：</b>避开国庆首日（9/30–10/1）北上的大客流与住宿抢房潮，先冲到最远最稀疏的喀纳斯，再一路向乌市回流，返程独库车流量相对可控。深秋禾木、喀纳斯层林尽染，是全年最佳观赏期。</div>
+  </section>
+
+  <!-- 行程总览 -->
+  <section>
+    <div class="sec-title"><span class="ic">📅</span><h2>13 天行程总览</h2><small>精确到天 · D1–D13</small></div>
+    <table class="ovtable">
+      <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>夜宿</th></tr>
+      <tr><td class="d">D1</td><td class="wk">09-24 · 周四</td><td>落地乌鲁木齐 · 市区夜游 &amp; 大巴扎</td><td class="stay">乌鲁木齐</td></tr>
+      <tr><td class="d">D2</td><td class="wk">09-25 · 周五</td><td>S21 沙漠公路 → 阿勒泰市</td><td class="stay">阿勒泰市</td></tr>
+      <tr><td class="d">D3</td><td class="wk">09-26 · 周六</td><td>阿禾公路 → 禾木村 · 白桦林日落</td><td class="stay">禾木</td></tr>
+      <tr><td class="d">D4</td><td class="wk">09-27 · 周日</td><td>禾木晨雾 → 喀纳斯湖 · 观鱼台</td><td class="stay">喀纳斯/贾登峪</td></tr>
+      <tr><td class="d">D5</td><td class="wk">09-28 · 周一</td><td>三湾徒步 → 布尔津老码头夜市</td><td class="stay">布尔津</td></tr>
+      <tr><td class="d">D6</td><td class="wk">09-29 · 周二</td><td>乌尔禾魔鬼城 · 落日</td><td class="stay">克拉玛依</td></tr>
+      <tr><td class="d">D7</td><td class="wk">09-30 · 周三</td><td>独山子大峡谷 → 赛里木湖 · 湖畔</td><td class="stay">赛里木湖/博乐</td></tr>
+      <tr><td class="d">D8</td><td class="wk">10-01 · 周四 🎉</td><td>赛湖环湖 → 果子沟 → 伊宁（喀赞其）</td><td class="stay">伊宁</td></tr>
+      <tr><td class="d">D9</td><td class="wk">10-02 · 周五</td><td>伊昭公路 → 昭苏草原</td><td class="stay">昭苏</td></tr>
+      <tr><td class="d">D10</td><td class="wk">10-03 · 周六</td><td>特克斯八卦城 → 琼库什台古村</td><td class="stay">琼库什台</td></tr>
+      <tr><td class="d">D11</td><td class="wk">10-04 · 周日</td><td>那拉提空中草原</td><td class="stay">那拉提镇</td></tr>
+      <tr><td class="d">D12</td><td class="wk">10-05 · 周一</td><td>独库公路北段 → 唐布拉 → 乌鲁木齐</td><td class="stay">乌鲁木齐</td></tr>
+      <tr><td class="d">D13</td><td class="wk">10-06 · 周二</td><td>市区自由活动 · 下午飞机返杭</td><td class="stay">—</td></tr>
+    </table>
+  </section>
+
+  <!-- 每日详情 -->
+  <section>
+    <div class="sec-title"><span class="ic">🌄</span><h2>每日行程详情</h2><small>住哪儿 · 吃什么 · 玩什么</small></div>
+
+    <!-- D1 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">1</span><span class="m">9.24</span></div>
+        <div class="day-hd-tt">
+          <div class="route">✈️ 杭州 → 乌鲁木齐 · 市区夜游</div>
+          <div class="wk">周四 · 落地日</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>下午 落地乌鲁木齐地窝堡机场，<b>机场租车点提车</b>（4 人 1 车，约 20 分钟车程进市区）</li>
+            <li>入住酒店，稍作休整</li>
+            <li><b>傍晚</b>：二道桥 <b>国际大巴扎</b> 夜景 + <b>和田二街</b> 夜市扫街（烤包子、烤串、酸奶粽子、凉皮子）</li>
+            <li><b>夜间机动</b>：若精力好，可登 <b>红山公园</b> 看乌市夜景</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（乌鲁木齐）</div>
+          <div class="tags"><span class="tag">经济·全季/亚朵 约¥350–450</span><span class="tag">舒适·华凌雅高美爵 约¥500–650</span><span class="tag">高端·新疆昆仑宾馆 约¥600+</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">烤包子（皮包肉）</span><span class="tag">维族烤羊肉串</span><span class="tag">羊肉手抓饭</span><span class="tag">大盘鸡</span><span class="tag">馕包肉</span><span class="tag">酸奶粽子</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/urumqi-bazaar.jpg" alt="乌鲁木齐国际大巴扎" loading="lazy"><figcaption>乌鲁木齐国际大巴扎</figcaption></figure>
+          <figure><img src="./assets/images/dapanji.jpg" alt="大盘鸡" loading="lazy"><figcaption>大盘鸡（新疆必吃）</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D2 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">2</span><span class="m">9.25</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🛣️ S21 阿乌沙漠公路 → 阿勒泰市（约 600km / 6.5h）</div>
+          <div class="wk">周五 · 长途拉练日</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>早上</b>：8:00 出发，走 <b>S21 阿乌高速</b> 穿越古尔班通古特沙漠，沿途戈壁荒漠、骆驼群，路上 2 位司机轮换</li>
+            <li><b>途中</b>：乌伦古湖观景停车带休息拍照</li>
+            <li><b>下午</b>：抵阿勒泰市，逛 <b>桦林公园</b>（金色白桦林）、<b>五百里风情街</b>、<b>角落旅行书吧</b></li>
+            <li><b>晚上</b>：市区晚餐，早睡（明日要进禾木）</li>
+          </ul>
+          <div class="alert">⚠️ 沙漠段服务区少，<b>出发前加满油</b>，备足水和零食；限速注意区间测速。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（阿勒泰市）</div>
+          <div class="tags"><span class="tag">经济·全季 约¥300–400</span><span class="tag">舒适·阿勒泰美仑/喆啡 约¥400–550</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">冷水鱼宴（冷水鲑/梭罗鱼）</span><span class="tag">风干肉抓饭</span><span class="tag">骆驼奶</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/s21-desert.jpg" alt="S21沙漠公路" loading="lazy"><figcaption>S21 阿乌沙漠公路</figcaption></figure>
+          <figure><img src="./assets/images/altai-mountains.jpg" alt="阿尔泰山区" loading="lazy"><figcaption>阿尔泰山区</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D3 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">3</span><span class="m">9.26</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🌲 阿禾公路 → 禾木村 · 白桦林 &amp; 日落（220km / 4h）</div>
+          <div class="wk">周六 · 最美秋色段</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：走 <b>阿禾公路</b> 蜿蜒进山，沿途桦林、溪流、湿地（通巴奇幻森林、小东沟、乌西里克）；<b>路上抛肉喂老鹰</b> 是很带感的体验</li>
+            <li><b>中午</b>：抵禾木景区换乘点，购票乘区间车进 <b>禾木村</b>（自驾车停景区外停车场）</li>
+            <li><b>下午</b>：<b>美丽峰骑马</b> 或徒步白桦林、禾木河</li>
+            <li><b>傍晚</b>：登 <b>日落平台</b> 看禾木全景与篝火</li>
+            <li><b>晚上</b>：村里民宿，参加 <b>篝火晚会</b></li>
+          </ul>
+          <div class="alert">⚠️ 禾木村内住宿最紧张，<b>务必提前 30 天预订木屋</b>；深秋已冷（夜间可到 0℃ 上下），带够保暖衣物。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（禾木村内）</div>
+          <div class="tags"><span class="tag">禾木山庄/桃源木屋 约¥600–1200（国庆翻倍提前订）</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">禾木土火锅</span><span class="tag">烤羊排</span><span class="tag">哈萨克奶茶</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/hemu.jpg" alt="禾木村" loading="lazy"><figcaption>禾木村 · 金色白桦林</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D4 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">4</span><span class="m">9.27</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🌅 禾木晨雾 → 喀纳斯湖 · 观鱼台（65km / 1.5h）</div>
+          <div class="wk">周日 · 神仙日子</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>清晨</b>：摸黑登 <b>哈登观景台</b>，看禾木<b>晨雾 + 日出</b>（本次行程最出片时刻之一，值得早起）</li>
+            <li><b>上午</b>：区间车出禾木 → 贾登峪 → 进 <b>喀纳斯景区</b></li>
+            <li><b>中午</b>：喀纳斯换乘中心午餐</li>
+            <li><b>下午</b>：登 <b>观鱼台</b>（1068 级台阶）俯瞰喀纳斯湖全景；湖边栈道散步</li>
+            <li><b>晚上</b>：宿景区内或贾登峪</li>
+          </ul>
+          <div class="alert">⚠️ <b>观鱼台</b>受天气影响较大，若遇大雾可改湖边栈道 + 漂流；区间车末班<font color="#C4481F"> <b>日落前</b></font>发车，留意时间。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（喀纳斯/贾登峪）</div>
+          <div class="tags"><span class="tag">喀纳斯景区内·云顶/喀纳斯山庄 约¥800–1500（需尽早抢）</span><span class="tag">贾登峪·酒店群 约¥500–900</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">图瓦人家常菜</span><span class="tag">烤羊排</span><span class="tag">奶茶（图瓦/哈萨克）</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/kanas-lake.jpg" alt="喀纳斯湖" loading="lazy"><figcaption>喀纳斯湖</figcaption></figure>
+          <figure><img src="./assets/images/kanas-moonbay.jpg" alt="喀纳斯月亮湾" loading="lazy"><figcaption>喀纳斯月亮湾</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D5 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">5</span><span class="m">9.28</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🐾 喀纳斯三湾徒步 → 布尔津老码头夜市（约 130km / 3h）</div>
+          <div class="wk">周一 · 河谷 &amp; 边陲小城</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：喀纳斯 <b>三湾徒步</b>——神仙湾 → 月亮湾 → 卧龙湾，晨光+晨雾非常美，全程规模适中</li>
+            <li><b>中午</b>：出景区，午餐后南下</li>
+            <li><b>下午</b>：抵布尔津（中国最北的边陲小城之一）</li>
+            <li><b>傍晚</b>：<b>中俄老码头风情街</b>、<b>喀纳斯塔桥</b> 打卡，<b>河堤夜市</b>觅食</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（布尔津）</div>
+          <div class="tags"><span class="tag">经济·全季 约¥300–400</span><span class="tag">舒适·澜庭假日/布尔津旅游宾馆 约¥400–550</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么（当地特色）</div>
+          <div class="tags"><span class="tag">烤狗鱼（布尔津特色）</span><span class="tag">格瓦斯（俄式）</span><span class="tag">烤羊蹄</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/burqin.jpg" alt="布尔津" loading="lazy"><figcaption>布尔津 · 边陲俄风小城</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D6 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">6</span><span class="m">9.29</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🏜️ 乌尔禾魔鬼城 · 落日（约 300km / 4.5h）</div>
+          <div class="wk">周二 · 雅丹地貌</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：布尔津出发，往克拉玛依方向</li>
+            <li><b>下午 3–4 点</b>：进 <b>乌尔禾魔鬼城</b>，乘景区小火车游览雅丹土丘群</li>
+            <li><b>傍晚</b>：<b>建议傍晚进</b>——夕阳照在土丘上颜色特别好看，是魔鬼城的最佳拍摄时段</li>
+            <li><b>晚上</b>：宿克拉玛依（石油之城）</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（克拉玛依）</div>
+          <div class="tags"><span class="tag">经济·全季 约¥280–380</span><span class="tag">舒适·克拉玛依云泉 约¥400–500</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">克拉玛依凉皮子</span><span class="tag">梭梭林大盘鸡</span><span class="tag">羊肉汤</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/urho-ghost.jpg" alt="乌尔禾魔鬼城" loading="lazy"><figcaption>乌尔禾魔鬼城 · 雅丹落日</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D7 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">7</span><span class="m">9.30</span></div>
+        <div class="day-hd-tt">
+          <div class="route">⛰️ 独山子大峡谷 → 赛里木湖 · 湖畔日落（约 450km / 5.5h）</div>
+          <div class="wk">周三 · 陆上大峡谷 &amp; 高山湖</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：克拉玛依南下，先到 <b>独山子大峡谷</b>——峡谷 + <b>玻璃栈道</b> + <b>悬崖秋千</b>（刺激项目自选）</li>
+            <li><b>下午</b>：穿过连霍高速一路西行</li>
+            <li><b>傍晚</b>：抵 <b>赛里木湖</b>（大西洋最后一滴眼泪），湖边看落日</li>
+            <li><b>晚上</b>：宿赛里木湖景区或博乐市</li>
+          </ul>
+          <div class="alert">⚠️ 赛里木湖边风大、气温低，<b>务必带厚衣服</b>；湖边住宿稀缺/价高，旺季建议提前订，订不到就住 ~40km 外的博乐市。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（赛里木湖/博乐）</div>
+          <div class="tags"><span class="tag">景区内·星空营地/房车营 约¥1200+（极抢手）</span><span class="tag">博乐市·全季 约¥300–400</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">赛里木湖高白鲑（冷水鱼）</span><span class="tag">哈萨克手抓肉</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/dushanzi.jpg" alt="独山子大峡谷" loading="lazy"><figcaption>独山子大峡谷</figcaption></figure>
+          <figure><img src="./assets/images/sayram.jpg" alt="赛里木湖" loading="lazy"><figcaption>赛里木湖 · 宝石蓝</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D8 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">8</span><span class="m">10.1</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🏞️ 赛里木湖环湖 → 果子沟 → 伊宁（140km / 2h）</div>
+          <div class="wk">周四 · 国庆 🎉 环湖 &amp; 风情</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：<b>赛里木湖环湖一圈约 90km</b>，推荐游玩 <b>月亮湾、西海草原、松树头</b>；自驾车可沿湖边公路行进</li>
+            <li><b>中午</b>：出赛湖，走 <b>果子沟</b>，<b>记得走国道 G30 老线</b> 过 <b>果子沟大桥</b> 观景台，俯瞰大桥全貌</li>
+            <li><b>下午</b>：抵伊宁，逛 <b>喀赞其民俗村</b>（蓝色房子）+ <b>六星街</b></li>
+            <li><b>傍晚</b>：<b>伊犁河落日快艇</b>（伊犁河看落日，江景开阔）</li>
+          </ul>
+          <div class="alert">💐 图上标的「薰衣草」（霍城解忧公主园）花期在 6–7 月，10 月已谢，仅路过不进，省时间；想看薰衣草就把这段留给 6 月线路。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（伊宁）</div>
+          <div class="tags"><span class="tag">六星街民宿（古兰丹姆附近）约¥400–600</span><span class="tag">舒适·伊犁宾馆/环球港美居 约¥450–650</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">喀赞其冰淇淋（古兰丹姆）</span><span class="tag">马肠子</span><span class="tag">纳仁</span><span class="tag">六星街小吃</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/guozigou.jpg" alt="果子沟大桥" loading="lazy"><figcaption>果子沟大桥 · 走国道看全貌</figcaption></figure>
+          <figure><img src="./assets/images/kazanqi.jpg" alt="伊宁喀赞其" loading="lazy"><figcaption>伊宁喀赞其 · 蓝色风情</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D9 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">9</span><span class="m">10.2</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🏔️ 伊昭公路（小独库）→ 昭苏草原（210km / 4.5h）</div>
+          <div class="wk">周五 · 悬崖公路</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：走 <b>伊昭公路</b>——被称为「小独库」，<b>弯多路险但风景绝美</b>，沿途 <b>白石峰</b> 和草原、森林、溪流很适合<b>露营野餐</b></li>
+            <li><b>下午</b>：抵 <b>昭苏</b>，草原牧场（10 月油菜花已谢，看无垠草原与牧马，天马文化园可选）</li>
+            <li><b>晚上</b>：宿昭苏</li>
+          </ul>
+          <div class="alert">⚠️ 伊昭公路为季节性公路（约 5–10 月开放，7 座及以上客车禁行），出发当天电话/网上确认开放；若封闭，改走 S316 国道，行程更宽松。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（昭苏）</div>
+          <div class="tags"><span class="tag">经济·昭苏天马可汗 约¥300–400</span><span class="tag">舒适·昭苏乌孙驿站 约¥400–550</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">马肉纳仁</span><span class="tag">酸马奶</span><span class="tag">烤全羊（人多可点）</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/zhaosu.jpg" alt="昭苏草原" loading="lazy"><figcaption>昭苏草原 · 深秋</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D10 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">10</span><span class="m">10.3</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🌀 特克斯八卦城 → 琼库什台古村（约 170km / 4h）</div>
+          <div class="wk">周六 · 八卦城 &amp; 原生态村落</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：昭苏 → <b>特克斯八卦城</b>（唯一按八卦布局的城市），登八卦城观景台俯瞰 + 午餐</li>
+            <li><b>下午</b>：进 <b>琼库什台</b>——哈萨克族古村落，<b>风景原始又安静</b></li>
+            <li><b>傍晚</b>：<b>后山骑马或徒步</b>，可看到整个村子和远处的雪山；徒步爱好者可探 <b>乌孙古道</b>起点</li>
+            <li><b>晚上</b>：宿琼库什台民宿（深秋安静、星空好）</li>
+          </ul>
+          <div class="alert">⚠️ 进琼库什台多为盘山窄路，会车注意；村里信号弱，民宿提前联系好接驳。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（琼库什台）</div>
+          <div class="tags"><span class="tag">山涧木屋/云端民宿 约¥500–900（提前订）</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">哈萨克族家宴</span><span class="tag">奶茶 + 包尔萨克</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/tekes.jpg" alt="特克斯八卦城" loading="lazy"><figcaption>特克斯八卦城</figcaption></figure>
+          <figure><img src="./assets/images/qiongkushitai.jpg" alt="琼库什台" loading="lazy"><figcaption>琼库什台 · 哈萨克古村</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D11 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">11</span><span class="m">10.4</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🌿 那拉提空中草原（约 300km / 6h）</div>
+          <div class="wk">周日 · 草原大片</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：琼库什台经特克斯/新源方向到 <b>那拉提</b>（遇堵车时间拉长，出发要早）</li>
+            <li><b>下午</b>：那拉提景区分片区游玩——
+              <b>空中草原</b>（视野最开阔，看雪山森林，适合拍大片）、
+              <b>河谷草原</b>（更秀美、牛羊成群，傍晚光线极好）、
+              <b>盘龙谷道</b>（适合露营野餐，非常惬意）</li>
+            <li><b>备注</b>：不推荐专门去网红桥；<b>草原上随便一个山坡拍出来都好看</b></li>
+            <li><b>晚上</b>：宿那拉提镇</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（那拉提镇）</div>
+          <div class="tags"><span class="tag">经济·那拉提家庭民宿 约¥350–500</span><span class="tag">舒适·那拉提空中草原酒店 约¥550–800</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">那拉提烤羊排</span><span class="tag">黑蜂蜜酸奶</span><span class="tag">手抓羊肉</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/nalati.jpg" alt="那拉提草原" loading="lazy"><figcaption>那拉提空中草原</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D12 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">12</span><span class="m">10.5</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🏁 独库公路北段 → 唐布拉 → 乌鲁木齐（约 500km / 7h）</div>
+          <div class="wk">周一 · 一天有四季</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：晨光中走 <b>独库公路北段</b>（那拉提 → 乔尔玛 → 独山子）</li>
+            <li><b>沿途</b>：<b>唐布拉草原</b>（全程自驾才是正确打开方式，路两边就是风景，可玩 <b>仙女湖、孟克特、布隆沟</b>）、<b>哈希勒根达坂</b>、<b>高山融湖、天瀑</b></li>
+            <li><b>体验</b>：独库被誉为 <b>「一天有四季，十里不同天」</b>，从草原到雪山一路换装</li>
+            <li><b>傍晚</b>：出独山子上连霍高速，夜抵乌鲁木齐，放松补给、买干果</li>
+          </ul>
+          <div class="alert">⚠️ <b>10 月独库北段随时可能因降雪临时封闭</b>，出发当天必须确认「独库公路」路况；若封闭，备用线路走 <b>G218→独山子→G30 连霍</b> 返乌，仅多绕约 1–2h。备好防滑链 + 厚外套（达坂可低至 -5℃）。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（乌鲁木齐·返程夜）</div>
+          <div class="tags"><span class="tag">机场附近·瑞豪国际/空港亚朵 约¥350–500</span><span class="tag">市区·昆仑宾馆 约¥500–650</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">椒麻鸡</span><span class="tag">馕包肉</span><span class="tag">干果/奶疙瘩（手信）</span></div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/duku.jpg" alt="独库公路" loading="lazy"><figcaption>独库公路 · 蜿蜒进山</figcaption></figure>
+          <figure><img src="./assets/images/tangbula.jpg" alt="唐布拉草原" loading="lazy"><figcaption>唐布拉草原 · 百里画廊</figcaption></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- D13 -->
+    <article class="day">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">13</span><span class="m">10.6</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🛍️ 市区自由活动 → 下午返杭</div>
+          <div class="wk">周二 · 返程日</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li><b>上午</b>：睡到自然醒，<b>红山公园</b>晨景散心 + 大巴扎最后补货（馕、干果、薰衣草/手工品）</li>
+            <li><b>中午</b>：市区午餐，<b>13:30 前</b> 从酒店退房出发去机场（返程为下午航班，地窝堡机场建议提前 2.5–3h 到）</li>
+            <li><b>下午</b>：✈️ 乌鲁木齐 → 杭州，行程结束</li>
+          </ul>
+          <div class="alert">⏱️ 机场还车、安检、办托运都卡好时间；<b>回程航班按「下午」预留足够余量</b>，避免赶早。</div>
+        </div>
+        <div class="imgrid">
+          <figure><img src="./assets/images/urumqi-hongshan.jpg" alt="乌鲁木齐红山公园" loading="lazy"><figcaption>红山公园 · 晨景</figcaption></figure>
+          <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Samsa_of_Khiva.jpg/1920px-Samsa_of_Khiva.jpg" alt="烤包子" loading="lazy" onerror="this.closest('figure').style.display='none'"><figcaption>烤包子 · 收官小吃</figcaption></figure>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- 行前准备与预约 -->
+  <section>
+    <div class="sec-title"><span class="ic">🧳</span><h2>行前准备 &amp; 提前预约清单</h2><small>4 人自驾 · 出行前 1–2 周逐项打勾</small></div>
+
+    <div class="card">
+      <div class="two">
+        <div>
+          <h3>📲 门票 &amp; 预约（重点，提前做）</h3>
+          <ul class="chk">
+            <li><b>喀纳斯景区（含禾木）</b>：官方小程序「喀纳斯旅游」实名购票，旺季<b>分时预约</b>，提前 1–3 天约好区间车时段</li>
+            <li><b>观鱼台</b>：景区内另购区间车票，提前看好天气再决定</li>
+            <li><b>赛里木湖</b>：官方渠道购「门票+自驾车票」，自驾车进入需购车票，建议提前 1 天</li>
+            <li><b>那拉提</b>：小程序预约，选区（空中/河谷/盘龙）购区间车</li>
+            <li><b>新疆自治区博物馆</b>：<b>免费但需预约</b>（公众号「新疆维吾尔自治区博物馆」），D1 若去提前约</li>
+            <li><b>魔鬼城 / 独山子大峡谷</b>：可现场购，旺季建议线上提前买</li>
+            <li><b>红山公园 / 大巴扎 / 八卦城 / 喀赞其</b>：免费开放，无需预约</li>
+          </ul>
+        </div>
+        <div>
+          <h3>🏨 住宿 &amp; 交通（同样要提前）</h3>
+          <ul class="chk">
+            <li><b>往返机票</b>：杭州↔乌鲁木齐，去 9/24、回 10/6；国庆段价格高，<b>尽早锁定</b></li>
+            <li><b>租车</b>：乌鲁木齐机场提还，4 人建议中型 SUV（坦克300/途观L/传祺GS8）；勾<b>不计免赔保险</b>、确认是否含 <b>冬季胎</b>（深秋夜里近 0℃）</li>
+            <li><b>木屋民宿</b>：禾木、喀纳斯、琼库什台国庆<b>最抢手，提前 30 天订</b>；其余城市提前 1–2 周即可</li>
+            <li><b>赛里木湖</b>：湖边住宿稀缺，订不到就住博乐市（约 40km）</li>
+            <li><b>机票 + 住宿 + 门票</b> 都放一个共享文档，出发前 1 周逐项核对付款/预约确认短信</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🪪 证件 &amp; 装备打包</h3>
+      <div class="two">
+        <div>
+          <ul class="chk">
+            <li><b>身份证</b>：景区全部实名，必须随身（4 张）</li>
+            <li><b>驾驶证</b>：租车人 + 备用司机各带；确认租车绑定信用卡额度</li>
+            <li><b>无人机</b>：如带需已实名登记；景区部分区域禁飞，先查批复</li>
+            <li>保温杯、充电宝×2、车载充电线、垃圾袋、湿巾</li>
+          </ul>
+        </div>
+        <div>
+          <div class="blk-label" style="margin-top:2px">🧥 10 月穿搭（温差大，分层穿衣）</div>
+          <div class="tags" style="margin-top:6px">
+            <span class="tag">冲锋衣 + 抓绒内胆</span><span class="tag">薄羽绒服</span><span class="tag">保暖内衣</span>
+            <span class="tag">秋裤/薄绒裤</span><span class="tag">帽子+手套+墨镜</span><span class="tag">高倍防晒霜</span>
+            <span class="tag">润唇膏</span><span class="tag">常备药（感冒/肠胃/晕车）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🛣️ 自驾安全清单</h3>
+      <ul class="chk">
+        <li>全程约 3,300 km，<b>至少 2 名司机轮换</b>，单日最长约 7h（D2/D12），避免疲劳驾驶</li>
+        <li><b>每天出发前确认路况</b>：独库北段（D12）、伊昭公路（D9）季节性强，10 月易受雪情影响</li>
+        <li><b>加油</b>：新疆加油站间距大，油箱<b>过半就加</b>；喀纳斯/阿禾段尤其注意</li>
+        <li><b>限速</b>：区间测速多，注意限速牌；盘山路段（阿禾/伊昭/独库）弯多路险，慢行会车</li>
+        <li><b>导航</b>：下载离线地图（阿勒泰、独库段信号差），备纸质兜底</li>
+        <li>备 <b>防滑链</b>（独库达坂 + 喀纳斯夜间都可能遇雪/霜）</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 天气参考 -->
+  <section>
+    <div class="sec-title"><span class="ic">🌦️</span><h2>各地 10 月天气参考</h2><small>按昼夜，羽绒 + 抓绒足够了</small></div>
+    <div class="card">
+      <table class="tbl">
+        <tr><th>地点</th><th>白天</th><th>夜间</th><th>备注</th></tr>
+        <tr><td>乌鲁木齐</td><td>5–18℃</td><td>5℃ 上下</td><td>市区较温和</td></tr>
+        <tr><td>阿勒泰 / 禾木</td><td>5–12℃</td><td>-3–3℃</td><td>夜里可近 0℃，木屋注意供暖</td></tr>
+        <tr><td>喀纳斯</td><td>3–12℃</td><td>-5–0℃</td><td>10 月可能下雪，观鱼台雾大</td></tr>
+        <tr><td>布尔津</td><td>3–15℃</td><td>0℃ 上下</td><td>风大</td></tr>
+        <tr><td>赛里木湖</td><td>2–12℃</td><td>-2℃ 上下</td><td><b>湖边风大</b>，厚外套必备</td></tr>
+        <tr><td>伊宁 / 昭苏</td><td>8–20℃</td><td>2–6℃</td><td>伊犁河谷较暖和</td></tr>
+        <tr><td>那拉提 / 独库达坂</td><td>3–16℃</td><td>-5–2℃</td><td>达坂可能积雪、风大</td></tr>
+      </table>
+      <div class="drop">🧊 核心口诀：<b>清晨最冷、湖边风大、达坂近零下</b>。一层层穿（速干+保暖+冲锋衣/羽绒），热了随时脱。</div>
+    </div>
+  </section>
+
+  <!-- 行程取舍建议（大而全 → 可删减） -->
+  <section>
+    <div class="sec-title"><span class="ic">✂️</span><h2>行程取舍建议</h2><small>先给「大而全」版，这里是按时间/体力可砍的空间</small></div>
+    <div class="card">
+      <table class="tbl">
+        <tr><th style="width:110px">版本</th><th>天数</th><th>怎么砍</th><th>适合谁</th></tr>
+        <tr><td><span class="chip2 b2">大而全·本稿</span></td><td>13 天 12 晚</td><td>全保留，最从容，每天都能玩到点</td><td>有完整长假、想玩透</td></tr>
+        <tr><td><span class="chip2 w2">精简 11 天</span></td><td>11 天</td><td>砍 <b>阿勒泰市</b>（D2 直达禾木宿）；合并 D9+D10（伊昭-昭苏-特克斯-琼库什台压成 1 天住特克斯）</td><td>节奏稍快但都兼顾</td></tr>
+        <tr><td><span class="chip2 g2">核心 10 天</span></td><td>10 天</td><td>= 原图「躲避拥堵 10 天」：再砍 <b>琼库什台留宿</b>（当日来回）或 <b>昭苏</b>（伊昭留给 6 月薰衣草季），赛里木压缩为半天</td><td>假不够、重打卡</td></tr>
+        <tr><td><span class="chip2 w2">紧急 9 天</span></td><td>9 天</td><td>在 10 天上再砍 <b>独山子大峡谷</b>（与魔鬼城同质）+ 那拉提只玩空中草原半天</td><td>纯刷核心点</td></tr>
+      </table>
+      <div class="drop"><b>取舍原则：</b>① <b>喀纳斯 + 独库是灵魂，尽量别砍</b>；② 天气不好（喀纳斯下雨/独库封路）时优先保喀纳斯与赛里木，机动压缩伊犁；③ 人越多国庆越堵，<b>反走已帮你错峰</b>开头两天；④ 每多一天机动，舒适度是<b>非线性</b>提升——如果假够，宁可每天少一个点。</div>
+    </div>
+    <div class="card">
+      <h3>⭐ 体验分级（帮你排优先级）</h3>
+      <table class="tbl">
+        <tr><th>级别</th><th>项目</th></tr>
+        <tr><td><span class="chip2 b2">必去</span></td><td>喀纳斯三湾 + 观鱼台、禾木晨雾、独库公路（北段）</td></tr>
+        <tr><td><span class="chip2 w2">值得</span></td><td>赛里木湖环湖、魔鬼城落日、那拉提空中草原、伊昭公路</td></tr>
+        <tr><td><span class="chip2 g2">可选</span></td><td>独山子大峡谷、琼库什台留宿、昭苏留宿、S21 沙漠公路打卡</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 预算 -->
+  <section>
+    <div class="sec-title"><span class="ic">💰</span><h2>预算参考</h2><small>4 人 · 13 天 · 国庆档 · 人均</small></div>
+    <div class="card">
+      <table class="tbl">
+        <tr><th>项目</th><th>估算</th><th>人均分摊</th></tr>
+        <tr><td>机票（杭州↔乌鲁木齐，往返）</td><td>—</td><td><span class="price">¥2,500–3,500</span></td></tr>
+        <tr><td>租车 12 天（中型 SUV + 保险）</td><td>¥9,000–13,000（总）</td><td><span class="price">¥2,300–3,300</span></td></tr>
+        <tr><td>油费 + 过路费（约 3,300km）</td><td>¥3,000–3,500（总）</td><td><span class="price">¥750–900</span></td></tr>
+        <tr><td>住宿 12 晚 × 2 间</td><td>¥9,600–16,800（总）</td><td><span class="price">¥2,400–4,200</span></td></tr>
+        <tr><td>门票 + 区间车（估算）</td><td>—</td><td><span class="price">¥800–1,000</span></td></tr>
+        <tr><td>吃喝 13 天</td><td>—</td><td><span class="price">¥1,800–2,200</span></td></tr>
+        <tr><td><b>合计</b></td><td>—</td><td><span class="price">约 ¥1.05–1.5 万 / 人</span></td></tr>
+      </table>
+      <div class="drop">💳 国庆档（9/24–10/6）为旺季：机票、禾木/喀纳斯木屋、租车都会上浮，<b>越早订越省</b>；门票以景区当日挂牌为准，本表为参考。</div>
+    </div>
+  </section>
+
+  <!-- 门票参考 -->
+  <section>
+    <div class="sec-title"><span class="ic">🎫</span><h2>门票参考价（以景区为准）</h2><small>2025 参考，旺季实际以官方挂牌 / 小程序为准</small></div>
+    <div class="card">
+      <table class="tbl">
+        <tr><th>景点</th><th>参考价（元/人）</th><th>说明</th></tr>
+        <tr><td>喀纳斯景区</td><td>门票 + 区间车 ≈ ¥200–260</td><td>旺季分时预约</td></tr>
+        <tr><td>禾木村</td><td>门票 + 区间车 ≈ ¥100</td><td>区间车必坐</td></tr>
+        <tr><td>观鱼台</td><td>另购区间车 ≈ ¥20–40</td><td>视天气开放</td></tr>
+        <tr><td>赛里木湖</td><td>门票 + 车票 ≈ ¥145</td><td>自驾车另购车票</td></tr>
+        <tr><td>那拉提</td><td>门票 ¥95 + 区间车分段</td><td>分片区购票</td></tr>
+        <tr><td>乌尔禾魔鬼城</td><td>门票 + 小火车 ≈ ¥62</td><td>建议傍晚进</td></tr>
+        <tr><td>独山子大峡谷</td><td>≈ ¥30–50（玻璃桥/秋千另付）</td><td>自选项目</td></tr>
+        <tr><td>昭苏 / 琼库什台 / 八卦城</td><td>免费（村内骑马/向导另付）</td><td>—</td></tr>
+        <tr><td>自治区博物馆 / 红山 / 大巴扎</td><td>免费</td><td>博物馆需预约</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    本行程为「大而全」研报版，可按下文「取舍建议」按需删减。<br>
+    天气、路况、门票价、节假日开放时间以目的地官方 2026 年实时信息为准；图片来自 Wikimedia Commons（示意）。<br>
+    🌈 愿一路晴空、喀纳斯晨雾正浓、独库没封路。出发愉快，4 位老司机！
+  </footer>
+
+</div>
+</body>
+</html>
