@@ -125,6 +125,24 @@
   .ck li.done{color:#a99f8b; background:#faf6ee;}
   .ck li.done span{text-decoration:line-through;}
   footer{margin-top:60px; text-align:center; font-size:12px; color:#b3a88e; line-height:1.9;}
+  /* 同行小伙伴 */
+  .crew{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:6px;}
+  @media(max-width:640px){.crew{grid-template-columns:1fr 1fr;}}
+  .crew-item{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 10px; text-align:center;}
+  .avatar{width:44px; height:44px; border-radius:50%; background:var(--primary2); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; margin-bottom:8px;}
+  .crew-item b{display:block; font-size:14px;}
+  .crew-item i{display:block; font-size:12px; color:#9a8f7f; margin-top:3px; font-style:normal;}
+  /* 人员分工 */
+  .duty{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px;}
+  @media(max-width:640px){.duty{grid-template-columns:1fr;}}
+  .duty-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;}
+  .duty-card .avatar{flex-shrink:0; margin-bottom:0;}
+  .duty-card b{font-size:14px; display:block;}
+  .duty-card .role{font-size:12px; color:var(--primary); font-weight:700; margin-top:2px;}
+  .duty-card ul{margin:6px 0 0; padding-left:16px; font-size:12.5px; color:#6b6152;}
+  /* 删除按钮 */
+  .fb-del{margin-left:auto; background:none; border:1px solid #f0d6cc; color:#d95b2b; border-radius:8px; padding:2px 9px; font-size:11.5px; cursor:pointer; white-space:nowrap;}
+  .fb-del:hover{background:#fdeee8;}
 </style>
 </head>
 <body>
@@ -146,6 +164,17 @@
 </div>
 
 <div class="wrap">
+
+  <!-- 同行小伙伴 -->
+  <section>
+    <div class="sec-title"><span class="ic">👥</span><h2>同行小伙伴</h2><small>4 人 · 1 车自驾 · 分工见文末</small></div>
+    <div class="crew">
+      <div class="crew-item"><span class="avatar">J</span><b>JOJO</b><i>总协调 · 行程把控</i></div>
+      <div class="crew-item"><span class="avatar">D</span><b>DD</b><i>住宿 · 美食</i></div>
+      <div class="crew-item"><span class="avatar">亮</span><b>亮哥</b><i>车 · 安全</i></div>
+      <div class="crew-item"><span class="avatar">唧</span><b>唧唧</b><i>财务 · 门票证件</i></div>
+    </div>
+  </section>
 
   <!-- 路线大图 -->
   <section>
@@ -775,6 +804,21 @@
     </div>
   </section>
 
+  <!-- 人员分工 -->
+  <section>
+    <div class="sec-title"><span class="ic">🧭</span><h2>人员分工</h2><small>4 人各司其职，出门不慌</small></div>
+    <div class="duty">
+      <div class="duty-card"><span class="avatar">J</span><div><b>JOJO</b><div class="role">总协调 · 行程把控</div><ul>
+        <li>每日路线导航 + 时间把控</li><li>独库 / 伊昭路况实时查询</li><li>酒店、车队沟通对接</li></ul></div></div>
+      <div class="duty-card"><span class="avatar">D</span><div><b>DD</b><div class="role">住宿 · 美食</div><ul>
+        <li>12 晚酒店 + 民宿预订</li><li>沿途餐厅、补给点攻略</li><li>携带应急食品零食</li></ul></div></div>
+      <div class="duty-card"><span class="avatar">亮</span><div><b>亮哥</b><div class="role">车 · 安全</div><ul>
+        <li>主驾（长路段）</li><li>租车 / 雪地胎 / 防滑链</li><li>保险对接 + 车辆检查加油</li></ul></div></div>
+      <div class="duty-card"><span class="avatar">唧</span><div><b>唧唧</b><div class="role">财务 · 门票证件</div><ul>
+        <li>公共账本记账分摊</li><li>门票预约（喀纳斯 / 赛里木 / 那拉提）</li><li>边防证、证件、常用药</li></ul></div></div>
+    </div>
+  </section>
+
   <footer>
     本行程为「大而全」研报版，可按下文「取舍建议」按需删减。<br>
     天气、路况、门票价、节假日开放时间以目的地官方 2026 年实时信息为准；图片来自 Wikimedia Commons（示意）。<br>
@@ -792,8 +836,14 @@
       <div class="fb-view" id="view-write">
         <span class="fb-dest" id="fbDest"></span>
         <form onsubmit="return submitFeedback(event)">
-          <label class="fb-field"><span class="fb-label">称呼 <i>（可选）</i></span>
-            <input type="text" id="fb-name" placeholder="你的名字" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;"></label>
+          <label class="fb-field"><span class="fb-label">称呼 <i>（选一个）</i></span>
+            <select id="fb-name" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;">
+              <option value="">匿名</option>
+              <option value="JOJO">JOJO</option>
+              <option value="DD">DD</option>
+              <option value="亮哥">亮哥</option>
+              <option value="唧唧">唧唧</option>
+            </select></label>
           <label class="fb-field" style="margin-top:14px;"><span class="fb-label">具体要求 <i>（必填）</i></span>
             <textarea id="fb-msg" required placeholder="想补充或修正的行程安排、住宿、路况等具体要求……" style="width:100%; min-height:120px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff; resize:vertical;"></textarea></label>
           <button type="submit" style="margin-top:14px; background:var(--primary); color:#fff; border:none; padding:11px 26px; border-radius:999px; font-size:15px; font-weight:700; cursor:pointer; width:100%;">提交反馈 →</button>
@@ -886,7 +936,7 @@ function loadFeedback(){
       var st = statusOf(i);
       var result = i.result ? ('<div class="fb-r"><b>处理结果</b>：' + esc(i.result) + '</div>') : '';
       return '<div class="fb-item">'
-        + '<div class="fb-t"><span class="st ' + st.c + '">' + st.t + '</span><span>' + esc(i.name || '匿名') + '</span></div>'
+        + '<div class="fb-t"><span class="st ' + st.c + '">' + st.t + '</span><span>' + esc(i.name || '匿名') + '</span><button class="fb-del" onclick="deleteFeedback(' + i.id + ')">删除</button></div>'
         + '<div class="fb-b">' + esc(i.msg || '') + '</div>'
         + result
         + '<div class="fb-m"><span>' + esc(i.dest || '') + ' · ' + new Date(i.created_at).toLocaleDateString('zh-CN') + '</span></div>'
@@ -894,6 +944,17 @@ function loadFeedback(){
     }).join('');
   })
   .catch(function(){ box.innerHTML = '<p class="fb-empty">加载失败，请稍后再试。</p>'; });
+}
+function deleteFeedback(id){
+  var ok = confirm('确定删除这条反馈吗？删除后无法恢复。');
+  if(!ok) return;
+  fetch(SUPA_URL + '/rest/v1/feedback?id=eq.' + id, {
+    method: 'DELETE',
+    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Prefer': 'return=minimal' }
+  })
+  .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); })
+  .then(function(){ loadFeedback(); })
+  .catch(function(){ alert('删除失败，请稍后重试'); });
 }
 // 待确认清单（勾选状态存 localStorage）
 (function(){
