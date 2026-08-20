@@ -115,6 +115,8 @@
   .st.open{background:#fdeee8; color:#d95b2b;}
   .st.done{background:#e5f4ec; color:#2f8f6b;}
   .fb-empty{padding:24px 8px; text-align:center; color:#a99f8b; font-size:13.5px;}
+  .fb-r{margin-top:8px; background:#eef7f1; border-left:3px solid var(--green); padding:8px 10px; border-radius:6px; font-size:13px; color:#33614c;}
+  .fb-r b{color:var(--green);}
   /* 待确认清单 */
   .ck{list-style:none; padding:0; margin:12px 0 0; display:grid; grid-template-columns:1fr 1fr; gap:8px 14px;}
   @media(max-width:560px){.ck{grid-template-columns:1fr;}}
@@ -795,7 +797,7 @@
           <label class="fb-field" style="margin-top:14px;"><span class="fb-label">具体要求 <i>（必填）</i></span>
             <textarea id="fb-msg" required placeholder="想补充或修正的行程安排、住宿、路况等具体要求……" style="width:100%; min-height:120px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff; resize:vertical;"></textarea></label>
           <button type="submit" style="margin-top:14px; background:var(--primary); color:#fff; border:none; padding:11px 26px; border-radius:999px; font-size:15px; font-weight:700; cursor:pointer; width:100%;">提交反馈 →</button>
-          <p style="margin-top:10px; font-size:12px; color:#9a8f7f;">提交后跳转 GitHub 新建 Issue，点一下即记录；作者会在下方「看反馈」里跟进状态。</p>
+          <p style="margin-top:10px; font-size:12px; color:#9a8f7f;">提交后直接显示在下方「看反馈」列表，作者处理后会在此更新结果。</p>
         </form>
       </div>
       <div class="fb-view" id="view-list" style="display:none;">
@@ -806,6 +808,8 @@
 
 </div>
 <script>
+var SUPA_URL = 'https://elrxrdtvfxoiakmxzqdq.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVscnhyZHR2ZnhvaWFrbXh6cWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcyMjcyOTIsImV4cCI6MjEwMjgwMzI5Mn0.6b2Jrh0PmJilbm979hqUmC7bif--29HgcAfrzeDo3OU';
 function detectDest(){
   var p = location.pathname;
   if(/tuerqi|turkey|turk/i.test(p)) return {cn:'土耳其', tag:'土耳其'};
@@ -831,15 +835,27 @@ function submitFeedback(e){
   var msg  = document.getElementById('fb-msg').value.trim();
   if(!msg){ alert('请填写具体要求'); return false; }
   var d = detectDest();
-  var title = '【攻略反馈·' + d.tag + '】' + (name || '匿名');
-  var body  = '**目的地**：' + d.cn + '\n\n' +
-              '**称呼**：' + (name || '匿名') + '\n\n' +
-              '**具体要求**：\n' + msg + '\n\n' +
-              '---\n提交时间：' + new Date().toLocaleString('zh-CN');
-  var url = 'https://github.com/JChengc/happy/issues/new?title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
-  window.open(url, '_blank');
-  document.getElementById('fb-msg').value = '';
-  closeFeedback();
+  var btn = e.target.querySelector('button[type="submit"]');
+  if(btn){ btn.disabled = true; btn.textContent = '提交中…'; }
+  fetch(SUPA_URL + '/rest/v1/feedback', {
+    method: 'POST',
+    headers: {
+      'apikey': SUPA_KEY,
+      'Authorization': 'Bearer ' + SUPA_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify({ dest: d.cn, name: name || '匿名', msg: msg })
+  })
+  .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); })
+  .then(function(){
+    document.getElementById('fb-msg').value = '';
+    document.getElementById('fb-name').value = '';
+    loadFeedback();
+    switchTab('list');
+  })
+  .catch(function(){ alert('提交失败，请稍后重试'); })
+  .finally(function(){ if(btn){ btn.disabled = false; btn.textContent = '提交反馈 →'; } });
   return false;
 }
 function esc(s){
@@ -851,34 +867,33 @@ function switchTab(t){
   document.getElementById('view-list').style.display = (t==='list') ? 'block' : 'none';
   if(t==='list') loadFeedback();
 }
-function statusOf(issue){
-  if(issue.state === 'closed') return {t:'已处理', c:'done'};
-  var lbs = issue.labels || [];
-  for(var i=0;i<lbs.length;i++){ if(lbs[i].name.indexOf('状态')===0){ return {t:lbs[i].name.replace('状态-',''), c:'open'}; } }
-  return {t:'待处理', c:'open'};
+function statusOf(i){
+  var s = (i.status || '待处理');
+  var done = /已处理|已完成|已解决/.test(s);
+  return {t: s, c: done ? 'done' : 'open'};
 }
 function loadFeedback(){
   var box = document.getElementById('fb-list');
   box.innerHTML = '<p class="fb-empty">加载中…</p>';
-  fetch('https://api.github.com/repos/JChengc/happy/issues?state=all&per_page=30&sort=created&direction=desc')
-    .then(function(r){ return r.json(); })
-    .then(function(list){
-      var items = (Array.isArray(list) ? list : []).filter(function(i){ return (i.title||'').indexOf('攻略反馈') >= 0; });
-      if(!items.length){ box.innerHTML = '<p class="fb-empty">还没有反馈，欢迎第一个留言 👇</p>'; return; }
-      box.innerHTML = items.map(function(i){
-        var st = statusOf(i);
-        var body = ((i.body||'').split('**具体要求**')[1] || (i.body||''));
-        body = body.replace(/\n---[\s\S]*$/,'').replace(/\s+/g,' ').trim().slice(0,110);
-        var title = (i.title||'').replace(/【攻略反馈[^】]*】/,'');
-        var who = (i.user && i.user.login) || '';
-        return '<div class="fb-item">'
-          + '<div class="fb-t"><span class="st '+st.c+'">'+st.t+'</span><span>'+esc(title||'(无标题)')+'</span></div>'
-          + (body ? '<div class="fb-b">'+esc(body)+'</div>' : '')
-          + '<div class="fb-m"><span>'+esc(who)+' · '+new Date(i.created_at).toLocaleDateString('zh-CN')+'</span><a href="'+i.html_url+'" target="_blank">去查看 →</a></div>'
-          + '</div>';
-      }).join('');
-    })
-    .catch(function(){ box.innerHTML = '<p class="fb-empty">加载失败，请稍后再试。</p>'; });
+  fetch(SUPA_URL + '/rest/v1/feedback?select=*&order=created_at.desc&limit=50', {
+    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(list){
+    if(!Array.isArray(list)){ throw new Error('bad response'); }
+    if(!list.length){ box.innerHTML = '<p class="fb-empty">还没有反馈，欢迎第一个留言 👇</p>'; return; }
+    box.innerHTML = list.map(function(i){
+      var st = statusOf(i);
+      var result = i.result ? ('<div class="fb-r"><b>处理结果</b>：' + esc(i.result) + '</div>') : '';
+      return '<div class="fb-item">'
+        + '<div class="fb-t"><span class="st ' + st.c + '">' + st.t + '</span><span>' + esc(i.name || '匿名') + '</span></div>'
+        + '<div class="fb-b">' + esc(i.msg || '') + '</div>'
+        + result
+        + '<div class="fb-m"><span>' + esc(i.dest || '') + ' · ' + new Date(i.created_at).toLocaleDateString('zh-CN') + '</span></div>'
+        + '</div>';
+    }).join('');
+  })
+  .catch(function(){ box.innerHTML = '<p class="fb-empty">加载失败，请稍后再试。</p>'; });
 }
 // 待确认清单（勾选状态存 localStorage）
 (function(){
