@@ -149,6 +149,17 @@
   /* 删除按钮 */
   .fb-del{margin-left:auto; background:none; border:1px solid #f0d6cc; color:#d95b2b; border-radius:8px; padding:2px 9px; font-size:11.5px; cursor:pointer; white-space:nowrap;}
   .fb-del:hover{background:#fdeee8;}
+  /* Plan A/B 方案对比 */
+  .plan-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;}
+  .plan-tab{background:var(--soft); border:1px solid var(--line); color:#6b6152; font-size:13px; font-weight:700; padding:8px 14px; border-radius:999px; cursor:pointer;}
+  .plan-tab.on{background:var(--primary); color:#fff; border-color:var(--primary);}
+  .plan-card{background:#fffdf9; border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-top:10px;}
+  .plan-card h4{margin:0 0 8px; font-size:15px;}
+  .plan-card ul{margin:0; padding-left:18px; font-size:13.5px; color:#5f5649; line-height:1.9;}
+  .plan-note{margin:10px 0 0; font-size:12.5px; color:#9a8f7f;}
+  .pc-tag{display:inline-block; font-size:11px; font-weight:800; border-radius:6px; padding:2px 8px; margin-left:6px; vertical-align:middle;}
+  .tag-expensive{background:#fdeee8; color:#d95b2b;}
+  .tag-save{background:#e6f4ec; color:#2f8f6b;}
   html{scroll-behavior:smooth; scroll-padding-top:64px;}
   /* 顶部导航 */
   .topnav{position:sticky; top:0; z-index:80; display:flex; gap:6px; overflow-x:auto; background:rgba(255,252,246,.96); backdrop-filter:blur(6px); padding:10px 14px; border-bottom:1px solid var(--line); scrollbar-width:none;}
@@ -296,7 +307,7 @@
       <tr><td class="d">D8</td><td class="wk">10-01 · 周四 🎉</td><td>赛里木湖 → 乌尔禾魔鬼城 · 落日 → 克拉玛依</td><td class="stay">克拉玛依</td></tr>
       <tr><td class="d">D9</td><td class="wk">10-02 · 周五</td><td>克拉玛依 → 布尔津 · 老码头夜市</td><td class="stay">布尔津</td></tr>
       <tr><td class="d">D10</td><td class="wk">10-03 · 周六</td><td>布尔津 → 喀纳斯湖 · 观鱼台</td><td class="stay">喀纳斯/贾登峪</td></tr>
-      <tr><td class="d">D11</td><td class="wk">10-04 · 周日</td><td>喀纳斯三湾徒步 → 禾木村 · 白桦林日落</td><td class="stay">禾木</td></tr>
+      <tr><td class="d">D11</td><td class="wk">10-04 · 周日</td><td>喀纳斯三湾徒步 → 禾木 / 白哈巴</td><td class="stay">禾木 / 白哈巴</td></tr>
       <tr><td class="d">D12</td><td class="wk">10-05 · 周一</td><td>禾木晨雾 → 阿勒泰 → S21 沙漠公路 → 乌鲁木齐</td><td class="stay">乌鲁木齐</td></tr>
       <tr><td class="d">D13</td><td class="wk">10-06 · 周二</td><td>市区自由活动 · 下午飞机返杭</td><td class="stay">—</td></tr>
     </table>
@@ -570,6 +581,39 @@
         </div>
       </div>
     </article>
+<article class="day open">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">PLAN</span><span class="d">A/B</span><span class="m">对比</span></div>
+        <div class="day-hd-tt">
+          <div class="route">🔀 喀纳斯 · 禾木 · 白哈巴 —— 双方案对比（D10–D12）</div>
+          <div class="wk">同一段路两种走法 · 点下方按钮切换方案</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="plan-tabs">
+          <button class="plan-tab on" data-plan="A" onclick="switchPlan('A')">🏔️ Plan A · 喀纳斯 + 禾木</button>
+          <button class="plan-tab" data-plan="B" onclick="switchPlan('B')">🍂 Plan B · 喀纳斯 + 白哈巴</button>
+        </div>
+        <div class="plan-card" id="plan-A">
+          <h4>🏔️ Plan A · 经典全景<span class="pc-tag tag-expensive">住宿较贵</span></h4>
+          <ul>
+            <li><b>D10</b>：布尔津 → 喀纳斯湖 · 观鱼台，宿 喀纳斯/贾登峪</li>
+            <li><b>D11</b>：喀纳斯三湾徒步 → 禾木村 · 白桦林日落，宿 <b>禾木</b>（木屋 ¥600–1200，国庆翻倍）</li>
+            <li><b>D12</b>：禾木晨雾日出 → 阿勒泰 → S21 → 乌鲁木齐</li>
+          </ul>
+          <p class="plan-note">✅ 禾木「全村晨雾全景」独此一家，最出片；⚠️ 住宿最贵、游客最多。</p>
+        </div>
+        <div class="plan-card" id="plan-B" style="display:none">
+          <h4>🍂 Plan B · 省钱小众<span class="pc-tag tag-save">省住宿 · 更原始</span></h4>
+          <ul>
+            <li><b>D10</b>：布尔津 → 喀纳斯湖 · 观鱼台，宿 喀纳斯/贾登峪（同 Plan A）</li>
+            <li><b>D11</b>：喀纳斯三湾徒步 → 白哈巴村（西北第一村 · 边境原始村），宿 <b>白哈巴</b>（木屋 ¥300–600）</li>
+            <li><b>D12</b>：白哈巴日出 → 阿勒泰 → S21 → 乌鲁木齐</li>
+          </ul>
+          <p class="plan-note">✅ 村落秋景白哈巴+喀纳斯已覆盖大半，住宿便宜、游客少；⚠️ 缺禾木全景晨雾，白哈巴需边防证。</p>
+        </div>
+      </div>
+    </article>
 <article class="day">
       <div class="day-head">
         <div class="day-badge"><span class="n">DAY</span><span class="d">10</span><span class="m">10.3</span></div>
@@ -602,7 +646,7 @@
       <div class="day-head">
         <div class="day-badge"><span class="n">DAY</span><span class="d">11</span><span class="m">10.4</span></div>
         <div class="day-hd-tt">
-          <div class="route">🌲 喀纳斯三湾徒步 → 禾木村 · 白桦林 &amp; 日落</div>
+          <div class="route">🌲 喀纳斯三湾徒步 → 禾木村 · 白桦林 &amp; 日落（Plan A）</div>
           <div class="wk">周日 · 最美秋色段</div>
         </div>
       </div>
@@ -631,7 +675,7 @@
       <div class="day-head">
         <div class="day-badge"><span class="n">DAY</span><span class="d">12</span><span class="m">10.5</span></div>
         <div class="day-hd-tt">
-          <div class="route">🛣️ 禾木晨雾 → 阿勒泰 → S21 沙漠公路 → 乌鲁木齐（约 700km / 8h）</div>
+          <div class="route">🛣️ 禾木晨雾 → 阿勒泰 → S21 沙漠公路 → 乌鲁木齐（Plan A · 约 700km / 8h）</div>
           <div class="wk">周一 · 长途拉练日</div>
         </div>
       </div>
@@ -1031,6 +1075,12 @@ function collapseAll(){ document.querySelectorAll('#days .day').forEach(function
   window.addEventListener('scroll', spy, { passive: true });
   spy();
 })();
+// Plan A/B 方案切换
+function switchPlan(t){
+  document.getElementById('plan-A').style.display = (t==='A') ? '' : 'none';
+  document.getElementById('plan-B').style.display = (t==='B') ? '' : 'none';
+  document.querySelectorAll('.plan-tab').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-plan')===t); });
+}
 // 待确认清单（勾选状态存 localStorage）
 (function(){
   var key = 'ck_' + location.pathname.replace(/[^a-z0-9]+/gi, '_');
