@@ -93,6 +93,23 @@
   .fb-field{display:block; font-size:13px;}
   .fb-label{display:block; font-weight:700; margin-bottom:6px; color:var(--ink);}
   .fb-label i{font-style:normal; color:#b3a88e; font-weight:500;}
+  /* 浮窗反馈 */
+  .fab{position:fixed; right:18px; bottom:20px; z-index:99; background:var(--primary); color:#fff; border:none; border-radius:999px; padding:12px 20px; font-size:15px; font-weight:700; box-shadow:0 6px 20px rgba(232,86,47,.42); cursor:pointer;}
+  .fb-modal{position:fixed; inset:0; background:rgba(40,28,18,.45); z-index:100; display:none; align-items:flex-end; justify-content:center;}
+  .fb-modal.on{display:flex;}
+  .fb-panel{background:#fff; width:100%; max-width:460px; border-radius:20px 20px 0 0; padding:22px 20px 28px; max-height:88vh; overflow:auto;}
+  @media(min-width:700px){.fb-modal{align-items:center;} .fb-panel{border-radius:20px;}}
+  .fb-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;}
+  .fb-head b{font-size:17px;}
+  .fb-close{background:#f3ece0; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:16px; line-height:1; color:var(--ink);}
+  .fb-dest{display:inline-block; background:var(--soft); color:var(--primary); font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; margin:4px 0 12px;}
+  /* 待确认清单 */
+  .ck{list-style:none; padding:0; margin:12px 0 0; display:grid; grid-template-columns:1fr 1fr; gap:8px 14px;}
+  @media(max-width:560px){.ck{grid-template-columns:1fr;}}
+  .ck li{display:flex; align-items:center; gap:9px; font-size:13.5px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 11px; cursor:pointer; user-select:none;}
+  .ck input{width:17px; height:17px; accent-color:var(--green); cursor:pointer;}
+  .ck li.done{color:#a99f8b; background:#faf6ee;}
+  .ck li.done span{text-decoration:line-through;}
   footer{margin-top:60px; text-align:center; font-size:12px; color:#b3a88e; line-height:1.9;}
 </style>
 </head>
@@ -726,18 +743,21 @@
     </div>
   </section>
 
-  <!-- 信息收集 -->
+  <!-- 待确认清单 -->
   <section>
-    <div class="sec-title"><span class="ic">📮</span><h2>信息收集 · 反馈</h2><small>走完或有新情报？告诉我，回来调整攻略</small></div>
+    <div class="sec-title"><span class="ic">✅</span><h2>待确认清单</h2><small>点一下勾选已办妥，进度保存在本机</small></div>
     <div class="card" style="margin-top:6px;">
-      <form id="feedback-form" onsubmit="return submitFeedback(event)">
-        <label class="fb-field"><span class="fb-label">称呼 <i>（可选）</i></span>
-          <input type="text" id="fb-name" placeholder="你的名字" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;"></label>
-        <label class="fb-field" style="margin-top:14px;"><span class="fb-label">具体要求 <i>（必填）</i></span>
-          <textarea id="fb-msg" required placeholder="想补充或修正的行程安排、住宿、路况等具体要求……" style="width:100%; min-height:110px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff; resize:vertical;"></textarea></label>
-        <button type="submit" style="margin-top:14px; background:var(--primary); color:#fff; border:none; padding:11px 26px; border-radius:999px; font-size:15px; font-weight:700; cursor:pointer;">提交反馈 →</button>
-        <p style="margin-top:10px; font-size:12.5px; color:#9a8f7f;">提交后跳转 GitHub 新建 Issue，点一下即记录到本仓库，作者会据此调整攻略；不会收集任何隐私信息。</p>
-      </form>
+      <p style="font-size:13px; color:#8d8271; margin:0;">出发前逐项确认，勾完心里有底 👇</p>
+      <ul class="ck" id="checklist">
+        <li data-k="机票"><input type="checkbox"><span>✈️ 机票（杭州 ↔ 乌鲁木齐）</span></li>
+        <li data-k="租车"><input type="checkbox"><span>🚗 租车 / 包车（SUV + 雪地胎）</span></li>
+        <li data-k="住宿"><input type="checkbox"><span>🏨 住宿（12 晚，含喀纳斯/禾木）</span></li>
+        <li data-k="门票"><input type="checkbox"><span>🎫 门票预约（喀纳斯/赛里木/那拉提）</span></li>
+        <li data-k="证件"><input type="checkbox"><span>🛂 证件 / 边防证 / 驾照</span></li>
+        <li data-k="防滑链"><input type="checkbox"><span>⛓️ 防滑链 / 雪地胎（独库 10 月）</span></li>
+        <li data-k="离线地图"><input type="checkbox"><span>📶 离线地图（山区无信号）</span></li>
+        <li data-k="保险"><input type="checkbox"><span>🧾 旅行 / 自驾保险</span></li>
+      </ul>
     </div>
   </section>
 
@@ -747,22 +767,80 @@
     🌈 愿一路晴空、喀纳斯晨雾正浓、独库没封路。出发愉快，4 位老司机！
   </footer>
 
+  <button class="fab" id="fab" onclick="openFeedback()">💬 反馈</button>
+  <div class="fb-modal" id="fbModal">
+    <div class="fb-panel">
+      <div class="fb-head"><b>给我一点反馈</b><button class="fb-close" onclick="closeFeedback()">✕</button></div>
+      <span class="fb-dest" id="fbDest"></span>
+      <form onsubmit="return submitFeedback(event)">
+        <label class="fb-field"><span class="fb-label">称呼 <i>（可选）</i></span>
+          <input type="text" id="fb-name" placeholder="你的名字" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff;"></label>
+        <label class="fb-field" style="margin-top:14px;"><span class="fb-label">具体要求 <i>（必填）</i></span>
+          <textarea id="fb-msg" required placeholder="想补充或修正的行程安排、住宿、路况等具体要求……" style="width:100%; min-height:120px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-size:14px; background:#fff; resize:vertical;"></textarea></label>
+        <button type="submit" style="margin-top:14px; background:var(--primary); color:#fff; border:none; padding:11px 26px; border-radius:999px; font-size:15px; font-weight:700; cursor:pointer; width:100%;">提交反馈 →</button>
+        <p style="margin-top:10px; font-size:12px; color:#9a8f7f;">提交后跳转 GitHub 新建 Issue，点一下即记录，作者据此调整攻略。</p>
+      </form>
+    </div>
+  </div>
+
 </div>
 <script>
+function detectDest(){
+  var p = location.pathname;
+  if(/tuerqi|turkey|turk/i.test(p)) return {cn:'土耳其', tag:'土耳其'};
+  if(/xinjiang/i.test(p)) return {cn:'新疆', tag:'新疆2026'};
+  return {cn:'综合', tag:'综合'};
+}
+function openFeedback(){
+  var d = detectDest();
+  document.getElementById('fbDest').textContent = '📍 当前目的地：' + d.cn;
+  document.getElementById('fbModal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeFeedback(){
+  document.getElementById('fbModal').classList.remove('on');
+  document.body.style.overflow = '';
+}
+document.getElementById('fbModal').addEventListener('click', function(e){
+  if(e.target === this) closeFeedback();
+});
 function submitFeedback(e){
   e.preventDefault();
   var name = document.getElementById('fb-name').value.trim();
   var msg  = document.getElementById('fb-msg').value.trim();
   if(!msg){ alert('请填写具体要求'); return false; }
-  var title = '【攻略反馈·新疆2026】' + (name || '匿名');
-  var body  = '**称呼**：' + (name || '匿名') + '\n\n' +
+  var d = detectDest();
+  var title = '【攻略反馈·' + d.tag + '】' + (name || '匿名');
+  var body  = '**目的地**：' + d.cn + '\n\n' +
+              '**称呼**：' + (name || '匿名') + '\n\n' +
               '**具体要求**：\n' + msg + '\n\n' +
-              '---\n提交时间：' + new Date().toLocaleString('zh-CN') + '\n（来自攻略页信息收集）';
+              '---\n提交时间：' + new Date().toLocaleString('zh-CN');
   var url = 'https://github.com/JChengc/happy/issues/new?title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
   window.open(url, '_blank');
   document.getElementById('fb-msg').value = '';
+  closeFeedback();
   return false;
 }
+// 待确认清单（勾选状态存 localStorage）
+(function(){
+  var key = 'ck_' + location.pathname.replace(/[^a-z0-9]+/gi, '_');
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e){}
+  document.querySelectorAll('#checklist li').forEach(function(li){
+    var cb = li.querySelector('input');
+    var k = li.getAttribute('data-k');
+    if(saved[k]){ cb.checked = true; li.classList.add('done'); }
+    function sync(){
+      if(cb.checked){ li.classList.add('done'); saved[k]=1; } else { li.classList.remove('done'); delete saved[k]; }
+      localStorage.setItem(key, JSON.stringify(saved));
+    }
+    li.addEventListener('click', function(ev){
+      if(ev.target.tagName !== 'INPUT'){ cb.checked = !cb.checked; }
+      sync();
+    });
+    cb.addEventListener('change', sync);
+  });
+})();
 </script>
 </body>
 </html>
