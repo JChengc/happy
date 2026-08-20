@@ -155,6 +155,12 @@
   .topnav::-webkit-scrollbar{display:none;}
   .topnav a{flex:0 0 auto; background:var(--soft); color:#6b6152; text-decoration:none; font-size:13px; font-weight:700; padding:7px 14px; border-radius:999px; white-space:nowrap;}
   .topnav a:hover{background:var(--primary); color:#fff;}
+  @media(min-width:1300px){
+    .topnav{position:fixed; left:calc(50% - 615px); top:50%; transform:translateY(-50%); flex-direction:column; gap:0; overflow:visible; background:transparent; padding:0; border:none; backdrop-filter:none;}
+    .topnav a{display:block; background:transparent; color:#a89d8a; padding:7px 14px; border-left:2px solid #e7ddc9; border-radius:0; font-size:13px; font-weight:700;}
+    .topnav a:hover{background:transparent; color:var(--primary); border-left-color:var(--primary);}
+    .topnav a.on{color:var(--primary); border-left-color:var(--primary); font-weight:800;}
+  }
   /* 每日折叠（日历缩略） */
   .day-body{display:none;}
   .day.open .day-body{display:block;}
@@ -200,10 +206,10 @@
   <section>
     <div class="sec-title"><span class="ic">👥</span><h2>同行小伙伴</h2><small>4 人 · 1 车自驾 · 分工见文末</small></div>
     <div class="crew">
-      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=JOJO&hair=wavyBob" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><b>JOJO</b><i>总协调 · 行程把控</i></div>
-      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=DD&hair=straightHair" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><b>DD</b><i>住宿 · 美食</i></div>
-      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Liangge&hair=shortHair&accessories=mustache" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><b>亮哥</b><i>车 · 安全</i></div>
-      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Jiji&hair=bangs" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><b>唧唧</b><i>财务 · 门票证件</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=JOJO&hair=curlyBob&accessories=glasses&eyes=starstruck" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><b>JOJO</b><i>总协调 · 行程把控</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=DD&hair=straightHair&accessories=glasses&eyes=cheery" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><b>DD</b><i>住宿 · 美食</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Liangge&hair=shortHair&accessories=glasses&eyes=normal" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><b>亮哥</b><i>车 · 安全</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Jiji&hair=bangs&accessories=glasses&eyes=normal" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><b>唧唧</b><i>财务 · 门票证件</i></div>
     </div>
   </section>
 
@@ -843,13 +849,13 @@
   <section id="duty">
     <div class="sec-title"><span class="ic">🧭</span><h2>人员分工</h2><small>4 人各司其职，出门不慌</small></div>
     <div class="duty">
-      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=JOJO&hair=wavyBob" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><div><b>JOJO</b><div class="role">总协调 · 行程把控</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=JOJO&hair=curlyBob&accessories=glasses&eyes=starstruck" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><div><b>JOJO</b><div class="role">总协调 · 行程把控</div><ul>
         <li>每日路线导航 + 时间把控</li><li>独库 / 伊昭路况实时查询</li><li>酒店、车队沟通对接</li></ul></div></div>
-      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=DD&hair=straightHair" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><div><b>DD</b><div class="role">住宿 · 美食</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=DD&hair=straightHair&accessories=glasses&eyes=cheery" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><div><b>DD</b><div class="role">住宿 · 美食</div><ul>
         <li>12 晚酒店 + 民宿预订</li><li>沿途餐厅、补给点攻略</li><li>携带应急食品零食</li></ul></div></div>
-      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Liangge&hair=shortHair&accessories=mustache" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><div><b>亮哥</b><div class="role">车 · 安全</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Liangge&hair=shortHair&accessories=glasses&eyes=normal" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><div><b>亮哥</b><div class="role">车 · 安全</div><ul>
         <li>主驾（长路段）</li><li>租车 / 雪地胎 / 防滑链</li><li>保险对接 + 车辆检查加油</li></ul></div></div>
-      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Jiji&hair=bangs" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><div><b>唧唧</b><div class="role">财务 · 门票证件</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Jiji&hair=bangs&accessories=glasses&eyes=normal" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><div><b>唧唧</b><div class="role">财务 · 门票证件</div><ul>
         <li>公共账本记账分摊</li><li>门票预约（喀纳斯 / 赛里木 / 那拉提）</li><li>边防证、证件、常用药</li></ul></div></div>
     </div>
   </section>
@@ -1011,6 +1017,20 @@ function deleteFeedback(id){
 })();
 function expandAll(){ document.querySelectorAll('#days .day').forEach(function(d){ d.classList.add('open'); }); }
 function collapseAll(){ document.querySelectorAll('#days .day').forEach(function(d){ d.classList.remove('open'); }); }
+// 左侧大纲滚动高亮（scrollspy）
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.topnav a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function spy(){
+    var y = window.scrollY + 140;
+    var cur = null;
+    for(var i=0;i<secs.length;i++){ if(secs[i] && secs[i].offsetTop <= y) cur = links[i]; }
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if(cur) cur.classList.add('on');
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+})();
 // 待确认清单（勾选状态存 localStorage）
 (function(){
   var key = 'ck_' + location.pathname.replace(/[^a-z0-9]+/gi, '_');
