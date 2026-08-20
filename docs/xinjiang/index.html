@@ -143,11 +143,36 @@
   /* 删除按钮 */
   .fb-del{margin-left:auto; background:none; border:1px solid #f0d6cc; color:#d95b2b; border-radius:8px; padding:2px 9px; font-size:11.5px; cursor:pointer; white-space:nowrap;}
   .fb-del:hover{background:#fdeee8;}
+  html{scroll-behavior:smooth; scroll-padding-top:64px;}
+  /* 顶部导航 */
+  .topnav{position:sticky; top:0; z-index:80; display:flex; gap:6px; overflow-x:auto; background:rgba(255,252,246,.96); backdrop-filter:blur(6px); padding:10px 14px; border-bottom:1px solid var(--line); scrollbar-width:none;}
+  .topnav::-webkit-scrollbar{display:none;}
+  .topnav a{flex:0 0 auto; background:var(--soft); color:#6b6152; text-decoration:none; font-size:13px; font-weight:700; padding:7px 14px; border-radius:999px; white-space:nowrap;}
+  .topnav a:hover{background:var(--primary); color:#fff;}
+  /* 每日折叠（日历缩略） */
+  .day-body{display:none;}
+  .day.open .day-body{display:block;}
+  .day-head{cursor:pointer; user-select:none;}
+  .day-head:hover{background:linear-gradient(180deg,#FFF7EE,#fff);}
+  .day-arrow{margin-left:auto; font-size:18px; color:#b3a88e; transition:transform .2s; flex-shrink:0;}
+  .day.open .day-arrow{transform:rotate(180deg); color:var(--primary);}
+  .day-tools{display:flex; gap:8px; margin:14px 0 -6px; flex-wrap:wrap;}
+  .day-tools button{background:var(--soft); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:7px 16px; font-size:13px; font-weight:700; cursor:pointer;}
+  .day-tools button:hover{background:var(--primary); color:#fff; border-color:var(--primary);}
 </style>
 </head>
 <body>
 
 <a class="back" href="../">← 返回攻略集</a>
+<nav class="topnav">
+  <a href="#route">🗺️ 路线</a>
+  <a href="#overview">📅 总览</a>
+  <a href="#days">🌄 每日</a>
+  <a href="#prep">🧳 准备</a>
+  <a href="#budget">💰 预算</a>
+  <a href="#check">✅ 清单</a>
+  <a href="#duty">🧭 分工</a>
+</nav>
 <div class="hero">
   <div class="kicker">跟着阿薪去旅行 · 逆时针反穿版 · 独库精华段先行</div>
   <h1>反走北疆 + 伊犁大环线<br>13 天 12 晚 · 深秋自驾</h1>
@@ -177,7 +202,7 @@
   </section>
 
   <!-- 路线大图 -->
-  <section>
+  <section id="route">
     <div class="sec-title"><span class="ic">🗺️</span><h2>一图看懂路线</h2><small>反走环线，避开国庆头两天去程车流</small></div>
     <div class="mapcard">
       <svg viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="北疆伊犁大环线路线图">
@@ -245,7 +270,7 @@
   </section>
 
   <!-- 行程总览 -->
-  <section>
+  <section id="overview">
     <div class="sec-title"><span class="ic">📅</span><h2>13 天行程总览</h2><small>精确到天 · D1–D13</small></div>
     <table class="ovtable">
       <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>夜宿</th></tr>
@@ -266,8 +291,12 @@
   </section>
 
   <!-- 每日详情 -->
-  <section>
+  <section id="days">
     <div class="sec-title"><span class="ic">🌄</span><h2>每日行程详情</h2><small>住哪儿 · 吃什么 · 玩什么</small></div>
+    <div class="day-tools">
+      <button onclick="expandAll()">⬇️ 全部展开</button>
+      <button onclick="collapseAll()">⬆️ 全部收起</button>
+    </div>
 
     <!-- D1 -->
     <article class="day">
@@ -642,7 +671,7 @@
   </section>
 
   <!-- 行前准备与预约 -->
-  <section>
+  <section id="prep">
     <div class="sec-title"><span class="ic">🧳</span><h2>行前准备 &amp; 提前预约清单</h2><small>4 人自驾 · 出行前 1–2 周逐项打勾</small></div>
 
     <div class="card">
@@ -750,7 +779,7 @@
   </section>
 
   <!-- 预算 -->
-  <section>
+  <section id="budget">
     <div class="sec-title"><span class="ic">💰</span><h2>预算参考</h2><small>4 人 · 13 天 · 国庆档 · 人均</small></div>
     <div class="card">
       <table class="tbl">
@@ -787,7 +816,7 @@
   </section>
 
   <!-- 待确认清单 -->
-  <section>
+  <section id="check">
     <div class="sec-title"><span class="ic">✅</span><h2>待确认清单</h2><small>点一下勾选已办妥，进度保存在本机</small></div>
     <div class="card" style="margin-top:6px;">
       <p style="font-size:13px; color:#8d8271; margin:0;">出发前逐项确认，勾完心里有底 👇</p>
@@ -805,7 +834,7 @@
   </section>
 
   <!-- 人员分工 -->
-  <section>
+  <section id="duty">
     <div class="sec-title"><span class="ic">🧭</span><h2>人员分工</h2><small>4 人各司其职，出门不慌</small></div>
     <div class="duty">
       <div class="duty-card"><span class="avatar">J</span><div><b>JOJO</b><div class="role">总协调 · 行程把控</div><ul>
@@ -925,10 +954,14 @@ function statusOf(i){
 function loadFeedback(){
   var box = document.getElementById('fb-list');
   box.innerHTML = '<p class="fb-empty">加载中…</p>';
-  fetch(SUPA_URL + '/rest/v1/feedback?select=*&order=created_at.desc&limit=50', {
-    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY }
+  var h = { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY };
+  fetch(SUPA_URL + '/rest/v1/feedback?select=*&deleted=eq.false&order=created_at.desc&limit=50', { headers: h })
+  .then(function(r){
+    if(r.ok) return r.json();
+    // deleted 列尚未建好（软删 SQL 未跑）时回退到全量查询，避免列表报错
+    return fetch(SUPA_URL + '/rest/v1/feedback?select=*&order=created_at.desc&limit=50', { headers: h })
+      .then(function(r2){ if(!r2.ok) throw new Error('HTTP ' + r2.status); return r2.json(); });
   })
-  .then(function(r){ return r.json(); })
   .then(function(list){
     if(!Array.isArray(list)){ throw new Error('bad response'); }
     if(!list.length){ box.innerHTML = '<p class="fb-empty">还没有反馈，欢迎第一个留言 👇</p>'; return; }
@@ -946,16 +979,32 @@ function loadFeedback(){
   .catch(function(){ box.innerHTML = '<p class="fb-empty">加载失败，请稍后再试。</p>'; });
 }
 function deleteFeedback(id){
-  var ok = confirm('确定删除这条反馈吗？删除后无法恢复。');
+  var ok = confirm('确定删除这条反馈吗？');
   if(!ok) return;
   fetch(SUPA_URL + '/rest/v1/feedback?id=eq.' + id, {
-    method: 'DELETE',
-    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Prefer': 'return=minimal' }
+    method: 'PATCH',
+    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+    body: JSON.stringify({ deleted: true })
   })
   .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); })
   .then(function(){ loadFeedback(); })
   .catch(function(){ alert('删除失败，请稍后重试'); });
 }
+// 每日折叠（日历缩略：点单天开合 + 一键展开/收起）
+(function(){
+  var days = document.querySelectorAll('#days .day');
+  days.forEach(function(day){
+    var head = day.querySelector('.day-head');
+    if(!head) return;
+    var arr = document.createElement('span');
+    arr.className = 'day-arrow';
+    arr.textContent = '▾';
+    head.appendChild(arr);
+    head.addEventListener('click', function(){ day.classList.toggle('open'); });
+  });
+})();
+function expandAll(){ document.querySelectorAll('#days .day').forEach(function(d){ d.classList.add('open'); }); }
+function collapseAll(){ document.querySelectorAll('#days .day').forEach(function(d){ d.classList.remove('open'); }); }
 // 待确认清单（勾选状态存 localStorage）
 (function(){
   var key = 'ck_' + location.pathname.replace(/[^a-z0-9]+/gi, '_');
