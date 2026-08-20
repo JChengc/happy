@@ -131,14 +131,18 @@
   .crew{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:6px;}
   @media(max-width:640px){.crew{grid-template-columns:1fr 1fr;}}
   .crew-item{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 10px; text-align:center;}
-  .avatar{width:44px; height:44px; border-radius:50%; background:var(--primary2); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; margin-bottom:8px;}
+  .avatar-wrap{position:relative; width:52px; height:52px; flex-shrink:0; display:inline-block; vertical-align:middle;}
+  .avatar-fb{position:absolute; inset:0; border-radius:50%; background:var(--soft); display:flex; align-items:center; justify-content:center; font-size:24px;}
+  .avatar-wrap img.avatar{position:absolute; inset:0; width:100%; height:100%; border-radius:50%; background:var(--soft); object-fit:cover; display:block;}
+  .avatar-badge{position:absolute; right:-5px; bottom:-5px; width:22px; height:22px; background:#fff; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; line-height:1; box-shadow:0 1px 4px rgba(0,0,0,.15);}
+  .crew-item .avatar-wrap{margin-bottom:8px;}
   .crew-item b{display:block; font-size:14px;}
   .crew-item i{display:block; font-size:12px; color:#9a8f7f; margin-top:3px; font-style:normal;}
   /* 人员分工 */
   .duty{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px;}
   @media(max-width:640px){.duty{grid-template-columns:1fr;}}
   .duty-card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;}
-  .duty-card .avatar{flex-shrink:0; margin-bottom:0;}
+  .duty-card .avatar-wrap{flex-shrink:0;}
   .duty-card b{font-size:14px; display:block;}
   .duty-card .role{font-size:12px; color:var(--primary); font-weight:700; margin-top:2px;}
   .duty-card ul{margin:6px 0 0; padding-left:16px; font-size:12.5px; color:#6b6152;}
@@ -196,10 +200,10 @@
   <section>
     <div class="sec-title"><span class="ic">👥</span><h2>同行小伙伴</h2><small>4 人 · 1 车自驾 · 分工见文末</small></div>
     <div class="crew">
-      <div class="crew-item"><span class="avatar">J</span><b>JOJO</b><i>总协调 · 行程把控</i></div>
-      <div class="crew-item"><span class="avatar">D</span><b>DD</b><i>住宿 · 美食</i></div>
-      <div class="crew-item"><span class="avatar">亮</span><b>亮哥</b><i>车 · 安全</i></div>
-      <div class="crew-item"><span class="avatar">唧</span><b>唧唧</b><i>财务 · 门票证件</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=JOJO&hair=wavyBob" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><b>JOJO</b><i>总协调 · 行程把控</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=DD&hair=straightHair" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><b>DD</b><i>住宿 · 美食</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Liangge&hair=shortHair&accessories=mustache" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><b>亮哥</b><i>车 · 安全</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Jiji&hair=bangs" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><b>唧唧</b><i>财务 · 门票证件</i></div>
     </div>
   </section>
 
@@ -839,13 +843,13 @@
   <section id="duty">
     <div class="sec-title"><span class="ic">🧭</span><h2>人员分工</h2><small>4 人各司其职，出门不慌</small></div>
     <div class="duty">
-      <div class="duty-card"><span class="avatar">J</span><div><b>JOJO</b><div class="role">总协调 · 行程把控</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=JOJO&hair=wavyBob" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><div><b>JOJO</b><div class="role">总协调 · 行程把控</div><ul>
         <li>每日路线导航 + 时间把控</li><li>独库 / 伊昭路况实时查询</li><li>酒店、车队沟通对接</li></ul></div></div>
-      <div class="duty-card"><span class="avatar">D</span><div><b>DD</b><div class="role">住宿 · 美食</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=DD&hair=straightHair" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><div><b>DD</b><div class="role">住宿 · 美食</div><ul>
         <li>12 晚酒店 + 民宿预订</li><li>沿途餐厅、补给点攻略</li><li>携带应急食品零食</li></ul></div></div>
-      <div class="duty-card"><span class="avatar">亮</span><div><b>亮哥</b><div class="role">车 · 安全</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Liangge&hair=shortHair&accessories=mustache" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><div><b>亮哥</b><div class="role">车 · 安全</div><ul>
         <li>主驾（长路段）</li><li>租车 / 雪地胎 / 防滑链</li><li>保险对接 + 车辆检查加油</li></ul></div></div>
-      <div class="duty-card"><span class="avatar">唧</span><div><b>唧唧</b><div class="role">财务 · 门票证件</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="https://api.dicebear.com/10.x/big-smile/svg?seed=Jiji&hair=bangs" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><div><b>唧唧</b><div class="role">财务 · 门票证件</div><ul>
         <li>公共账本记账分摊</li><li>门票预约（喀纳斯 / 赛里木 / 那拉提）</li><li>边防证、证件、常用药</li></ul></div></div>
     </div>
   </section>
