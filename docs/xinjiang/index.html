@@ -165,6 +165,8 @@
   .ver-label{font-size:13px; font-weight:800; color:#9a8f7f;}
   .ver-btn{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:999px; cursor:pointer;}
   .ver-btn.on{background:var(--primary); color:#fff; border-color:var(--primary);}
+  .ver-btn .ver-rec{font-size:10px; background:#fff; color:var(--primary); padding:2px 7px; border-radius:999px; margin-left:7px; vertical-align:1px; font-weight:800;}
+  .sec-title .sub{font-size:12px; font-weight:600; opacity:.7; white-space:nowrap;}
   html{scroll-behavior:smooth; scroll-padding-top:64px;}
   /* 顶部导航 */
   .topnav{position:sticky; top:0; z-index:80; display:flex; gap:6px; overflow-x:auto; background:rgba(255,252,246,.96); backdrop-filter:blur(6px); padding:10px 14px; border-bottom:1px solid var(--line); scrollbar-width:none;}
@@ -196,6 +198,7 @@
   <a href="#route">🗺️ 路线</a>
   <a href="#overview">📅 总览</a>
   <a href="#days">🌄 每日</a>
+  <a href="#hotels">🏨 酒店</a>
   <a href="#activities">🎪 活动</a>
   <a href="#prep">🧳 准备</a>
   <a href="#budget">💰 预算</a>
@@ -219,8 +222,8 @@
 
 <div class="ver-switch">
   <span class="ver-label">📋 行程版本</span>
-  <button class="ver-btn on" data-ver="1" onclick="switchVer(1)">V1 · 伊犁深挖版</button>
-  <button class="ver-btn" data-ver="2" onclick="switchVer(2)">V2 · 北疆喀纳斯版</button>
+  <button class="ver-btn" data-ver="1" onclick="switchVer(1)">V1 · 伊犁深挖版</button>
+  <button class="ver-btn on" data-ver="2" onclick="switchVer(2)">V2 · 北疆喀纳斯版<span class="ver-rec">本版采用</span></button>
 </div>
 
 <div class="wrap">
@@ -1018,6 +1021,35 @@
     </article>
   </section>
 
+  <section id="hotels">
+    <div class="sec-title"><span class="ic">🏨</span><h2>酒店预定单 <span class="sub">· 按采用版 V2 北疆喀纳斯行程</span></h2><small>12 晚逐晚排好 + 分档推荐 · 国庆喀纳斯段务必尽早订</small></div>
+
+    <div class="card">
+      <h3>🗓️ 逐晚酒店预定 &amp; 推荐</h3>
+      <div style="overflow-x:auto">
+      <table class="ovtable" style="min-width:760px">
+        <thead><tr><th>晚</th><th>日期</th><th>住宿地</th><th>推荐（经济 → 舒适）</th><th>参考价/晚</th><th>预订建议</th></tr></thead>
+        <tbody>
+          <tr><td><b>D1</b></td><td>9/24</td><td>奎屯<br><small>(独库口)</small></td><td>全季/汉庭（连锁稳）→ 亚朵奎屯店</td><td>¥250–550</td><td>落地日，提前 1–2 周可退改</td></tr>
+          <tr><td><b>D2</b></td><td>9/25</td><td>那拉提镇</td><td>那拉提镇民宿 → 河谷度假酒店</td><td>¥350–800</td><td>中转休整，提前 1 周</td></tr>
+          <tr><td><b>D3</b></td><td>9/26</td><td>特克斯<br><small>(八卦城)</small></td><td>八卦城精品民宿 → 特克斯大酒店</td><td>¥300–600</td><td>提前 1 周</td></tr>
+          <tr><td><b>D4</b></td><td>9/27</td><td>伊宁</td><td>全季伊宁 → 伊犁宾馆（老牌）</td><td>¥350–700</td><td>提前 1 周</td></tr>
+          <tr><td><b>D5</b></td><td>9/28</td><td>赛里木湖<br>／博乐</td><td>湖边云海木屋（稀缺）→ 博乐全季（退路）</td><td>¥250–700</td><td>湖边房 8 月订，订不到住博乐</td></tr>
+          <tr><td><b>D6</b></td><td>9/29</td><td>克拉玛依</td><td>全季/汉庭（连锁稳）</td><td>¥300–450</td><td>长车日到得晚，提前 3–5 天</td></tr>
+          <tr><td><b>D7</b></td><td>9/30</td><td>白哈巴<br><small>(需边防证)</small></td><td>村里木屋民宿（连住更划算）</td><td>¥300–600</td><td><b>国庆最抢手，8 月订</b>，选可退改</td></tr>
+          <tr><td><b>D8</b></td><td>10/1</td><td>喀纳斯村<br>／白哈巴</td><td>喀纳斯村内木屋 → 白哈巴木屋连住</td><td>¥500–900</td><td><b>景区内 8 月订</b>，分时预约别忘</td></tr>
+          <tr><td><b>D9</b></td><td>10/2</td><td>白哈巴</td><td>同 D7 木屋<b>连住</b>（住 2 晚可谈价）</td><td>¥300–600</td><td>连住已含，确认续房</td></tr>
+          <tr><td><b>D10</b></td><td>10/3</td><td>贾登峪</td><td>贾登峪酒店群（出山中转）</td><td>¥300–500</td><td><b>国庆抢手，8 月订</b></td></tr>
+          <tr><td><b>D11</b></td><td>10/4</td><td>阿勒泰</td><td>全季/亚朵阿勒泰 → 美仑酒店</td><td>¥300–450</td><td>出山休整，提前 1 周</td></tr>
+          <tr><td><b>D12</b></td><td>10/5</td><td>乌鲁木齐</td><td>市区亚朵/全季（次日夜班机）</td><td>¥350–500</td><td>提前 3–5 天</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="alert" style="margin-top:14px">⚠️ <b>国庆核心段（9/30–10/3：白哈巴 · 喀纳斯村 · 贾登峪）</b>房源全年最紧、价格最高，<b>最晚 8 月就要锁定</b>，优先选「免费取消」款兜底；其余独库/伊犁段提前 1–2 周即可。喀纳斯、白哈巴需凭身份证实名、白哈巴另需<b>边防证</b>（布尔津 / 哈巴河可办）。</div>
+    </div>
+  </section>
+
   <!-- 行前准备与预约 -->
   <section id="prep">
     <div class="sec-title"><span class="ic">🧳</span><h2>行前准备 &amp; 提前预约清单</h2><small>4 人自驾 · 出行前 1–2 周逐项打勾</small></div>
@@ -1401,6 +1433,8 @@ function switchVer(v){
   if(t2) t2.style.display = isV1 ? 'none' : '';
   document.querySelectorAll('.ver-btn').forEach(function(b){ b.classList.toggle('on', Number(b.getAttribute('data-ver'))===v); });
 }
+// 默认采用 V2 · 北疆喀纳斯版
+switchVer(2);
 // 待确认清单（勾选状态存 localStorage）
 (function(){
   var key = 'ck_' + location.pathname.replace(/[^a-z0-9]+/gi, '_');
