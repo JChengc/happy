@@ -138,6 +138,7 @@
   .crew-item .avatar-wrap{margin-bottom:8px;}
   .crew-item b{display:block; font-size:14px;}
   .crew-item i{display:block; font-size:12px; color:#9a8f7f; margin-top:3px; font-style:normal;}
+  .nick{display:inline-block; margin-left:5px; font-size:11px; font-weight:600; color:#fff; background:var(--primary2); padding:1px 7px; border-radius:999px; vertical-align:middle;}
   /* 人员分工 */
   .duty{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px;}
   @media(max-width:640px){.duty{grid-template-columns:1fr;}}
@@ -223,7 +224,8 @@
 <div class="ver-switch">
   <span class="ver-label">📋 行程版本</span>
   <button class="ver-btn" data-ver="1" onclick="switchVer(1)">V1 · 伊犁深挖版</button>
-  <button class="ver-btn on" data-ver="2" onclick="switchVer(2)">V2 · 北疆喀纳斯版<span class="ver-rec">本版采用</span></button>
+  <button class="ver-btn" data-ver="2" onclick="switchVer(2)">V2 · 北疆喀纳斯版</button>
+  <button class="ver-btn on" data-ver="3" onclick="switchVer(3)">V3 · 先阿勒泰 · 后看独库<span class="ver-rec">本版采用</span></button>
 </div>
 
 <div class="wrap">
@@ -232,10 +234,10 @@
   <section>
     <div class="sec-title"><span class="ic">👥</span><h2>同行小伙伴</h2><small>4 人 · 1 车自驾 · 分工见文末</small></div>
     <div class="crew">
-      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="./assets/images/jojo.png" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><b>JOJO</b><i>总协调 · 行程把控</i></div>
-      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="./assets/images/dd.png" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><b>DD</b><i>住宿 · 美食</i></div>
-      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="./assets/images/liangge.png" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><b>亮哥</b><i>车 · 安全</i></div>
-      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="./assets/images/jiji.png" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><b>唧唧</b><i>财务 · 门票证件</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="./assets/images/jojo.png" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><b>JOJO<span class="nick">点子姐</span></b><i>总协调 · 行程把控</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="./assets/images/dd.png" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><b>DD<span class="nick">都行姐</span></b><i>住宿 · 美食</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="./assets/images/liangge.png" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><b>亮哥<span class="nick">秒跟哥</span></b><i>车 · 安全</i></div>
+      <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="./assets/images/jiji.png" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><b>唧唧<span class="nick">行动哥</span></b><i>财务 · 门票证件</i></div>
     </div>
   </section>
 
@@ -340,6 +342,22 @@
       <tr><td class="d">D10</td><td class="wk">10-03 · 周六</td><td>白哈巴晨雾 → 铁贾公路 → 贾登峪</td><td class="stay">贾登峪</td></tr>
       <tr><td class="d">D11</td><td class="wk">10-04 · 周日</td><td>贾登峪 → 禾木（路过）→ 阿禾公路 → 阿勒泰</td><td class="stay">阿勒泰</td></tr>
       <tr><td class="d">D12</td><td class="wk">10-05 · 周一</td><td>阿勒泰 → S21 沙漠公路 → 乌鲁木齐</td><td class="stay">乌鲁木齐</td></tr>
+      <tr><td class="d">D13</td><td class="wk">10-06 · 周二</td><td>市区自由活动 · 下午飞机返杭</td><td class="stay">—</td></tr>
+    </table>
+    <table class="ovtable ver-v3" style="display:none">
+      <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>夜宿</th></tr>
+      <tr><td class="d">D1</td><td class="wk">09-24 · 周四</td><td>落地乌鲁木齐 · 大巴扎 / 和田二街 · 取车</td><td class="stay">乌鲁木齐</td></tr>
+      <tr><td class="d">D2</td><td class="wk">09-25 · 周五</td><td>S21 沙漠公路 → 阿勒泰 · 将军山日落</td><td class="stay">阿勒泰</td></tr>
+      <tr><td class="d">D3</td><td class="wk">09-26 · 周六</td><td>阿禾公路 → 禾木村 · 白桦林 / 哈登日落</td><td class="stay">禾木</td></tr>
+      <tr><td class="d">D4</td><td class="wk">09-27 · 周日</td><td>禾木晨雾 → 白哈巴（办边防证）</td><td class="stay">白哈巴</td></tr>
+      <tr><td class="d">D5</td><td class="wk">09-28 · 周一</td><td>白哈巴 · 界碑 / 喂老鹰 / 洪巴斯草原</td><td class="stay">白哈巴</td></tr>
+      <tr><td class="d">D6</td><td class="wk">09-29 · 周二</td><td>白哈巴 → 喀纳斯一日（观鱼台 · 三湾）</td><td class="stay">白哈巴</td></tr>
+      <tr><td class="d">D7</td><td class="wk">09-30 · 周三</td><td>白哈巴 → 布尔津 → 魔鬼城落日 → 克拉玛依</td><td class="stay">克拉玛依</td></tr>
+      <tr><td class="d">D8</td><td class="wk">10-01 · 周四 🎉</td><td>克拉玛依 → 奎屯 · 定后半程 A / B</td><td class="stay">奎屯</td></tr>
+      <tr><td class="d">D9</td><td class="wk">10-02 · 周五</td><td>A 赛里木湖环湖 ＋ 果子沟<br>B 独库北段 → 那拉提</td><td class="stay">A 博乐 / B 那拉提</td></tr>
+      <tr><td class="d">D10</td><td class="wk">10-03 · 周六</td><td>A 伊宁六星街 / 喀赞其<br>B 那拉提空中草原</td><td class="stay">A 乌苏 / B 那拉提</td></tr>
+      <tr><td class="d">D11</td><td class="wk">10-04 · 周日</td><td>A 返乌市休整<br>B 库尔德宁 / 特克斯八卦城</td><td class="stay">A 乌市 / B 特克斯</td></tr>
+      <tr><td class="d">D12</td><td class="wk">10-05 · 周一</td><td>A 乌市市区<br>B 特克斯 → 伊宁 → 赛里木湖</td><td class="stay">A 乌市 / B 奎屯</td></tr>
       <tr><td class="d">D13</td><td class="wk">10-06 · 周二</td><td>市区自由活动 · 下午飞机返杭</td><td class="stay">—</td></tr>
     </table>
   </section>
@@ -1019,6 +1037,284 @@
         </div>
       </div>
     </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">1</span><span class="m">9.24</span></div>
+        <div class="day-hd-tt"><div class="route">✈️ 杭州 → 乌鲁木齐</div><div class="wk">周四 · 落地取车</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>落地乌鲁木齐，机场租车点提车（4 人 1 车）</li>
+            <li><b>大巴扎</b> / <b>和田二街</b> 逛吃；时间够可看 <b>自治区博物馆</b>（免费，周一闭馆）或 <b>古生态园马术表演</b>（门票 ¥138）</li>
+            <li>夜宿乌市，D2 一早走 S21 北上</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（乌鲁木齐）</div>
+          <div class="tags"><span class="tag">全季/亚朵 ¥350–500</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">烤包子</span><span class="tag">手抓饭</span><span class="tag">丸子汤</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">2</span><span class="m">9.25</span></div>
+        <div class="day-hd-tt"><div class="route">🛣️ S21 沙漠公路 → 阿勒泰</div><div class="wk">周五 · 6h 赶路日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>走 <b>S21 沙漠公路</b>（约 470km / 6h），途经克拉美丽、沙漠公园（免费打卡）</li>
+            <li>下午到阿勒泰，<b>将军山看日落</b>（缆车 ¥98）</li>
+            <li>晚上 <b>500 里风情街</b> / 中俄老码头风情街</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（阿勒泰）</div>
+          <div class="tags"><span class="tag">全季/亚朵 ¥300–450</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">阿勒泰冷水鱼</span><span class="tag">清炖羊肉</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">3</span><span class="m">9.26</span></div>
+        <div class="day-hd-tt"><div class="route">🏔️ 阿禾公路 → 禾木村</div><div class="wk">周六 · 秋色核心段</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>走 <b>阿禾公路</b>（约 200km / 4h，秋天必打卡），途经托勒海特、通巴奇幼森林</li>
+            <li>进 <b>禾木村</b>：白桦林、洪巴斯草原、<b>哈登观景台</b>看日落</li>
+            <li>傍晚篝火晚会、落日观景台</li>
+          </ul>
+          <div class="alert">⚠️ 阿禾公路<b>只允许 7 座及以下</b>车辆通行；10 月遇降雪可能临时管制，备选绕布尔津/贾登峪进禾木。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（禾木木屋）</div>
+          <div class="tags"><span class="tag">木屋民宿 ¥400–800</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">禾木烤羊排</span><span class="tag">奶茶</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">4</span><span class="m">9.27</span></div>
+        <div class="day-hd-tt"><div class="route">🌫️ 禾木晨雾 → 白哈巴</div><div class="wk">周日 · 办边防证</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>清晨 <b>哈登观景台</b>看晨雾日出（禾木最出片）</li>
+            <li>时间允许去 <b>美丽峰 / 云霄峰</b>；午后出禾木</li>
+            <li>经喀纳斯方向 / 贾登峪前往 <b>白哈巴</b>，进村前<b>办边防证</b></li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（白哈巴木屋）</div>
+          <div class="tags"><span class="tag">木屋民宿 ¥300–600（连住更划算）</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">村里家常菜</span><span class="tag">酸奶</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">5</span><span class="m">9.28</span></div>
+        <div class="day-hd-tt"><div class="route">🏕️ 白哈巴村全天</div><div class="wk">周一 · 边境村落慢游</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>中哈边境大峡谷、<b>五号界碑</b>（需边防证）</li>
+            <li>村口 <b>抛肉喂老鹰</b>、洪巴斯草原、白桦林漫步</li>
+            <li>傍晚村子高坡看金色木屋群</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（白哈巴，连住第 2 晚）</div>
+          <div class="tags"><span class="tag">木屋民宿 ¥300–600</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">手抓肉</span><span class="tag">奶疙瘩</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">6</span><span class="m">9.29</span></div>
+        <div class="day-hd-tt"><div class="route">🐟 白哈巴 → 喀纳斯一日 → 回白哈巴</div><div class="wk">周二 · 观鱼台 + 三湾</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>进 <b>喀纳斯</b>（门票＋区间车 ¥230/人）：<b>观鱼台</b> 1068 级台阶俯瞰全湖</li>
+            <li>喀纳斯湖边栈道，乘区间车打卡三湾：<b>神仙湾 → 月亮湾 → 卧龙湾</b></li>
+            <li>傍晚返回白哈巴过夜（连住第 3 晚）</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（白哈巴，连住第 3 晚）</div>
+          <div class="tags"><span class="tag">木屋民宿 ¥300–600</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">景区简餐</span><span class="tag">烤馕</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">7</span><span class="m">9.30</span></div>
+        <div class="day-hd-tt"><div class="route">🏜️ 白哈巴 → 布尔津 → 魔鬼城 → 克拉玛依</div><div class="wk">周三 · 出山 + 长车日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>出喀纳斯片区，经贾登峪 → <b>布尔津</b>（五彩滩可选）</li>
+            <li><b>乌尔禾魔鬼城</b>看落日（雅丹地貌）</li>
+            <li>晚到克拉玛依休整</li>
+          </ul>
+          <div class="alert">⚠️ 本日里程约 700km / 8h，早出发；若想轻松可拆成「布尔津住一晚」。</div>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（克拉玛依）</div>
+          <div class="tags"><span class="tag">全季/汉庭 ¥300–450</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">克拉玛依大盘鸡</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">8</span><span class="m">10.1</span></div>
+        <div class="day-hd-tt"><div class="route">🛣️ 克拉玛依 → 奎屯 · 定后半程 A/B</div><div class="wk">周四 · 国庆 🎉 机动日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>上午克拉玛依出发，午后到 <b>奎屯</b>（约 3h），休整</li>
+            <li>下午/晚上商定后半程：<b>A 赛里木湖来回</b> 还是 <b>B 逆走伊犁环线</b></li>
+            <li>关键看当日 <b>独库公路</b>是否开放、天气与体力</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿（奎屯）</div>
+          <div class="tags"><span class="tag">经济 ¥250–350</span></div>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">奎屯拌面</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">9</span><span class="m">10.2</span></div>
+        <div class="day-hd-tt"><div class="route">🔀 分支日：A 赛里木湖 ／ B 独库北段</div><div class="wk">周五 · 看路况二选一</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🅰️ 方案 A · 赛里木湖环湖</div>
+          <ul class="timeline">
+            <li>奎屯 → <b>赛里木湖</b>（约 310km / 3.5h），环湖：月亮湾、亲水滩、点将台、西海草原、影视城、天鹅湖、松树头</li>
+            <li>自驾门票 ¥144/人；<b>果子沟大桥</b>很壮观，打卡拍照</li>
+            <li>夜宿博乐</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🅱️ 方案 B · 逆走伊犁环线</div>
+          <ul class="timeline">
+            <li>奎屯 → <b>独库北段</b>（哈希勒根达坂、高山融湖、天瀑），只允许 7 座以下，旺季提前 1 周预约</li>
+            <li>顺路可看 <b>唐布拉仙女湖</b>（免费，推荐骑马）</li>
+            <li>夜宿那拉提镇</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿</div>
+          <div class="tags"><span class="tag">A 博乐</span><span class="tag">B 那拉提镇</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">10</span><span class="m">10.3</span></div>
+        <div class="day-hd-tt"><div class="route">🔀 A 伊宁 ／ B 那拉提空中草原</div><div class="wk">周六 · 分支第二天</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🅰️ 方案 A · 伊宁半日</div>
+          <ul class="timeline">
+            <li>博乐 → 伊宁，<b>六星街</b>、<b>喀赞其</b>民俗街</li>
+            <li>午后返程方向，夜宿乌苏/奎屯</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🅱️ 方案 B · 那拉提空中草原一整天</div>
+          <ul class="timeline">
+            <li><b>那拉提</b>自驾 ¥140/人（需提前预约）：天界台、天牧台、<b>游牧人家网红桥</b></li>
+            <li>可选滑草、空中索道、骑马</li>
+            <li>夜宿那拉提（连住）</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+          <div class="tags"><span class="tag">A 伊宁冰淇淋/手抓饭</span><span class="tag">B 那拉提烤全羊</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">11</span><span class="m">10.4</span></div>
+        <div class="day-hd-tt"><div class="route">🔀 A 返乌市 ／ B 库尔德宁+特克斯</div><div class="wk">周日 · 分支第三天</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🅰️ 方案 A · 返程休整</div>
+          <ul class="timeline">
+            <li>乌苏/奎屯 → 乌鲁木齐，休整、大巴扎补货</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🅱️ 方案 B · 库尔德宁 / 特克斯</div>
+          <ul class="timeline">
+            <li>那拉提 → <b>库尔德宁</b>（云杉森林、「海蒂与爷爷」木屋，自驾 ¥60）</li>
+            <li>或直去 <b>特克斯八卦城</b>（离街、太极坛 ¥20），夜宿特克斯/伊宁</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿</div>
+          <div class="tags"><span class="tag">A 乌鲁木齐</span><span class="tag">B 特克斯/伊宁</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">12</span><span class="m">10.5</span></div>
+        <div class="day-hd-tt"><div class="route">🔀 A 乌市市区 ／ B 伊宁→赛里木湖</div><div class="wk">周一 · 分支收尾</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🅰️ 方案 A · 乌鲁木齐市区</div>
+          <ul class="timeline">
+            <li>红山公园 / 大巴扎；⚠️ 10/5 周一<b>博物馆闭馆</b>，改期或逛其它</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🅱️ 方案 B · 伊宁 → 果子沟 → 赛里木湖</div>
+          <ul class="timeline">
+            <li>特克斯/伊宁 → 果子沟大桥 → 赛里木湖环湖</li>
+            <li>午后返奎屯/乌市（长车日）</li>
+          </ul>
+        </div>
+        <div class="blk"><div class="blk-label">🏨 住哪儿</div>
+          <div class="tags"><span class="tag">A 乌鲁木齐</span><span class="tag">B 奎屯/乌市</span></div>
+        </div>
+      </div>
+    </article>
+<article class="day ver-v3" style="display:none">
+      <div class="day-head">
+        <div class="day-badge"><span class="n">DAY</span><span class="d">13</span><span class="m">10.6</span></div>
+        <div class="day-hd-tt"><div class="route">🛫 市区自由活动 · 下午返杭</div><div class="wk">周二 · 返程日</div></div>
+      </div>
+      <div class="day-body">
+        <div class="blk"><div class="blk-label">🔘 今日安排</div>
+          <ul class="timeline">
+            <li>睡到自然醒；时间够可看 <b>自治区博物馆</b>（周二开放）</li>
+            <li>红山公园 / 大巴扎最后补货</li>
+            <li>下午机场还车，飞杭州</li>
+          </ul>
+        </div>
+      </div>
+    </article>
   </section>
 
   <section id="hotels">
@@ -1234,13 +1530,13 @@
   <section id="duty">
     <div class="sec-title"><span class="ic">🧭</span><h2>人员分工</h2><small>4 人各司其职，出门不慌</small></div>
     <div class="duty">
-      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="./assets/images/jojo.png" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><div><b>JOJO</b><div class="role">总协调 · 行程把控</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="./assets/images/jojo.png" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><div><b>JOJO<span class="nick">点子姐</span></b><div class="role">总协调 · 行程把控</div><ul>
         <li>每日路线导航 + 时间把控</li><li>独库 / 伊昭路况实时查询</li><li>酒店、车队沟通对接</li></ul></div></div>
-      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="./assets/images/dd.png" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><div><b>DD</b><div class="role">住宿 · 美食</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🍜</span><img class="avatar" src="./assets/images/dd.png" alt="DD" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🍜</span></span><div><b>DD<span class="nick">都行姐</span></b><div class="role">住宿 · 美食</div><ul>
         <li>12 晚酒店 + 民宿预订</li><li>沿途餐厅、补给点攻略</li><li>携带应急食品零食</li></ul></div></div>
-      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="./assets/images/liangge.png" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><div><b>亮哥</b><div class="role">车 · 安全</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🚙</span><img class="avatar" src="./assets/images/liangge.png" alt="亮哥" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🚙</span></span><div><b>亮哥<span class="nick">秒跟哥</span></b><div class="role">车 · 安全</div><ul>
         <li>主驾（长路段）</li><li>租车 / 雪地胎 / 防滑链</li><li>保险对接 + 车辆检查加油</li></ul></div></div>
-      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="./assets/images/jiji.png" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><div><b>唧唧</b><div class="role">财务 · 门票证件</div><ul>
+      <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">💰</span><img class="avatar" src="./assets/images/jiji.png" alt="唧唧" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">💰</span></span><div><b>唧唧<span class="nick">行动哥</span></b><div class="role">财务 · 门票证件</div><ul>
         <li>公共账本记账分摊</li><li>门票预约（喀纳斯 / 赛里木 / 那拉提）</li><li>边防证、证件、常用药</li></ul></div></div>
     </div>
   </section>
@@ -1424,17 +1720,20 @@ function switchPlan(t){
 }
 // 行程版本切换（V1 伊犁深挖 / V2 北疆喀纳斯）
 function switchVer(v){
-  var isV1 = (v === 1);
-  document.querySelectorAll('.day:not(.ver-v2)').forEach(function(x){ x.style.display = isV1 ? '' : 'none'; });
-  document.querySelectorAll('.day.ver-v2').forEach(function(x){ x.style.display = isV1 ? 'none' : ''; });
-  var t1 = document.querySelector('.ovtable.ver-v1');
-  var t2 = document.querySelector('.ovtable.ver-v2');
-  if(t1) t1.style.display = isV1 ? '' : 'none';
-  if(t2) t2.style.display = isV1 ? 'none' : '';
+  document.querySelectorAll('.day').forEach(function(x){
+    var show;
+    if(v === 1){ show = !x.classList.contains('ver-v2') && !x.classList.contains('ver-v3'); }
+    else { show = x.classList.contains('ver-v' + v); }
+    x.style.display = show ? '' : 'none';
+  });
+  [1,2,3].forEach(function(i){
+    var t = document.querySelector('.ovtable.ver-v' + i);
+    if(t) t.style.display = (i === v) ? '' : 'none';
+  });
   document.querySelectorAll('.ver-btn').forEach(function(b){ b.classList.toggle('on', Number(b.getAttribute('data-ver'))===v); });
 }
-// 默认采用 V2 · 北疆喀纳斯版
-switchVer(2);
+// 默认采用 V3 · 先阿勒泰 · 后看独库
+switchVer(3);
 // 待确认清单（勾选状态存 localStorage）
 (function(){
   var key = 'ck_' + location.pathname.replace(/[^a-z0-9]+/gi, '_');
