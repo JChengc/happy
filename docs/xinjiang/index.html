@@ -2161,9 +2161,9 @@ function switchV3Plan(p){
 switchVer(3);
 // 酒店预定信息登记（Supabase · 按 攻略版本+旅行地方 分开存储，可复用）
 var HOTEL_NIGHTS = [
-  ['D1','乌鲁木齐'],['D2','阿勒泰'],['D3','贾登峪(替代禾木)'],['D4','白哈巴/铁热克提'],
-  ['D5','喀纳斯新村/白哈巴'],['D6','白哈巴'],['D7','奎屯'],['D8','那拉提镇'],
-  ['D9','特克斯'],['D10','伊宁'],['D11','赛里木湖/清水河'],['D12','乌鲁木齐']
+  ['D1','9/24','乌鲁木齐'],['D2','9/25','阿勒泰'],['D3','9/26','贾登峪(替代禾木)'],['D4','9/27','白哈巴/铁热克提'],
+  ['D5','9/28','喀纳斯新村/白哈巴'],['D6','9/29','白哈巴'],['D7','9/30','奎屯'],['D8','10/1','那拉提镇'],
+  ['D9','10/2','特克斯'],['D10','10/3','伊宁'],['D11','10/4','赛里木湖/清水河'],['D12','10/5','乌鲁木齐']
 ];
 function hbCurVer(){
   var on = document.querySelector('.ver-btn.on');
@@ -2175,8 +2175,8 @@ function hbRender(map){
   if(!body) return;
   body.innerHTML = HOTEL_NIGHTS.map(function(n){
     var r = map[n[0]] || {};
-    return '<tr><td><b>'+n[0]+'</b></td>'
-      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="place" value="'+hbEsc(r.place!=null?r.place:n[1])+'" placeholder="住宿地"></td>'
+    return '<tr><td><b>'+n[1]+'</b><br><small>'+n[0]+'</small></td>'
+      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="place" value="'+hbEsc(r.place!=null?r.place:n[2])+'" placeholder="住宿地"></td>'
       + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="person" value="'+hbEsc(r.person)+'" placeholder="谁订"></td>'
       + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="hotel" value="'+hbEsc(r.hotel)+'" placeholder="酒店名"></td>'
       + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="platform" value="'+hbEsc(r.platform)+'" placeholder="携程/美团/去哪儿"></td></tr>';
