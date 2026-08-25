@@ -166,8 +166,16 @@
   .ver-label{font-size:13px; font-weight:800; color:#9a8f7f;}
   .ver-btn{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:999px; cursor:pointer;}
   .ver-btn.on{background:var(--primary); color:#fff; border-color:var(--primary);}
-  .hb-input{width:100%; min-width:88px; border:1px solid var(--line); border-radius:6px; padding:6px 8px; font-size:13px; background:#fff; color:#3a342b;}
-  .hb-input:focus{outline:none; border-color:var(--primary);}
+  .hb-day{border:1px solid var(--line); border-radius:10px; margin-bottom:10px; padding:10px 12px; background:#fffdf9;}
+  .hb-day-hd{font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap;}
+  .hb-day-hd small{color:#9a8f7f; font-weight:500;}
+  .hb-add{background:var(--soft); border:1px solid var(--line); color:var(--primary); font-size:12px; font-weight:700; padding:5px 12px; border-radius:999px; cursor:pointer;}
+  .hb-row{display:flex; gap:8px; align-items:center; margin-bottom:8px; flex-wrap:wrap;}
+  .hb-row input{flex:1; min-width:110px; border:1px solid var(--line); border-radius:6px; padding:6px 9px; font-size:13px; background:#fff; color:#3a342b;}
+  .hb-row input.hb-place{flex:0 0 128px;}
+  .hb-row input:focus{outline:none; border-color:var(--primary);}
+  .hb-del{background:none; border:none; color:#c87d62; font-size:15px; cursor:pointer; padding:4px 6px; line-height:1;}
+  .hb-del:hover{color:#e8562f;}
   .ver-btn .ver-rec{font-size:10px; background:#fff; color:var(--primary); padding:2px 7px; border-radius:999px; margin-left:7px; vertical-align:1px; font-weight:800;}
   .v3plan{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px;}
   .v3plan-btn{background:#fff; border:1.5px solid #E8C89B; color:#B5761A; font-size:12.5px; font-weight:700; padding:7px 13px; border-radius:999px; cursor:pointer;}
@@ -1745,15 +1753,10 @@
     </div>
 
     <div class="card" style="margin-top:14px">
-      <h3>📝 预定信息登记 <span class="sub">· 按版本+旅行地分开存储 · Supabase 云存</span></h3>
-      <p style="margin:4px 0 12px; color:#7a6f5f; font-size:14px">按晚填写 <b>住宿地 / 预定人 / 酒店名称 / 预定平台</b>，修改即自动保存。数据带 <b>攻略版本 + 旅行地方</b> 两个字段（切换版本/将来土耳其页可复用），互不干扰；初始为空，大家分工填写。</p>
-      <div style="overflow-x:auto">
-      <table class="ovtable" style="min-width:860px">
-        <thead><tr><th>晚</th><th>住宿地<span class="tag" style="margin-left:4px">可改</span></th><th>预定人</th><th>酒店名称</th><th>预定平台</th></tr></thead>
-        <tbody id="hotelbook-body"><tr><td colspan="5" style="text-align:center;color:#9a8f7f">加载中…</td></tr></tbody>
-      </table>
-      </div>
-      <div class="drop" style="margin-top:12px">💾 修改即自动保存；清空某格即清除该字段。4 人分工，各自登记自己订的酒店即可。</div>
+      <h3>📝 预定信息登记 <span class="sub">· 每天可备选多间 · Supabase 云存</span></h3>
+      <p style="margin:4px 0 12px; color:#7a6f5f; font-size:14px">每天一行主选，需要可 <b>＋添加</b> 备选；填好自动存库（数据带 <b>版本+旅行地</b>，切换版本/土耳其页可复用）。</p>
+      <div id="hotelbook-body" style="margin-top:6px"><span style="color:#9a8f7f">加载中…</span></div>
+      <div class="drop" style="margin-top:12px">💾 修改即自动保存；<b>✕ 删整行</b>、<b>＋添加备选</b>同一天多间。4 人分工各填各的。</div>
     </div>
   </section>
 
@@ -2159,7 +2162,7 @@ function switchV3Plan(p){
 }
 // 默认采用 V3 · 先阿勒泰 · 后看独库
 switchVer(3);
-// 酒店预定信息登记（Supabase · 按 攻略版本+旅行地方 分开存储，可复用）
+// 酒店预定信息登记（Supabase · 每天可多行备选 · 按 版本+旅行地 分开存储）
 var HOTEL_NIGHTS = [
   ['D1','9/24','乌鲁木齐'],['D2','9/25','阿勒泰'],['D3','9/26','贾登峪(替代禾木)'],['D4','9/27','白哈巴/铁热克提'],
   ['D5','9/28','喀纳斯新村/白哈巴'],['D6','9/29','白哈巴'],['D7','9/30','奎屯'],['D8','10/1','那拉提镇'],
@@ -2170,45 +2173,91 @@ function hbCurVer(){
   return on ? ('v' + on.getAttribute('data-ver')) : 'v3';
 }
 function hbEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function hbHB(){ return { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' }; }
+function hbRowHtml(k, r){
+  return '<div class="hb-row" data-k="'+k+'" data-id="'+(r&&r.id?r.id:'')+'">'
+    + '<input class="hb-place" data-f="place" value="'+hbEsc(r&&r.place!=null?r.place:'')+'" placeholder="住宿地">'
+    + '<input data-f="person" value="'+hbEsc(r&&r.person?r.person:'')+'" placeholder="预定人">'
+    + '<input data-f="hotel" value="'+hbEsc(r&&r.hotel?r.hotel:'')+'" placeholder="酒店名称">'
+    + '<input data-f="platform" value="'+hbEsc(r&&r.platform?r.platform:'')+'" placeholder="预定平台">'
+    + '<button type="button" class="hb-del" title="删除此行">✕</button></div>';
+}
 function hbRender(map){
-  var body = document.getElementById('hotelbook-body');
-  if(!body) return;
-  body.innerHTML = HOTEL_NIGHTS.map(function(n){
-    var r = map[n[0]] || {};
-    return '<tr><td><b>'+n[1]+'</b><br><small>'+n[0]+'</small></td>'
-      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="place" value="'+hbEsc(r.place!=null?r.place:n[2])+'" placeholder="住宿地"></td>'
-      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="person" value="'+hbEsc(r.person)+'" placeholder="谁订"></td>'
-      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="hotel" value="'+hbEsc(r.hotel)+'" placeholder="酒店名"></td>'
-      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="platform" value="'+hbEsc(r.platform)+'" placeholder="携程/美团/去哪儿"></td></tr>';
+  var box = document.getElementById('hotelbook-body');
+  if(!box) return;
+  box.innerHTML = HOTEL_NIGHTS.map(function(n){
+    var list = (map[n[0]]||[]);
+    var rows = list.length ? list : [null];
+    var rowsHtml = rows.map(function(r){ return hbRowHtml(n[0], r); }).join('');
+    return '<div class="hb-day">'
+      + '<div class="hb-day-hd">'+n[1]+' <small>'+n[0]+' · 默认 '+n[2]+'</small><button type="button" class="hb-add" data-k="'+n[0]+'">＋ 添加备选</button></div>'
+      + rowsHtml
+      + '</div>';
   }).join('');
 }
-function hbSave(rec){
-  fetch(SUPA_URL + '/rest/v1/hotel_book?on_conflict=dest,version,night', {
-    method: 'POST',
-    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates' },
-    body: JSON.stringify(rec)
-  }).then(function(r){ if(!r.ok) console.warn('hotel save fail', r.status); });
+function hbSaveRow(row){
+  var k = row.getAttribute('data-k');
+  var id = row.getAttribute('data-id');
+  var vals = {};
+  row.querySelectorAll('input[data-f]').forEach(function(inp){ vals[inp.getAttribute('data-f')] = inp.value; });
+  var payload = { dest:'xinjiang', version: hbCurVer(), night: k, place: vals.place, person: vals.person, hotel: vals.hotel, platform: vals.platform };
+  if(id){
+    payload.id = Number(id);
+    fetch(SUPA_URL + '/rest/v1/hotel_book?on_conflict=id', { method:'POST', headers:hbHB(), body: JSON.stringify(payload) })
+      .then(function(r){ if(!r.ok) console.warn('hb upsert fail', r.status); });
+  } else {
+    fetch(SUPA_URL + '/rest/v1/hotel_book?select=id', { method:'POST', headers: Object.assign(hbHB(), { 'Prefer':'return=representation' }), body: JSON.stringify(payload) })
+      .then(function(r){ return r.ok ? r.json() : []; })
+      .then(function(arr){ if(arr && arr[0] && arr[0].id) row.setAttribute('data-id', arr[0].id); });
+  }
+}
+function hbBind(box){
+  box.addEventListener('change', function(e){
+    var t = e.target;
+    if(!t || t.tagName !== 'INPUT') return;
+    var row = t.closest('.hb-row');
+    if(row) hbSaveRow(row);
+  });
+  box.addEventListener('click', function(e){
+    var t = e.target;
+    if(t && t.classList && t.classList.contains('hb-add')){
+      var day = t.closest('.hb-day');
+      var row = document.createElement('div');
+      row.className = 'hb-row';
+      row.setAttribute('data-k', t.getAttribute('data-k'));
+      row.setAttribute('data-id', '');
+      row.innerHTML = '<input class="hb-place" data-f="place" value="" placeholder="住宿地">'
+        + '<input data-f="person" value="" placeholder="预定人">'
+        + '<input data-f="hotel" value="" placeholder="酒店名称">'
+        + '<input data-f="platform" value="" placeholder="预定平台">'
+        + '<button type="button" class="hb-del" title="删除此行">✕</button>';
+      day.appendChild(row);
+    }
+    if(t && t.classList && t.classList.contains('hb-del')){
+      var row = t.closest('.hb-row');
+      var id = row && row.getAttribute('data-id');
+      if(id){
+        fetch(SUPA_URL + '/rest/v1/hotel_book?id=eq.' + id, { method: 'DELETE', headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
+          .then(function(){ if(row && row.parentNode) row.remove(); });
+      } else if(row && row.parentNode) {
+        row.remove();
+      }
+    }
+  });
 }
 function hbLoad(){
-  var body = document.getElementById('hotelbook-body');
-  if(!body) return;
+  var box = document.getElementById('hotelbook-body');
+  if(!box) return;
   var ver = hbCurVer();
   fetch(SUPA_URL + '/rest/v1/hotel_book?select=*&dest=eq.xinjiang&version=eq.' + ver, { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
     .then(function(r){ return r.ok ? r.json() : []; })
     .catch(function(){ return []; })
     .then(function(rows){
       var map = {};
-      (rows||[]).forEach(function(r){ map[r.night] = r; });
+      (rows||[]).forEach(function(r){ (map[r.night] = map[r.night] || []).push(r); });
       hbRender(map);
+      hbBind(box);
     });
-  body.onchange = function(e){
-    var t = e.target;
-    if(!t || !t.classList || !t.classList.contains('hb-input')) return;
-    var n = t.getAttribute('data-n');
-    var vals = {};
-    body.querySelectorAll('.hb-input[data-n="'+n+'"]').forEach(function(inp){ vals[inp.getAttribute('data-f')] = inp.value; });
-    hbSave({ dest:'xinjiang', version: hbCurVer(), night: n, place: vals.place, person: vals.person, hotel: vals.hotel, platform: vals.platform });
-  };
 }
 hbLoad();
 // 待确认清单（勾选状态存 localStorage）
