@@ -170,12 +170,18 @@
   .hb-day-hd{font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap;}
   .hb-day-hd small{color:#9a8f7f; font-weight:500;}
   .hb-add{background:var(--soft); border:1px solid var(--line); color:var(--primary); font-size:12px; font-weight:700; padding:5px 12px; border-radius:999px; cursor:pointer;}
-  .hb-row{display:flex; gap:8px; align-items:center; margin-bottom:8px; flex-wrap:wrap;}
-  .hb-row input{flex:1; min-width:110px; border:1px solid var(--line); border-radius:6px; padding:6px 9px; font-size:13px; background:#fff; color:#3a342b;}
-  .hb-row input.hb-place{flex:0 0 128px;}
-  .hb-row input:focus{outline:none; border-color:var(--primary);}
-  .hb-del{background:none; border:none; color:#c87d62; font-size:15px; cursor:pointer; padding:4px 6px; line-height:1;}
+  .hb-row{display:flex; gap:8px; align-items:flex-end; margin-bottom:8px; flex-wrap:wrap;}
+  .hb-f{display:flex; flex-direction:column; flex:1; min-width:110px;}
+  .hb-f input{width:100%; min-width:0; border:1px solid var(--line); border-radius:6px; padding:6px 9px; font-size:13px; background:#fff; color:#3a342b;}
+  .hb-f input:focus{outline:none; border-color:var(--primary);}
+  .hb-lb{font-size:11px; font-weight:700; color:#9a8f7f; margin-bottom:3px;}
+  .hb-del{background:none; border:none; color:#c87d62; font-size:15px; cursor:pointer; padding:4px 6px; line-height:1; margin-bottom:14px;}
   .hb-del:hover{color:#e8562f;}
+  @media(max-width:640px){
+    .hb-row{flex-direction:column; align-items:stretch;}
+    .hb-f{width:100%; min-width:0;}
+    .hb-del{align-self:flex-end; margin-bottom:4px; padding:8px 10px;}
+  }
   .ver-btn .ver-rec{font-size:10px; background:#fff; color:var(--primary); padding:2px 7px; border-radius:999px; margin-left:7px; vertical-align:1px; font-weight:800;}
   .v3plan{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px;}
   .v3plan-btn{background:#fff; border:1.5px solid #E8C89B; color:#B5761A; font-size:12.5px; font-weight:700; padding:7px 13px; border-radius:999px; cursor:pointer;}
@@ -2174,12 +2180,15 @@ function hbCurVer(){
 }
 function hbEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function hbHB(){ return { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' }; }
+function hbField(f, lb, val, cls){
+  return '<div class="hb-f"><span class="hb-lb">'+lb+'</span><input class="'+cls+'" data-f="'+f+'" value="'+hbEsc(val)+'"></div>';
+}
 function hbRowHtml(k, r){
   return '<div class="hb-row" data-k="'+k+'" data-id="'+(r&&r.id?r.id:'')+'">'
-    + '<input class="hb-place" data-f="place" value="'+hbEsc(r&&r.place!=null?r.place:'')+'" placeholder="住宿地">'
-    + '<input data-f="person" value="'+hbEsc(r&&r.person?r.person:'')+'" placeholder="预定人">'
-    + '<input data-f="hotel" value="'+hbEsc(r&&r.hotel?r.hotel:'')+'" placeholder="酒店名称">'
-    + '<input data-f="platform" value="'+hbEsc(r&&r.platform?r.platform:'')+'" placeholder="预定平台">'
+    + hbField('place','住宿地', r&&r.place!=null?r.place:'', 'hb-place')
+    + hbField('person','预定人', r&&r.person?r.person:'', '')
+    + hbField('hotel','酒店名称', r&&r.hotel?r.hotel:'', '')
+    + hbField('platform','预定平台', r&&r.platform?r.platform:'', '')
     + '<button type="button" class="hb-del" title="删除此行">✕</button></div>';
 }
 function hbRender(map){
@@ -2226,10 +2235,10 @@ function hbBind(box){
       row.className = 'hb-row';
       row.setAttribute('data-k', t.getAttribute('data-k'));
       row.setAttribute('data-id', '');
-      row.innerHTML = '<input class="hb-place" data-f="place" value="" placeholder="住宿地">'
-        + '<input data-f="person" value="" placeholder="预定人">'
-        + '<input data-f="hotel" value="" placeholder="酒店名称">'
-        + '<input data-f="platform" value="" placeholder="预定平台">'
+      row.innerHTML = hbField('place','住宿地','','hb-place')
+        + hbField('person','预定人','','')
+        + hbField('hotel','酒店名称','','')
+        + hbField('platform','预定平台','','')
         + '<button type="button" class="hb-del" title="删除此行">✕</button>';
       day.appendChild(row);
     }
