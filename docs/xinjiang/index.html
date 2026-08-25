@@ -166,6 +166,8 @@
   .ver-label{font-size:13px; font-weight:800; color:#9a8f7f;}
   .ver-btn{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:999px; cursor:pointer;}
   .ver-btn.on{background:var(--primary); color:#fff; border-color:var(--primary);}
+  .hb-input{width:100%; min-width:88px; border:1px solid var(--line); border-radius:6px; padding:6px 8px; font-size:13px; background:#fff; color:#3a342b;}
+  .hb-input:focus{outline:none; border-color:var(--primary);}
   .ver-btn .ver-rec{font-size:10px; background:#fff; color:var(--primary); padding:2px 7px; border-radius:999px; margin-left:7px; vertical-align:1px; font-weight:800;}
   .v3plan{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px;}
   .v3plan-btn{background:#fff; border:1.5px solid #E8C89B; color:#B5761A; font-size:12.5px; font-weight:700; padding:7px 13px; border-radius:999px; cursor:pointer;}
@@ -1662,6 +1664,18 @@
       </div>
       <div class="note" style="margin-top:12px">💡 封路版比常规版少跑独库段，<b>住宿总费用更低</b>；B1 最省（放弃伊犁）、B2 多绕 150km 但保留特克斯/伊宁。三个方案 <b>D1–D6 完全共用</b>，所以喀纳斯段（9/26–9/29）无论如何都要提前锁定。</div>
     </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3>📝 预定信息登记 <span class="sub">· 按版本+旅行地分开存储 · Supabase 云存</span></h3>
+      <p style="margin:4px 0 12px; color:#7a6f5f; font-size:14px">按晚填写 <b>住宿地 / 预定人 / 酒店名称 / 预定平台</b>，修改即自动保存。数据带 <b>攻略版本 + 旅行地方</b> 两个字段（切换版本/将来土耳其页可复用），互不干扰；初始为空，大家分工填写。</p>
+      <div style="overflow-x:auto">
+      <table class="ovtable" style="min-width:860px">
+        <thead><tr><th>晚</th><th>住宿地<span class="tag" style="margin-left:4px">可改</span></th><th>预定人</th><th>酒店名称</th><th>预定平台</th></tr></thead>
+        <tbody id="hotelbook-body"><tr><td colspan="5" style="text-align:center;color:#9a8f7f">加载中…</td></tr></tbody>
+      </table>
+      </div>
+      <div class="drop" style="margin-top:12px">💾 修改即自动保存；清空某格即清除该字段。4 人分工，各自登记自己订的酒店即可。</div>
+    </div>
   </section>
 
   <!-- 行前准备与预约 -->
@@ -2054,6 +2068,7 @@ function switchVer(v){
     document.querySelectorAll('.map-v' + i).forEach(function(m){ m.style.display = (i === v) ? '' : 'none'; });
   });
   if(v === 3) switchV3Plan(v3Plan);
+  if(window.hbLoad) hbLoad();
 }
 var v3Plan = 'main';
 function switchV3Plan(p){
@@ -2065,6 +2080,58 @@ function switchV3Plan(p){
 }
 // 默认采用 V3 · 先阿勒泰 · 后看独库
 switchVer(3);
+// 酒店预定信息登记（Supabase · 按 攻略版本+旅行地方 分开存储，可复用）
+var HOTEL_NIGHTS = [
+  ['D1','乌鲁木齐'],['D2','阿勒泰'],['D3','贾登峪(替代禾木)'],['D4','白哈巴/铁热克提'],
+  ['D5','喀纳斯新村/白哈巴'],['D6','白哈巴'],['D7','奎屯'],['D8','那拉提镇'],
+  ['D9','特克斯'],['D10','伊宁'],['D11','赛里木湖/清水河'],['D12','乌鲁木齐']
+];
+function hbCurVer(){
+  var on = document.querySelector('.ver-btn.on');
+  return on ? ('v' + on.getAttribute('data-ver')) : 'v3';
+}
+function hbEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function hbRender(map){
+  var body = document.getElementById('hotelbook-body');
+  if(!body) return;
+  body.innerHTML = HOTEL_NIGHTS.map(function(n){
+    var r = map[n[0]] || {};
+    return '<tr><td><b>'+n[0]+'</b></td>'
+      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="place" value="'+hbEsc(r.place!=null?r.place:n[1])+'" placeholder="住宿地"></td>'
+      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="person" value="'+hbEsc(r.person)+'" placeholder="谁订"></td>'
+      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="hotel" value="'+hbEsc(r.hotel)+'" placeholder="酒店名"></td>'
+      + '<td><input class="hb-input" data-n="'+n[0]+'" data-f="platform" value="'+hbEsc(r.platform)+'" placeholder="携程/美团/去哪儿"></td></tr>';
+  }).join('');
+}
+function hbSave(rec){
+  fetch(SUPA_URL + '/rest/v1/hotel_book', {
+    method: 'POST',
+    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates' },
+    body: JSON.stringify(rec)
+  }).then(function(r){ if(!r.ok) console.warn('hotel save fail', r.status); });
+}
+function hbLoad(){
+  var body = document.getElementById('hotelbook-body');
+  if(!body) return;
+  var ver = hbCurVer();
+  fetch(SUPA_URL + '/rest/v1/hotel_book?select=*&dest=eq.xinjiang&version=eq.' + ver, { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .catch(function(){ return []; })
+    .then(function(rows){
+      var map = {};
+      (rows||[]).forEach(function(r){ map[r.night] = r; });
+      hbRender(map);
+    });
+  body.onchange = function(e){
+    var t = e.target;
+    if(!t || !t.classList || !t.classList.contains('hb-input')) return;
+    var n = t.getAttribute('data-n');
+    var vals = {};
+    body.querySelectorAll('.hb-input[data-n="'+n+'"]').forEach(function(inp){ vals[inp.getAttribute('data-f')] = inp.value; });
+    hbSave({ dest:'xinjiang', version: hbCurVer(), night: n, place: vals.place, person: vals.person, hotel: vals.hotel, platform: vals.platform });
+  };
+}
+hbLoad();
 // 待确认清单（勾选状态存 localStorage）
 (function(){
   var key = 'ck_' + location.pathname.replace(/[^a-z0-9]+/gi, '_');
