@@ -2186,8 +2186,8 @@ function hbCurVer(){
 }
 function hbEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function hbHB(){ return { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' }; }
-function hbField(f, lb, val, cls){
-  return '<div class="hb-f"><span class="hb-lb">'+lb+'</span><input class="'+cls+'" data-f="'+f+'" value="'+hbEsc(val)+'"></div>';
+function hbField(f, lb, val, cls, ph){
+  return '<div class="hb-f"><span class="hb-lb">'+lb+'</span><input class="'+cls+'" data-f="'+f+'" value="'+hbEsc(val)+'" placeholder="'+hbEsc(ph||'')+'"></div>';
 }
 function hbViewHtml(r){
   var place = r&&r.place!=null ? r.place : '';
@@ -2206,7 +2206,7 @@ function hbEditHtml(r){
   var platform = r&&r.platform ? r.platform : '';
   return hbField('place','住宿地', place, 'hb-place')
     + hbField('person','预定人', person, '')
-    + hbField('hotel','酒店名称', hotel, '')
+    + hbField('hotel','酒店名称', hotel, '', '如：美居（前晚23点可取消）')
     + hbField('platform','预定平台', platform, '')
     + '<div class="hb-edit-actions">'
     + '<button type="button" class="hb-save-btn">✓ 完成</button>'
