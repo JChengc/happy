@@ -2236,9 +2236,9 @@ function hbSaveRow(row){
   var vals = hbRowValues(row);
   var payload = { dest:'xinjiang', version: hbCurVer(), night: k, place: vals.place, person: vals.person, hotel: vals.hotel, platform: vals.platform };
   if(id){
-    payload.id = Number(id);
-    fetch(SUPA_URL + '/rest/v1/hotel_book?on_conflict=id', { method:'POST', headers:hbHB(), body: JSON.stringify(payload) })
-      .then(function(r){ if(!r.ok) console.warn('hb upsert fail', r.status); });
+    // 已有记录：用 PATCH 只改字段（id 是 identity 列，POST upsert 会 400）
+    fetch(SUPA_URL + '/rest/v1/hotel_book?id=eq.' + id, { method:'PATCH', headers:hbHB(), body: JSON.stringify({ place: vals.place, person: vals.person, hotel: vals.hotel, platform: vals.platform }) })
+      .then(function(r){ if(!r.ok) console.warn('hb patch fail', r.status); });
   } else {
     fetch(SUPA_URL + '/rest/v1/hotel_book?select=id', { method:'POST', headers: Object.assign(hbHB(), { 'Prefer':'return=representation' }), body: JSON.stringify(payload) })
       .then(function(r){ return r.ok ? r.json() : []; })
