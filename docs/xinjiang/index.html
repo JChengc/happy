@@ -167,6 +167,11 @@
   .ver-btn{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:999px; cursor:pointer;}
   .ver-btn.on{background:var(--primary); color:#fff; border-color:var(--primary);}
   .ver-select{background:#fff; border:1.5px solid var(--primary); color:var(--primary); font-size:14px; font-weight:800; padding:9px 14px; border-radius:10px; cursor:pointer; max-width:100%;}
+  /* 顶栏（返回 + 版本切换） */
+  .topbar{position:sticky; top:0; z-index:90; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 16px; background:rgba(255,252,246,.96); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
+  .topbar .back{margin:0;}
+  .topbar .ver-switch{margin:0; padding:0; max-width:none; flex-wrap:nowrap;}
+  @media(max-width:560px){ .topbar{flex-wrap:wrap;} .topbar .ver-select{font-size:12.5px; padding:7px 10px;} }
   .hb-day{border:1px solid var(--line); border-radius:10px; margin-bottom:10px; padding:10px 12px; background:#fffdf9;}
   .hb-day-hd{font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap;}
   .hb-day-hd small{color:#9a8f7f; font-weight:500;}
@@ -235,7 +240,17 @@
 </head>
 <body>
 
-<a class="back" href="../">← 返回攻略集</a>
+<header class="topbar">
+  <a class="back" href="../">← 返回攻略集</a>
+  <div class="ver-switch">
+    <span class="ver-label">📋 版本</span>
+    <select id="ver-select" class="ver-select" onchange="switchVer(Number(this.value))">
+      <option value="1">V1 · 伊犁深挖版</option>
+      <option value="2">V2 · 北疆喀纳斯版</option>
+      <option value="3" selected>V3 · 先阿勒泰 · 后看独库（本版采用）</option>
+    </select>
+  </div>
+</header>
 <div class="hero">
   <div class="kicker">跟着阿薪去旅行 · 逆时针反穿版 · 独库精华段先行</div>
   <h1>反走北疆 + 伊犁大环线<br>13 天 12 晚 · 深秋自驾</h1>
@@ -249,15 +264,6 @@
     <span>天山天池备选</span><span>S21 沙漠公路</span><span>禾木晨雾</span><span>喀纳斯三湾</span>
     <span>魔鬼城落日</span><span>赛里木湖</span><span>伊昭公路</span><span>独库公路</span>
   </div>
-</div>
-
-<div class="ver-switch">
-  <span class="ver-label">📋 行程版本</span>
-  <select id="ver-select" class="ver-select" onchange="switchVer(Number(this.value))">
-    <option value="1">V1 · 伊犁深挖版</option>
-    <option value="2">V2 · 北疆喀纳斯版</option>
-    <option value="3" selected>V3 · 先阿勒泰 · 后看独库（本版采用）</option>
-  </select>
 </div>
 
 <div class="view-tabs">
