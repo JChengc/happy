@@ -288,7 +288,7 @@
   <div id="cat-box" class="cat-wrap" style="display:none"></div>
 
   <!-- 同行小伙伴 -->
-  <section data-v="overview">
+  <section id="crew" data-v="overview">
     <div class="sec-title"><span class="ic">👥</span><h2>同行小伙伴</h2><small>4 人 · 1 车自驾 · 分工见文末</small></div>
     <div class="crew">
       <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="./assets/images/jojo.png" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><b>JOJO<span class="nick">点子姐</span></b><i>总协调 · 行程把控</i></div>
@@ -1950,7 +1950,7 @@
   </section>
 
   <!-- 天气参考 -->
-  <section data-v="category">
+  <section id="weather" data-v="category">
     <div class="sec-title"><span class="ic">🌦️</span><h2>各地 10 月天气参考</h2><small>按昼夜，羽绒 + 抓绒足够了</small></div>
     <div class="card">
       <table class="tbl">
@@ -1985,7 +1985,7 @@
   </section>
 
   <!-- 行程取舍建议（大而全 → 可删减） -->
-  <section data-v="category">
+  <section id="tradeoff" data-v="category">
     <div class="sec-title"><span class="ic">✂️</span><h2>行程取舍建议</h2><small>先给「大而全」版，这里是按时间/体力可砍的空间</small></div>
     <div class="card">
       <table class="tbl">
@@ -2027,7 +2027,7 @@
   </section>
 
   <!-- 门票参考 -->
-  <section data-v="category">
+  <section id="tickets" data-v="category">
     <div class="sec-title"><span class="ic">🎫</span><h2>门票参考价（以景区为准）</h2><small>2025 参考，旺季实际以官方挂牌 / 小程序为准</small></div>
     <div class="card">
       <table class="tbl">
@@ -2287,19 +2287,19 @@ var CAL_DAYS = [
   ['D13','10.6 周二','🛫 市区自由活动 · 下午返杭','住：—']
 ];
 var CAT_ITEMS = [
-  ['酒店预定单','🏨','calendar','酒店 · 每天多间/可增删'],
-  ['每日行程详情','🌄','calendar','每日 · 时间表/穿搭/住宿'],
-  ['待确认清单','✅','category','清单 · 勾选存本机'],
-  ['行前准备 & 预约','🧳','category','准备 · 门票/证件/装备'],
-  ['13 天行程总览','📅','overview','总览 · 驾车/夜宿'],
-  ['一图看懂路线','🗺️','overview','路线图 · V3 三档'],
-  ['预算参考','💰','category','预算 · 人均参考'],
-  ['门票参考价','🎫','category','门票 · 2025 参考'],
-  ['特色活动体验','🎪','category','活动 · 骑马/呼麦等'],
-  ['各地天气参考','🌦️','category','天气 · 10 月温度'],
-  ['人员分工','🧭','category','分工 · 4 人各司其职'],
-  ['同行小伙伴','👥','overview','小伙伴 · 头像'],
-  ['行程取舍建议','✂️','category','取舍 · 可砍空间']
+  ['酒店预定单','🏨','calendar','酒店 · 每天多间/可增删','hotels'],
+  ['每日行程详情','🌄','calendar','每日 · 时间表/穿搭/住宿','days'],
+  ['待确认清单','✅','category','清单 · 勾选存本机','check'],
+  ['行前准备 & 预约','🧳','category','准备 · 门票/证件/装备','prep'],
+  ['13 天行程总览','📅','overview','总览 · 驾车/夜宿','overview'],
+  ['一图看懂路线','🗺️','overview','路线图 · V3 三档','route'],
+  ['预算参考','💰','category','预算 · 人均参考','budget'],
+  ['门票参考价','🎫','category','门票 · 2025 参考','tickets'],
+  ['特色活动体验','🎪','category','活动 · 骑马/呼麦等','activities'],
+  ['各地天气参考','🌦️','category','天气 · 10 月温度','weather'],
+  ['人员分工','🧭','category','分工 · 4 人各司其职','duty'],
+  ['同行小伙伴','👥','overview','小伙伴 · 头像','crew'],
+  ['行程取舍建议','✂️','category','取舍 · 可砍空间','tradeoff']
 ];
 function curView(){ var t = document.querySelector('.view-tab.on'); return t ? t.getAttribute('data-v') : 'overview'; }
 function viewSections(v){ return document.querySelectorAll('section[data-v="' + v + '"]'); }
@@ -2386,20 +2386,15 @@ function buildCat(){
   if(!box || box.dataset.built) return;
   box.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;">'
     + CAT_ITEMS.map(function(c){
-      return '<div class="cat-card" onclick="catOpen(this)" data-v="'+c[2]+'" data-label="'+escH(c[3])+'">'
+      return '<div class="cat-card" onclick="catOpen(this)" data-v="'+c[2]+'" data-sid="'+c[4]+'" data-label="'+escH(c[0])+'">'
         + '<div style="font-size:26px">'+c[1]+'</div>'
-        + '<div style="font-weight:800;font-size:12.5px;margin-top:6px;line-height:1.3">'+escH(c[3])+'</div>'
+        + '<div style="font-weight:800;font-size:12.5px;margin-top:6px;line-height:1.3">'+escH(c[0])+'</div>'
         + '<div style="font-size:10px;color:var(--primary);font-weight:700;margin-top:4px">查看 →</div></div>';
     }).join('') + '</div>';
   box.dataset.built = '1';
 }
-function catFindSec(label){
-  var all = document.querySelectorAll('section[data-v]');
-  for(var i=0;i<all.length;i++){
-    var t = all[i].querySelector('h2');
-    if(t && t.textContent.indexOf(label)>-1) return all[i];
-  }
-  return null;
+function catFindSec(id){
+  return document.getElementById(id) || null;
 }
 function catPreview(sec){
   // 取板块里第一张卡片的文本前 90 字作为缩略
@@ -2415,8 +2410,9 @@ function catPreview(sec){
 function catOpen(card){
   var v = card.getAttribute('data-v');
   var label = card.getAttribute('data-label');
+  var sid = card.getAttribute('data-sid');
   // 打开「详情弹窗」：克隆整个板块展示（保留全部功能）
-  var sec = catFindSec(label);
+  var sec = sid ? document.getElementById(sid) : null;
   if(!sec) return;
   var overlay = document.getElementById('cat-overlay');
   if(!overlay){
