@@ -2592,16 +2592,40 @@ function hbBind(box){
       return;
     }
     if(t.classList.contains('hb-del')){
-      if(!window.confirm('确定删除这一行预定信息吗？')) return;
-      var id = row.getAttribute('data-id');
-      if(id){
-        fetch(SUPA_URL + '/rest/v1/hotel_book?id=eq.' + id, { method: 'DELETE', headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
-          .then(function(){ if(row && row.parentNode) row.remove(); });
-      } else if(row && row.parentNode) {
-        row.remove();
-      }
+      hbConfirmDelete(row);
     }
   });
+}
+function hbConfirmDelete(row){
+  // 自绘确认弹层（原生 confirm 在移动端 WebView 不可靠）
+  var m = document.getElementById('hb-confirm');
+  if(!m){
+    m = document.createElement('div');
+    m.id = 'hb-confirm';
+    m.style.cssText = 'position:fixed;inset:0;z-index:300;background:rgba(30,25,18,.5);display:flex;align-items:center;justify-content:center;';
+    m.innerHTML = '<div style="background:#fffdf9;border-radius:16px;padding:22px 24px;max-width:300px;width:90%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.18);">'
+      + '<div style="font-size:26px;margin-bottom:8px">🗑️</div>'
+      + '<div style="font-weight:800;font-size:16px;margin-bottom:4px">删除这一行预定信息？</div>'
+      + '<div style="font-size:12.5px;color:#9a8f7f;margin-bottom:16px">删除后不可恢复</div>'
+      + '<div style="display:flex;gap:10px;justify-content:center;">'
+      + '<button id="hb-confirm-no" style="flex:1;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;">取消</button>'
+      + '<button id="hb-confirm-yes" style="flex:1;background:#d64545;color:#fff;border:none;border-radius:999px;padding:10px 0;font-size:14px;font-weight:800;cursor:pointer;">删除</button>'
+      + '</div></div>';
+    document.body.appendChild(m);
+    m.querySelector('#hb-confirm-no').addEventListener('click', function(){ m.style.display='none'; });
+    m.querySelector('#hb-confirm-yes').addEventListener('click', function(){
+      m.style.display='none';
+      var id = m._row ? m._row.getAttribute('data-id') : null;
+      if(id){
+        fetch(SUPA_URL + '/rest/v1/hotel_book?id=eq.' + id, { method: 'DELETE', headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
+          .then(function(){ if(m._row && m._row.parentNode) m._row.remove(); });
+      } else if(m._row && m._row.parentNode) {
+        m._row.remove();
+      }
+    });
+  }
+  m._row = row;
+  m.style.display = 'flex';
 }
 function hbLoad(targetId){
   var box = document.getElementById(targetId || 'hotelbook-body');
