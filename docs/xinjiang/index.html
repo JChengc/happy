@@ -171,6 +171,8 @@
   .topbar{position:sticky; top:0; z-index:90; display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 16px; background:rgba(255,252,246,.96); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
   .topbar .back{margin:0;}
   .topbar .ver-switch{margin:0; padding:0; max-width:none; flex-wrap:nowrap;}
+  .topbar .ver-label{display:none;}
+  .topbar .ver-select{font-size:13px; padding:7px 12px; border-radius:999px;}
   @media(max-width:560px){ .topbar{flex-wrap:wrap;} .topbar .ver-select{font-size:12.5px; padding:7px 10px;} }
   .hb-day{border:1px solid var(--line); border-radius:10px; margin-bottom:10px; padding:10px 12px; background:#fffdf9;}
   .hb-day-hd{font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap;}
@@ -211,7 +213,7 @@
   .day-tools button{background:var(--soft); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:7px 16px; font-size:13px; font-weight:700; cursor:pointer;}
   .day-tools button:hover{background:var(--primary); color:#fff; border-color:var(--primary);}
   /* 视图 Tab（总览/日历/分类） */
-  .view-tabs{max-width:1080px; margin:14px auto 0; padding:0 20px; display:flex; gap:8px; flex-wrap:wrap;}
+  /* 底部视图导航 Tab（覆盖 .view-tab 基础样式） */
   .view-tab{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:14px; font-weight:800; padding:10px 20px; border-radius:12px; cursor:pointer;}
   .view-tab.on{background:var(--primary); color:#fff; border-color:var(--primary);}
   /* 日历视图 */
@@ -236,6 +238,13 @@
   .cat-item.open .cat-arrow{transform:rotate(180deg); color:var(--primary);}
   .cat-card{background:#fffdf9; border:1px solid var(--line); border-radius:14px; padding:18px 16px; cursor:pointer; transition:transform .15s, box-shadow .15s;}
   .cat-card:hover{transform:translateY(-3px); box-shadow:0 8px 18px rgba(232,86,47,.12); border-color:var(--primary);}
+  /* 底部视图导航（浏览器/微信多分辨率适配） */
+  body{padding-bottom:64px;}
+  .bottomnav{position:fixed; left:0; right:0; bottom:0; z-index:150; display:flex; background:rgba(255,252,246,.97); backdrop-filter:blur(8px); border-top:1px solid var(--line); padding-bottom:env(safe-area-inset-bottom);}
+  .bottomnav .view-tab{flex:1; border:none; border-radius:0; background:transparent; color:#8a7f6d; font-size:13px; font-weight:800; padding:12px 4px 10px; display:flex; flex-direction:column; align-items:center; gap:2px;}
+  .bottomnav .view-tab .ic{font-size:19px;}
+  .bottomnav .view-tab.on{background:transparent; color:var(--primary);}
+  .bottomnav .view-tab.on::after{content:''; display:block; width:34px; height:3px; background:var(--primary); border-radius:3px; margin-top:2px;}
 </style>
 </head>
 <body>
@@ -243,7 +252,6 @@
 <header class="topbar">
   <a class="back" href="../">← 返回攻略集</a>
   <div class="ver-switch">
-    <span class="ver-label">📋 版本</span>
     <select id="ver-select" class="ver-select" onchange="switchVer(Number(this.value))">
       <option value="1">V1 · 伊犁深挖版</option>
       <option value="2">V2 · 北疆喀纳斯版</option>
@@ -266,11 +274,11 @@
   </div>
 </div>
 
-<div class="view-tabs">
-  <button class="view-tab on" data-v="overview" onclick="switchView('overview')">📋 总览</button>
-  <button class="view-tab" data-v="calendar" onclick="switchView('calendar')">📅 日历</button>
-  <button class="view-tab" data-v="category" onclick="switchView('category')">🗂️ 分类</button>
-</div>
+<nav class="bottomnav">
+  <button class="view-tab on" data-v="overview" onclick="switchView('overview')"><span class="ic">📋</span>总览</button>
+  <button class="view-tab" data-v="calendar" onclick="switchView('calendar')"><span class="ic">📅</span>每日行程</button>
+  <button class="view-tab" data-v="category" onclick="switchView('category')"><span class="ic">🗂️</span>分类</button>
+</nav>
 
 <div class="wrap">
 
