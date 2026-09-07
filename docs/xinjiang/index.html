@@ -2372,17 +2372,12 @@ function curVer(){ var sel = document.getElementById('ver-select'); return sel ?
 function buildCat(){
   var box = document.getElementById('cat-box');
   if(!box || box.dataset.built) return;
-  box.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;">'
+  box.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;">'
     + CAT_ITEMS.map(function(c){
-      var sec = catFindSec(c[3]);
-      var small = sec ? (sec.querySelector('.sec-title small') ? sec.querySelector('.sec-title small').textContent : '') : '';
-      var preview = sec ? catPreview(sec) : '';
       return '<div class="cat-card" onclick="catOpen(this)" data-v="'+c[2]+'" data-label="'+escH(c[3])+'">'
-        + '<div style="font-size:24px">'+c[1]+'</div>'
-        + '<div style="font-weight:800;font-size:15px;margin-top:6px">'+escH(c[3])+'</div>'
-        + (small ? '<div style="font-size:11.5px;color:#9a8f7f;margin-top:2px">'+escH(small)+'</div>' : '')
-        + (preview ? '<div style="font-size:12px;color:#7a6f5f;margin-top:8px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">'+preview+'</div>' : '')
-        + '<div style="font-size:11px;color:var(--primary);font-weight:700;margin-top:8px">点开看详情 →</div></div>';
+        + '<div style="font-size:26px">'+c[1]+'</div>'
+        + '<div style="font-weight:800;font-size:12.5px;margin-top:6px;line-height:1.3">'+escH(c[3])+'</div>'
+        + '<div style="font-size:10px;color:var(--primary);font-weight:700;margin-top:4px">查看 →</div></div>';
     }).join('') + '</div>';
   box.dataset.built = '1';
 }
@@ -2424,9 +2419,16 @@ function catOpen(card){
   document.getElementById('cat-overlay-body').innerHTML = '';
   var clone = sec.cloneNode(true);
   clone.style.display = '';
-  document.getElementById('cat-overlay-body').appendChild(clone);
-  // 克隆后重新初始化板块内的交互（酒店登记/清单）
-  if(label.indexOf('酒店')>-1 && window.hbLoad) hbLoad();
+  // 酒店登记：给克隆版独立的 body id，并手动重新 hbLoad 到克隆版
+  if(label.indexOf('酒店')>-1){
+    var cloneBody = clone.querySelector('#hotelbook-body');
+    if(cloneBody){ cloneBody.id = 'hotelbook-body-clone'; }
+    document.getElementById('cat-overlay-body').appendChild(clone);
+    if(window.hbLoadClone) hbLoadClone();
+  } else {
+    document.getElementById('cat-overlay-body').appendChild(clone);
+    if(window.hbLoad && label.indexOf('酒店')>-1) hbLoad();
+  }
   overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
@@ -2508,8 +2510,8 @@ function hbSaveRow(row){
       .then(function(arr){ if(arr && arr[0] && arr[0].id) row.setAttribute('data-id', arr[0].id); });
   }
 }
-function hbRender(map){
-  var box = document.getElementById('hotelbook-body');
+function hbRender(map, box){
+  if(!box) box = document.getElementById('hotelbook-body');
   if(!box) return;
   box.innerHTML = HOTEL_NIGHTS.map(function(n){
     var list = (map[n[0]]||[]);
@@ -2571,8 +2573,8 @@ function hbBind(box){
     }
   });
 }
-function hbLoad(){
-  var box = document.getElementById('hotelbook-body');
+function hbLoad(targetId){
+  var box = document.getElementById(targetId || 'hotelbook-body');
   if(!box) return;
   var ver = hbCurVer();
   fetch(SUPA_URL + '/rest/v1/hotel_book?select=*&dest=eq.xinjiang&version=eq.' + ver, { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
@@ -2581,10 +2583,11 @@ function hbLoad(){
     .then(function(rows){
       var map = {};
       (rows||[]).forEach(function(r){ (map[r.night] = map[r.night] || []).push(r); });
-      hbRender(map);
+      hbRender(map, box);
       hbBind(box);
     });
 }
+function hbLoadClone(){ hbLoad('hotelbook-body-clone'); }
 hbLoad();
 // 待确认清单（勾选状态存 localStorage）
 (function(){
