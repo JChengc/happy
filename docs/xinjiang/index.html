@@ -2244,9 +2244,9 @@ function curView(){ var t = document.querySelector('.view-tab.on'); return t ? t
 function viewSections(v){ return document.querySelectorAll('section[data-v="' + v + '"]'); }
 function switchView(v){
   document.querySelectorAll('.view-tab').forEach(function(t){ t.classList.toggle('on', t.getAttribute('data-v')===v); });
-  // 分类视图里点板块时联动（只切内容可见性）
+  // 分类视图：只显示卡片网格，所有分类长内容隐藏（点卡片后弹窗展示）
   document.querySelectorAll('section[data-v]').forEach(function(s){
-    var show = (s.getAttribute('data-v') === v);
+    var show = (v !== 'category') && (s.getAttribute('data-v') === v);
     s.style.display = show ? '' : 'none';
   });
   // 日历/分类容器显隐
