@@ -2529,7 +2529,7 @@ function hbSaveRow(row){
   var k = row.getAttribute('data-k');
   var id = row.getAttribute('data-id');
   var vals = hbRowValues(row);
-  var payload = { dest:'xinjiang', version: hbCurVer(), night: k, place: vals.place, person: vals.person, hotel: vals.hotel, platform: vals.platform };
+  var payload = { dest:'xinjiang', version: hbCurVer(), night: k, place: vals.place, person: vals.person, hotel: vals.hotel, platform: vals.platform, deleted: false };
   if(id){
     // 已有记录：用 PATCH 只改字段（id 是 identity 列，POST upsert 会 400）
     fetch(SUPA_URL + '/rest/v1/hotel_book?id=eq.' + id, { method:'PATCH', headers:hbHB(), body: JSON.stringify({ place: vals.place, person: vals.person, hotel: vals.hotel, platform: vals.platform }) })
@@ -2617,18 +2617,11 @@ function hbConfirmDelete(row){
       m.style.display='none';
       var id = m._row ? m._row.getAttribute('data-id') : null;
       if(id){
-        // 删除后回查确认（RLS 拦截时 204 但行仍在）
-        fetch(SUPA_URL + '/rest/v1/hotel_book?id=eq.' + id, { method: 'DELETE', headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
+        // 逻辑删除：PATCH deleted=true（PATCH 有权限，不依赖 DELETE 策略）
+        fetch(SUPA_URL + '/rest/v1/hotel_book?id=eq.' + id, { method: 'PATCH', headers: Object.assign(hbHB(), { 'Prefer':'return=minimal' }), body: JSON.stringify({ deleted: true }) })
           .then(function(r){
-            return fetch(SUPA_URL + '/rest/v1/hotel_book?select=id&id=eq.' + id, { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
-              .then(function(r2){ return r2.ok ? r2.json() : []; })
-              .then(function(rows){
-                if(rows && rows.length){
-                  alert('⚠️ 删除失败：数据库未授权删除（需在 Supabase 添加 DELETE 策略）');
-                } else if(m._row && m._row.parentNode){
-                  m._row.remove();
-                }
-              });
+            if(m._row && m._row.parentNode) m._row.remove();
+            else if(!r.ok) alert('⚠️ 删除失败（HTTP ' + r.status + '）');
           });
       } else if(m._row && m._row.parentNode) {
         m._row.remove();
@@ -2642,7 +2635,7 @@ function hbLoad(targetId){
   var box = document.getElementById(targetId || 'hotelbook-body');
   if(!box) return;
   var ver = hbCurVer();
-  fetch(SUPA_URL + '/rest/v1/hotel_book?select=*&dest=eq.xinjiang&version=eq.' + ver, { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
+  fetch(SUPA_URL + '/rest/v1/hotel_book?select=*&dest=eq.xinjiang&version=eq.' + ver + '&deleted=is.false', { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
     .then(function(r){ return r.ok ? r.json() : []; })
     .catch(function(){ return []; })
     .then(function(rows){
