@@ -2337,10 +2337,13 @@ function calShow(d){
     overlay.id = 'cal-overlay';
     overlay.style.cssText = 'position:fixed;inset:0;z-index:200;background:rgba(30,25,18,.55);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 14px;';
     overlay.innerHTML = '<div style="background:#fffdf9;max-width:860px;width:100%;border-radius:16px;padding:16px 18px;position:relative;">'
+      + '<button onclick="calClose()" title="关闭" style="position:sticky;top:0;float:right;background:#d64545;color:#fff;border:none;border-radius:999px;width:40px;height:40px;font-size:18px;font-weight:800;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center;margin-left:auto;">✕</button>'
       + '<div id="cal-overlay-nav" style="display:flex;gap:10px;justify-content:center;padding:6px 0 12px;flex-wrap:wrap;"></div>'
       + '<div id="cal-overlay-body"></div>'
       + '<div id="cal-overlay-nav2" style="display:flex;gap:10px;justify-content:center;padding:12px 0 4px;flex-wrap:wrap;"></div></div>';
     document.body.appendChild(overlay);
+    // 点击遮罩（非内容）关闭
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) calClose(); });
   }
   var idx = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
   function navBtn(label, fn){
@@ -2349,7 +2352,6 @@ function calShow(d){
   }
   var nav = '';
   if(idx>0) nav += navBtn('← 前一天 '+CAL_DAYS[idx-1][1].split(' ')[0], 'calShow(\''+CAL_DAYS[idx-1][0]+'\')');
-  nav += navBtn('✕ 关闭', 'calClose()');
   if(idx<CAL_DAYS.length-1) nav += navBtn(CAL_DAYS[idx+1][1].split(' ')[0]+' 后一天 →', 'calShow(\''+CAL_DAYS[idx+1][0]+'\')');
   document.getElementById('cal-overlay-nav').innerHTML = nav;
   document.getElementById('cal-overlay-nav2').innerHTML = nav;
@@ -2361,13 +2363,16 @@ function calShow(d){
   body.appendChild(clone);
   overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  // 支持左右滑动切换（触摸/鼠标拖动）
-  overlay.onmousedown = overlay.ontouchstart = function(e){ overlay._sx = e.touches ? e.touches[0].clientX : e.clientX; };
+  // 支持左右滑动切换 + 下滑关闭（触摸/鼠标拖动）
+  overlay.onmousedown = overlay.ontouchstart = function(e){ overlay._sx = e.touches ? e.touches[0].clientX : e.clientX; overlay._sy = e.touches ? e.touches[0].clientY : e.clientY; };
   overlay.onmouseup = overlay.ontouchend = function(e){
     if(overlay._sx == null) return;
     var ex = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-    var dx = ex - overlay._sx;
+    var ey = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+    var dx = ex - overlay._sx, dy = ey - overlay._sy;
     overlay._sx = null;
+    // 下滑关闭（竖直位移 > 水平且 > 60px）
+    if(Math.abs(dy) > Math.abs(dx) && dy > 60){ calClose(); return; }
     if(Math.abs(dx) < 40) return; // 阈值
     var cur = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
     if(dx > 0 && cur>0) calShow(CAL_DAYS[cur-1][0]);      // 右滑 = 前一天
@@ -2407,9 +2412,21 @@ function catOpen(card){
     overlay.id = 'cat-overlay';
     overlay.style.cssText = 'position:fixed;inset:0;z-index:200;background:rgba(30,25,18,.55);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 14px;';
     overlay.innerHTML = '<div style="background:#fffdf9;max-width:860px;width:100%;border-radius:16px;padding:18px 20px;position:relative;">'
-      + '<button onclick="catClose()" style="position:sticky;top:0;float:right;background:#d64545;color:#fff;border:none;border-radius:999px;padding:8px 14px;font-weight:800;cursor:pointer;z-index:5;">✕ 关闭</button>'
+      + '<button onclick="catClose()" title="关闭" style="position:sticky;top:0;float:right;background:#d64545;color:#fff;border:none;border-radius:999px;width:40px;height:40px;font-size:18px;font-weight:800;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center;margin-left:auto;">✕</button>'
       + '<div id="cat-overlay-body"></div></div>';
     document.body.appendChild(overlay);
+    // 点击遮罩（非内容）关闭
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) catClose(); });
+    // 下滑关闭
+    overlay.onmousedown = overlay.ontouchstart = function(e){ overlay._sx = e.touches ? e.touches[0].clientX : e.clientX; overlay._sy = e.touches ? e.touches[0].clientY : e.clientY; };
+    overlay.onmouseup = overlay.ontouchend = function(e){
+      if(overlay._sx == null) return;
+      var ex = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+      var ey = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+      var dx = ex - overlay._sx, dy = ey - overlay._sy;
+      overlay._sx = null;
+      if(Math.abs(dy) > Math.abs(dx) && dy > 60) catClose();
+    };
   }
   document.getElementById('cat-overlay-body').innerHTML = '';
   var clone = sec.cloneNode(true);
