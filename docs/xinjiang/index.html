@@ -2395,17 +2395,6 @@ function buildCat(){
 function catFindSec(id){
   return document.getElementById(id) || null;
 }
-function catPreview(sec){
-  // 取板块里第一张卡片的文本前 90 字作为缩略
-  var card = sec.querySelector('.card, .mapcard, .duty, .crew');
-  var txt = '';
-  if(card){ txt = (card.innerText || card.textContent || '').replace(/\s+/g,' ').trim(); }
-  if(!txt){
-    var tbl = sec.querySelector('table');
-    if(tbl){ txt = (tbl.innerText || tbl.textContent || '').replace(/\s+/g,' ').trim(); }
-  }
-  return escH(txt.slice(0, 90) + (txt.length>90 ? '…' : ''));
-}
 function catOpen(card){
   var v = card.getAttribute('data-v');
   var label = card.getAttribute('data-label');
