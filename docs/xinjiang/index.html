@@ -220,12 +220,12 @@
   .cal-day{background:#fffdf9; border:1px solid var(--line); border-radius:12px; padding:12px 14px; cursor:pointer;}
   .cal-day:hover{border-color:var(--primary);}
   .cal-day.on{border-color:var(--primary); background:#fff3e6;}
-  .cal-d{font-size:11px; font-weight:700; color:#9a8f7f;}
-  .cal-date{font-size:17px; font-weight:800; color:#3a342b;}
+  .cal-week{font-size:11px; font-weight:700; color:var(--primary);}
+  .cal-num{font-size:26px; font-weight:800; color:#3a342b; line-height:1.1; margin-top:2px;}
+  .cal-d{font-size:11px; font-weight:700; color:#9a8f7f; margin-top:2px;}
   .cal-route{font-size:12px; color:#7a6f5f; margin-top:4px; line-height:1.45;}
   .cal-stay{font-size:11px; color:#c87d62; margin-top:3px;}
-  .cal-detail{background:#fffdf9; border:1px solid var(--line); border-radius:14px; margin-top:14px; padding:0 16px;}
-  /* 分类视图 */
+  /* 日历视图 */
   .cat-wrap{max-width:1080px; margin:18px auto 0; padding:0 20px;}
   .cat-item{border:1px solid var(--line); border-radius:12px; margin-bottom:10px; background:#fffdf9;}
   .cat-hd{display:flex; justify-content:space-between; align-items:center; padding:14px 16px; cursor:pointer; font-weight:800; font-size:15px;}
@@ -274,9 +274,8 @@
 
 <div class="wrap">
 
-  <!-- 日历视图容器（点击每天看全部信息 + 酒店） -->
+  <!-- 日历视图容器（点击每天弹窗看全部信息） -->
   <div id="cal-box" class="cal-wrap" style="display:none"></div>
-  <div id="cal-detail" class="cal-detail" style="display:none"></div>
   <!-- 分类视图容器 -->
   <div id="cat-box" class="cat-wrap" style="display:none"></div>
 
@@ -2312,9 +2311,13 @@ function buildCal(){
   var box = document.getElementById('cal-box');
   if(!box || box.dataset.built) return;
   box.innerHTML = CAL_DAYS.map(function(d,i){
+    var parts = d[1].split(' '); // '9.24 周四'
     return '<div class="cal-day" data-d="'+d[0]+'" onclick="calPick(this)">'
-      + '<div class="cal-d">'+d[0]+'</div><div class="cal-date">'+d[1]+'</div>'
-      + '<div class="cal-route">'+d[2]+'</div><div class="cal-stay">'+d[3]+'</div></div>';
+      + '<div class="cal-week">'+parts[1]+'</div>'
+      + '<div class="cal-num">'+parts[0]+'</div>'
+      + '<div class="cal-d">'+d[0]+'</div>'
+      + '<div class="cal-route">'+d[2]+'</div>'
+      + '<div class="cal-stay">'+d[3]+'</div></div>';
   }).join('');
   box.dataset.built = '1';
 }
@@ -2329,23 +2332,41 @@ function calShow(d){
     var badge = a.querySelector('.day-badge .d');
     if(badge && badge.textContent === d) target = a;
   });
-  var detail = document.getElementById('cal-detail');
-  if(target && detail){
-    var clone = target.cloneNode(true);
-    clone.classList.add('open');
-    clone.style.display = '';
-    var nav = document.createElement('div');
-    nav.style.cssText = 'display:flex;gap:10px;justify-content:center;padding:12px 0;';
-    var idx = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
-    if(idx>0) nav.innerHTML += '<button class="day-tools" style="margin:0" onclick="calShow(\''+CAL_DAYS[idx-1][0]+'\')">← '+CAL_DAYS[idx-1][0]+' '+CAL_DAYS[idx-1][1].split(' ')[0]+'</button>';
-    nav.innerHTML += '<button class="day-tools" style="margin:0" onclick="document.getElementById(\'cal-detail\').innerHTML=\'\'">✕ 关闭</button>';
-    if(idx<CAL_DAYS.length-1) nav.innerHTML += '<button class="day-tools" style="margin:0" onclick="calShow(\''+CAL_DAYS[idx+1][0]+'\')">'+CAL_DAYS[idx+1][0]+' '+CAL_DAYS[idx+1][1].split(' ')[0]+' →</button>';
-    detail.innerHTML = '';
-    detail.appendChild(clone);
-    detail.appendChild(nav);
-    detail.style.display = '';
-    detail.scrollIntoView({behavior:'smooth', block:'start'});
+  if(!target) return;
+  var overlay = document.getElementById('cal-overlay');
+  if(!overlay){
+    overlay = document.createElement('div');
+    overlay.id = 'cal-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:200;background:rgba(30,25,18,.55);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 14px;';
+    overlay.innerHTML = '<div style="background:#fffdf9;max-width:860px;width:100%;border-radius:16px;padding:16px 18px;position:relative;">'
+      + '<div id="cal-overlay-nav" style="display:flex;gap:10px;justify-content:center;padding:6px 0 12px;flex-wrap:wrap;"></div>'
+      + '<div id="cal-overlay-body"></div>'
+      + '<div id="cal-overlay-nav2" style="display:flex;gap:10px;justify-content:center;padding:12px 0 4px;flex-wrap:wrap;"></div></div>';
+    document.body.appendChild(overlay);
   }
+  var idx = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
+  function navBtn(label, fn){
+    return '<button class="day-tools" style="margin:0" onclick="'+fn+'">'+label+'</button>';
+  }
+  var nav = '';
+  if(idx>0) nav += navBtn('← 前一天 '+CAL_DAYS[idx-1][1].split(' ')[0], 'calShow(\''+CAL_DAYS[idx-1][0]+'\')');
+  nav += navBtn('✕ 关闭', 'calClose()');
+  if(idx<CAL_DAYS.length-1) nav += navBtn(CAL_DAYS[idx+1][1].split(' ')[0]+' 后一天 →', 'calShow(\''+CAL_DAYS[idx+1][0]+'\')');
+  document.getElementById('cal-overlay-nav').innerHTML = nav;
+  document.getElementById('cal-overlay-nav2').innerHTML = nav;
+  var body = document.getElementById('cal-overlay-body');
+  body.innerHTML = '';
+  var clone = target.cloneNode(true);
+  clone.classList.add('open');
+  clone.style.display = '';
+  body.appendChild(clone);
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function calClose(){
+  var o = document.getElementById('cal-overlay');
+  if(o) o.style.display = 'none';
+  document.body.style.overflow = '';
 }
 function curVer(){ var sel = document.getElementById('ver-select'); return sel ? Number(sel.value) : 3; }
 function buildCat(){
