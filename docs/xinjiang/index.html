@@ -2308,9 +2308,13 @@ function switchView(v){
   // 分类视图里点板块时联动（只切内容可见性）
   document.querySelectorAll('section[data-v]').forEach(function(s){
     var show = (s.getAttribute('data-v') === v);
-    if(v==='category') show = show || (s.getAttribute('data-v')==='overview' && false);
     s.style.display = show ? '' : 'none';
   });
+  // 日历/分类容器显隐
+  var cal = document.getElementById('cal-box');
+  var cat = document.getElementById('cat-box');
+  if(cal) cal.style.display = (v==='calendar') ? '' : 'none';
+  if(cat) cat.style.display = (v==='category') ? '' : 'none';
   if(v==='calendar'){ buildCal(); }
   if(v==='category'){ buildCat(); }
 }
