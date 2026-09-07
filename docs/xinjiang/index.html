@@ -2322,9 +2322,10 @@ function calPick(el){
 }
 function calShow(d){
   var target = null;
+  var num = String(d).replace(/^D/i, ''); // 兼容 'D1' 或 '1'
   document.querySelectorAll('article.day.ver-v3').forEach(function(a){
     var badge = a.querySelector('.day-badge .d');
-    if(badge && badge.textContent === d) target = a;
+    if(badge && badge.textContent.trim() === num) target = a;
   });
   if(!target) return;
   var overlay = document.getElementById('cal-overlay');
