@@ -236,7 +236,7 @@
   .cat-item.open .cat-body{display:block;}
   .cat-arrow{transition:transform .2s; color:#b3a88e;}
   .cat-item.open .cat-arrow{transform:rotate(180deg); color:var(--primary);}
-  .cat-card{background:#fffdf9; border:1px solid var(--line); border-radius:14px; padding:18px 16px; cursor:pointer; transition:transform .15s, box-shadow .15s;}
+  .cat-card{background:#fffdf9; border:1px solid var(--line); border-radius:12px; padding:10px 8px; cursor:pointer; transition:transform .15s, box-shadow .15s; text-align:center; aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; overflow:hidden;}
   .cat-card:hover{transform:translateY(-3px); box-shadow:0 8px 18px rgba(232,86,47,.12); border-color:var(--primary);}
   /* 底部视图导航（浏览器/微信多分辨率适配） */
   body{padding-bottom:64px;}
@@ -2384,12 +2384,11 @@ function curVer(){ var sel = document.getElementById('ver-select'); return sel ?
 function buildCat(){
   var box = document.getElementById('cat-box');
   if(!box || box.dataset.built) return;
-  box.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;">'
+  box.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;">'
     + CAT_ITEMS.map(function(c){
       return '<div class="cat-card" onclick="catOpen(this)" data-v="'+c[2]+'" data-sid="'+c[4]+'" data-label="'+escH(c[0])+'">'
-        + '<div style="font-size:26px">'+c[1]+'</div>'
-        + '<div style="font-weight:800;font-size:12.5px;margin-top:6px;line-height:1.3">'+escH(c[0])+'</div>'
-        + '<div style="font-size:10px;color:var(--primary);font-weight:700;margin-top:4px">查看 →</div></div>';
+        + '<div style="font-size:23px">'+c[1]+'</div>'
+        + '<div style="font-weight:800;font-size:10.5px;margin-top:2px;line-height:1.25;max-width:100%;">'+escH(c[0])+'</div></div>';
     }).join('') + '</div>';
   box.dataset.built = '1';
 }
