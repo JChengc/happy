@@ -218,15 +218,20 @@
   .view-tab.on{background:var(--primary); color:#fff; border-color:var(--primary);}
   /* 日历视图 */
   .cal-wrap{max-width:1080px; margin:18px auto 0; padding:0 20px;}
-  .cal-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px;}
-  .cal-day{background:#fffdf9; border:1px solid var(--line); border-radius:12px; padding:12px 14px; cursor:pointer;}
-  .cal-day:hover{border-color:var(--primary);}
+  .cal-day{background:#fffdf9; border:1px solid var(--line); border-radius:10px; padding:8px 9px; cursor:pointer; min-height:88px; display:flex; flex-direction:column; transition:transform .15s, box-shadow .15s;}
+  .cal-day:hover{border-color:var(--primary); box-shadow:0 6px 16px rgba(232,86,47,.10); transform:translateY(-2px);}
   .cal-day.on{border-color:var(--primary); background:#fff3e6;}
-  .cal-week{font-size:11px; font-weight:700; color:var(--primary);}
-  .cal-num{font-size:26px; font-weight:800; color:#3a342b; line-height:1.1; margin-top:2px;}
-  .cal-d{font-size:11px; font-weight:700; color:#9a8f7f; margin-top:2px;}
+  .cal-day.trip{background:#fffdf9;}
+  .cal-week{font-size:11px; font-weight:700; color:var(--primary); margin-top:1px;}
+  .cal-num{font-size:24px; font-weight:800; color:#3a342b; line-height:1.05;}
+  .cal-num.gray{font-size:17px; color:#cfc7b8; font-weight:700;}
+  .cal-d{font-size:11px; font-weight:800; color:#c87d62;}
+  .cal-chip{display:inline-block; background:#fff1ec; color:#c2542f; font-size:10.5px; font-weight:700; padding:3px 7px; border-radius:999px; line-height:1.15;}
+  .cal-empty{background:#fbf8f3; border:1px dashed #e6ded0; border-radius:10px; padding:8px 9px; min-height:88px; cursor:default;}
+  .cal-empty.dim{opacity:.45;}
   .cal-route{font-size:12px; color:#7a6f5f; margin-top:4px; line-height:1.45;}
   .cal-stay{font-size:11px; color:#c87d62; margin-top:3px;}
+  @media(max-width:520px){ .cal-day,.cal-empty{min-height:52px; padding:5px 6px;} .cal-num{font-size:18px;} .cal-num.gray{font-size:13px;} .cal-chip{font-size:9.5px; padding:2px 5px;} }
   /* 日历视图 */
   .cat-wrap{max-width:1080px; margin:18px auto 0; padding:0 20px;}
   .cat-item{border:1px solid var(--line); border-radius:12px; margin-bottom:10px; background:#fffdf9;}
@@ -2249,6 +2254,12 @@ function switchView(v){
   var cat = document.getElementById('cat-box');
   if(cal) cal.style.display = (v==='calendar') ? '' : 'none';
   if(cat) cat.style.display = (v==='category') ? '' : 'none';
+  // 日历视图以「月历」为主，隐藏长列表 section（#days/#hotels 保留供弹窗克隆）
+  if(v==='calendar'){
+    var ds = document.getElementById('days'), hs = document.getElementById('hotels');
+    if(ds) ds.style.display = 'none';
+    if(hs) hs.style.display = 'none';
+  }
   if(v==='calendar'){ buildCal(); }
   if(v==='category'){ buildCat(); }
 }
@@ -2256,15 +2267,52 @@ function escH(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g
 function buildCal(){
   var box = document.getElementById('cal-box');
   if(!box || box.dataset.built) return;
-  box.innerHTML = CAL_DAYS.map(function(d,i){
-    var parts = d[1].split(' '); // '9.24 周四'
-    return '<div class="cal-day" data-d="'+d[0]+'" onclick="calPick(this)">'
-      + '<div class="cal-week">'+parts[1]+'</div>'
-      + '<div class="cal-num">'+parts[0]+'</div>'
-      + '<div class="cal-d">'+d[0]+'</div>'
-      + '<div class="cal-route">'+d[2]+'</div>'
-      + '<div class="cal-stay">'+d[3]+'</div></div>';
-  }).join('');
+  var YEAR = 2026; // 行程年份
+  var days = [];
+  CAL_DAYS.forEach(function(d){
+    var p = d[1].split(' ')[0].split('.');
+    days.push({
+      id:d[0], date:new Date(YEAR, Number(p[0])-1, Number(p[1])),
+      wk:d[1].split(' ')[1], route:d[2], stay:d[3],
+      place:(d[3].replace('住：','')||'').trim(), emoji:(d[2].match(/\p{Emoji}/u)||['🏨'])[0]
+    });
+  });
+  function mon(dt){ return (dt.getMonth()+1)+'-'+dt.getDate(); }
+  var map = {}; days.forEach(function(d){ map[mon(d.date)] = d; });
+  // 首日所在周的周一（周一=0）
+  var start = new Date(days[0].date);
+  start.setDate(start.getDate() - ((start.getDay()+6)%7));
+  // 末日所在周的周日
+  var end = new Date(days[days.length-1].date);
+  end.setDate(end.getDate() + (6-(end.getDay()+6)%7));
+  var WD = ['周一','周二','周三','周四','周五','周六','周日'];
+  var out = '<div style="display:flex;justify-content:space-between;align-items:baseline;margin:0 0 10px">'
+    + '<div style="font-weight:800;color:#3a342b;font-size:17px">📅 每日行程月历</div>'
+    + '<div style="font-size:11px;color:#9a8f7f">点击任意一天看完整详情</div></div>';
+  // 月份标签（跨月时显示首月/末月）
+  var m1 = start.getMonth()+1, m2 = end.getMonth()+1;
+  out += '<div style="font-size:12px;font-weight:800;color:var(--primary);margin:0 0 6px">'
+    + (m1===m2 ? (YEAR+' 年 '+m1+' 月') : (m1+' 月 ↗ '+m2+' 月')) + '</div>';
+  out += '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;">';
+  WD.forEach(function(w){ out += '<div style="font-size:11px;font-weight:800;color:#c9bfae;padding:2px 0;text-align:center">'+w+'</div>'; });
+  for(var t=new Date(start); t<=end; t.setDate(t.getDate()+1)){
+    var dd = map[mon(t)];
+    var isTrip = !!dd;
+    var near = t>=days[0].date && t<=days[days.length-1].date; // 行程区间内(含首尾)
+    if(isTrip){
+      out += '<div class="cal-day trip" data-d="'+dd.id+'" onclick="calPick(this)">'
+        + '<div style="display:flex;justify-content:space-between;align-items:baseline"><span class="cal-num">'+t.getDate()+'</span><span class="cal-d">'+dd.id+'</span></div>'
+        + '<div class="cal-week">'+dd.wk+'</div>'
+        + '<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;">'
+        + '<span class="cal-chip">'+dd.emoji+' '+dd.place+'</span>'
+        + '</div></div>';
+    } else {
+      out += '<div class="cal-empty'+(near?'':' dim')+'"><span class="cal-num gray">'+t.getDate()+'</span></div>';
+    }
+    out += '';
+  }
+  out += '</div>';
+  box.innerHTML = out;
   box.dataset.built = '1';
 }
 function calPick(el){
