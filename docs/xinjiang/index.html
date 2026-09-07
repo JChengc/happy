@@ -215,6 +215,30 @@
   .day-tools{display:flex; gap:8px; margin:14px 0 -6px; flex-wrap:wrap;}
   .day-tools button{background:var(--soft); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:7px 16px; font-size:13px; font-weight:700; cursor:pointer;}
   .day-tools button:hover{background:var(--primary); color:#fff; border-color:var(--primary);}
+  /* 视图 Tab（总览/日历/分类） */
+  .view-tabs{max-width:1080px; margin:14px auto 0; padding:0 20px; display:flex; gap:8px; flex-wrap:wrap;}
+  .view-tab{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:14px; font-weight:800; padding:10px 20px; border-radius:12px; cursor:pointer;}
+  .view-tab.on{background:var(--primary); color:#fff; border-color:var(--primary);}
+  /* 日历视图 */
+  .cal-wrap{max-width:1080px; margin:18px auto 0; padding:0 20px;}
+  .cal-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px;}
+  .cal-day{background:#fffdf9; border:1px solid var(--line); border-radius:12px; padding:12px 14px; cursor:pointer;}
+  .cal-day:hover{border-color:var(--primary);}
+  .cal-day.on{border-color:var(--primary); background:#fff3e6;}
+  .cal-d{font-size:11px; font-weight:700; color:#9a8f7f;}
+  .cal-date{font-size:17px; font-weight:800; color:#3a342b;}
+  .cal-route{font-size:12px; color:#7a6f5f; margin-top:4px; line-height:1.45;}
+  .cal-stay{font-size:11px; color:#c87d62; margin-top:3px;}
+  .cal-detail{background:#fffdf9; border:1px solid var(--line); border-radius:14px; margin-top:14px; padding:0 16px;}
+  /* 分类视图 */
+  .cat-wrap{max-width:1080px; margin:18px auto 0; padding:0 20px;}
+  .cat-item{border:1px solid var(--line); border-radius:12px; margin-bottom:10px; background:#fffdf9;}
+  .cat-hd{display:flex; justify-content:space-between; align-items:center; padding:14px 16px; cursor:pointer; font-weight:800; font-size:15px;}
+  .cat-hd small{color:#9a8f7f; font-weight:500; margin-left:8px;}
+  .cat-body{display:none; padding:0 16px 14px;}
+  .cat-item.open .cat-body{display:block;}
+  .cat-arrow{transition:transform .2s; color:#b3a88e;}
+  .cat-item.open .cat-arrow{transform:rotate(180deg); color:var(--primary);}
 </style>
 </head>
 <body>
@@ -253,10 +277,22 @@
   <button class="ver-btn on" data-ver="3" onclick="switchVer(3)">V3 · 先阿勒泰 · 后看独库<span class="ver-rec">本版采用</span></button>
 </div>
 
+<div class="view-tabs">
+  <button class="view-tab on" data-v="overview" onclick="switchView('overview')">📋 总览</button>
+  <button class="view-tab" data-v="calendar" onclick="switchView('calendar')">📅 日历</button>
+  <button class="view-tab" data-v="category" onclick="switchView('category')">🗂️ 分类</button>
+</div>
+
 <div class="wrap">
 
+  <!-- 日历视图容器（点击每天看全部信息 + 酒店） -->
+  <div id="cal-box" class="cal-wrap" style="display:none"></div>
+  <div id="cal-detail" class="cal-detail" style="display:none"></div>
+  <!-- 分类视图容器 -->
+  <div id="cat-box" class="cat-wrap" style="display:none"></div>
+
   <!-- 同行小伙伴 -->
-  <section>
+  <section data-v="overview">
     <div class="sec-title"><span class="ic">👥</span><h2>同行小伙伴</h2><small>4 人 · 1 车自驾 · 分工见文末</small></div>
     <div class="crew">
       <div class="crew-item"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="./assets/images/jojo.png" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><b>JOJO<span class="nick">点子姐</span></b><i>总协调 · 行程把控</i></div>
@@ -267,7 +303,7 @@
   </section>
 
   <!-- 路线大图 -->
-  <section id="route">
+  <section id="route" data-v="overview">
     <div class="sec-title"><span class="ic">🗺️</span><h2>一图看懂路线</h2><small>反走环线，避开国庆头两天去程车流</small></div>
     <div class="mapcard">
       <svg class="map-v1" style="display:none" viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V1 伊犁深挖版路线图">
@@ -536,7 +572,7 @@
   </section>
 
   <!-- 行程总览 -->
-  <section id="overview">
+  <section id="overview" data-v="overview">
     <div class="sec-title"><span class="ic">📅</span><h2>13 天行程总览</h2><small>精确到天 · D1–D13</small></div>
     <table class="ovtable ver-v1">
       <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>🚗 驾车</th><th>夜宿</th></tr>
@@ -589,7 +625,7 @@
   </section>
 
   <!-- 每日详情 -->
-  <section id="days">
+  <section id="days" data-v="calendar">
     <div class="sec-title"><span class="ic">🌄</span><h2>每日行程详情</h2><small>住哪儿 · 吃什么 · 玩什么</small></div>
     <div class="day-tools">
       <button onclick="expandAll()">⬇️ 全部展开</button>
@@ -1779,7 +1815,7 @@
     </article>
   </section>
 
-  <section id="hotels">
+  <section id="hotels" data-v="calendar">
     <div class="sec-title"><span class="ic">🏨</span><h2>酒店预定单 <span class="sub">· 按采用版 V3 先阿勒泰 · 后看独库</span></h2><small>12 晚逐晚排好 + 分档推荐 · 9 月底喀纳斯段务必尽早订</small></div>
 
     <div class="card">
@@ -1851,7 +1887,7 @@
   </section>
 
   <!-- 行前准备与预约 -->
-  <section id="prep">
+  <section id="prep" data-v="category">
     <div class="sec-title"><span class="ic">🧳</span><h2>行前准备 &amp; 提前预约清单</h2><small>4 人自驾 · 出行前 1–2 周逐项打勾</small></div>
 
     <div class="card">
@@ -1918,7 +1954,7 @@
   </section>
 
   <!-- 天气参考 -->
-  <section>
+  <section data-v="category">
     <div class="sec-title"><span class="ic">🌦️</span><h2>各地 10 月天气参考</h2><small>按昼夜，羽绒 + 抓绒足够了</small></div>
     <div class="card">
       <table class="tbl">
@@ -1936,7 +1972,7 @@
   </section>
 
   <!-- 特色活动体验 -->
-  <section id="activities">
+  <section id="activities" data-v="category">
     <div class="sec-title"><span class="ic">🎪</span><h2>特色活动体验</h2><small>骑马 · 呼麦 · 篝火 · 喂老鹰 · 民族歌舞</small></div>
     <div class="card">
       <table class="tbl">
@@ -1953,7 +1989,7 @@
   </section>
 
   <!-- 行程取舍建议（大而全 → 可删减） -->
-  <section>
+  <section data-v="category">
     <div class="sec-title"><span class="ic">✂️</span><h2>行程取舍建议</h2><small>先给「大而全」版，这里是按时间/体力可砍的空间</small></div>
     <div class="card">
       <table class="tbl">
@@ -1977,7 +2013,7 @@
   </section>
 
   <!-- 预算 -->
-  <section id="budget">
+  <section id="budget" data-v="category">
     <div class="sec-title"><span class="ic">💰</span><h2>预算参考</h2><small>4 人 · 13 天 · 国庆档 · 人均</small></div>
     <div class="card">
       <table class="tbl">
@@ -1995,7 +2031,7 @@
   </section>
 
   <!-- 门票参考 -->
-  <section>
+  <section data-v="category">
     <div class="sec-title"><span class="ic">🎫</span><h2>门票参考价（以景区为准）</h2><small>2025 参考，旺季实际以官方挂牌 / 小程序为准</small></div>
     <div class="card">
       <table class="tbl">
@@ -2014,7 +2050,7 @@
   </section>
 
   <!-- 待确认清单 -->
-  <section id="check">
+  <section id="check" data-v="category">
     <div class="sec-title"><span class="ic">✅</span><h2>待确认清单</h2><small>点一下勾选已办妥，进度保存在本机</small></div>
     <div class="card" style="margin-top:6px;">
       <p style="font-size:13px; color:#8d8271; margin:0;">出发前逐项确认，勾完心里有底 👇</p>
@@ -2032,7 +2068,7 @@
   </section>
 
   <!-- 人员分工 -->
-  <section id="duty">
+  <section id="duty" data-v="category">
     <div class="sec-title"><span class="ic">🧭</span><h2>人员分工</h2><small>4 人各司其职，出门不慌</small></div>
     <div class="duty">
       <div class="duty-card"><span class="avatar-wrap"><span class="avatar-fb">🧭</span><img class="avatar" src="./assets/images/jojo.png" alt="JOJO" loading="lazy" onerror="this.style.display='none'"><span class="avatar-badge">🧭</span></span><div><b>JOJO<span class="nick">点子姐</span></b><div class="role">总协调 · 行程把控</div><ul>
@@ -2252,6 +2288,106 @@ function switchV3Plan(p){
 }
 // 默认采用 V3 · 先阿勒泰 · 后看独库
 switchVer(3);
+// ===== 视图切换（总览 / 日历 / 分类）=====
+var CAL_DAYS = [
+  ['D1','9.24 周四','✈️ 杭州 → 乌鲁木齐 · 落地取车','住：乌鲁木齐'],
+  ['D2','9.25 周五','🛣️ S21 沙漠公路 → 阿勒泰','住：阿勒泰'],
+  ['D3','9.26 周六','🏔️ 阿禾公路 → 禾木日落 → 贾登峪','住：贾登峪'],
+  ['D4','9.27 周日','🛣️ 铁贾公路 → 白哈巴 · 办边防证','住：白哈巴/铁热克提'],
+  ['D5','9.28 周一','🐟 白哈巴 → 接驳车 → 喀纳斯','住：喀纳斯新村/白哈巴'],
+  ['D6','9.29 周二','🌌 喀纳斯三湾 → 白哈巴（夜空）','住：白哈巴'],
+  ['D7','9.30 周三','🏜️ 白哈巴晨雾 → 乌尔禾 → 奎屯','住：奎屯'],
+  ['D8','10.1 周四','🛣️ 奎屯 → 独库北段 → 唐布拉 → 那拉提','住：那拉提镇'],
+  ['D9','10.2 周五','🏞️ 那拉提 → 特克斯八卦城','住：特克斯'],
+  ['D10','10.3 周六','🍜 特克斯 → 伊宁（六星街/喀赞其）','住：伊宁'],
+  ['D11','10.4 周日','🌉 伊宁 → 果子沟大桥 → 赛里木湖','住：赛里木湖/清水河'],
+  ['D12','10.5 周一','🛫 赛里木湖 → 乌鲁木齐','住：乌鲁木齐'],
+  ['D13','10.6 周二','🛫 市区自由活动 · 下午返杭','住：—']
+];
+var CAT_ITEMS = [
+  ['同行小伙伴','👥','overview','同行小伙伴'],
+  ['一图看懂路线','🗺️','overview','路线'],
+  ['13 天行程总览','📅','overview','总览'],
+  ['每日行程详情','🌄','calendar','每日'],
+  ['酒店预定单','🏨','calendar','酒店'],
+  ['行前准备 & 预约','🧳','category','准备'],
+  ['各地天气参考','🌦️','category','天气'],
+  ['特色活动体验','🎪','category','活动'],
+  ['行程取舍建议','✂️','category','取舍'],
+  ['预算参考','💰','category','预算'],
+  ['门票参考价','🎫','category','门票'],
+  ['待确认清单','✅','category','清单'],
+  ['人员分工','🧭','category','分工']
+];
+function curView(){ var t = document.querySelector('.view-tab.on'); return t ? t.getAttribute('data-v') : 'overview'; }
+function viewSections(v){ return document.querySelectorAll('section[data-v="' + v + '"]'); }
+function switchView(v){
+  document.querySelectorAll('.view-tab').forEach(function(t){ t.classList.toggle('on', t.getAttribute('data-v')===v); });
+  // 分类视图里点板块时联动（只切内容可见性）
+  document.querySelectorAll('section[data-v]').forEach(function(s){
+    var show = (s.getAttribute('data-v') === v);
+    if(v==='category') show = show || (s.getAttribute('data-v')==='overview' && false);
+    s.style.display = show ? '' : 'none';
+  });
+  if(v==='calendar'){ buildCal(); }
+  if(v==='category'){ buildCat(); }
+}
+function escH(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function buildCal(){
+  var box = document.getElementById('cal-box');
+  if(!box || box.dataset.built) return;
+  box.innerHTML = CAL_DAYS.map(function(d,i){
+    return '<div class="cal-day" data-d="'+d[0]+'" onclick="calPick(this)">'
+      + '<div class="cal-d">'+d[0]+'</div><div class="cal-date">'+d[1]+'</div>'
+      + '<div class="cal-route">'+d[2]+'</div><div class="cal-stay">'+d[3]+'</div></div>';
+  }).join('');
+  box.dataset.built = '1';
+}
+function calPick(el){
+  document.querySelectorAll('.cal-day').forEach(function(x){ x.classList.remove('on'); });
+  el.classList.add('on');
+  var d = el.getAttribute('data-d');
+  // 找到 V3 对应 day 卡片，克隆进详情区（保留全部信息）
+  var target = null;
+  document.querySelectorAll('article.day.ver-v3').forEach(function(a){
+    var badge = a.querySelector('.day-badge .d');
+    if(badge && badge.textContent === d) target = a;
+  });
+  var detail = document.getElementById('cal-detail');
+  if(target && detail){
+    var clone = target.cloneNode(true);
+    clone.classList.add('open');
+    clone.style.display = '';
+    detail.innerHTML = '';
+    detail.appendChild(clone);
+    detail.style.display = '';
+  }
+}
+function curVer(){ var on = document.querySelector('.ver-btn.on'); return on ? Number(on.getAttribute('data-ver')) : 3; }
+function buildCat(){
+  var box = document.getElementById('cat-box');
+  if(!box || box.dataset.built) return;
+  box.innerHTML = CAT_ITEMS.map(function(c){
+    return '<div class="cat-item"><div class="cat-hd" onclick="catOpen(this)">'+c[1]+' '+c[2]+' <small>'+c[3]+'</small><span class="cat-arrow">▾</span></div><div class="cat-body"></div></div>';
+  }).join('');
+  box.dataset.built = '1';
+}
+function catOpen(hd){
+  var item = hd.closest('.cat-item');
+  var open = item.classList.toggle('open');
+  if(open){
+    var label = hd.querySelector('small').textContent;
+    var sec = document.querySelector('section[data-v]');
+    var all = document.querySelectorAll('section[data-v]');
+    var match = null;
+    all.forEach(function(s){ var t = s.querySelector('h2'); if(t && t.textContent.indexOf(label)>-1) match = s; });
+    if(match && !item.querySelector('.cat-body').innerHTML){
+      item.querySelector('.cat-body').appendChild(match.cloneNode(true));
+    }
+  }
+}
+// 初始化视图 Tab
+switchView('overview');
 // 酒店预定信息登记（Supabase · 每天可多行备选 · 按 版本+旅行地 分开存储）
 var HOTEL_NIGHTS = [
   ['D1','9/24','乌鲁木齐'],['D2','9/25','阿勒泰'],['D3','9/26','贾登峪(替代禾木)'],['D4','9/27','白哈巴/铁热克提'],
