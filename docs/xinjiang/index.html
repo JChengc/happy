@@ -166,6 +166,7 @@
   .ver-label{font-size:13px; font-weight:800; color:#9a8f7f;}
   .ver-btn{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:13.5px; font-weight:700; padding:9px 16px; border-radius:999px; cursor:pointer;}
   .ver-btn.on{background:var(--primary); color:#fff; border-color:var(--primary);}
+  .ver-select{background:#fff; border:1.5px solid var(--primary); color:var(--primary); font-size:14px; font-weight:800; padding:9px 14px; border-radius:10px; cursor:pointer; max-width:100%;}
   .hb-day{border:1px solid var(--line); border-radius:10px; margin-bottom:10px; padding:10px 12px; background:#fffdf9;}
   .hb-day-hd{font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap;}
   .hb-day-hd small{color:#9a8f7f; font-weight:500;}
@@ -194,17 +195,6 @@
   .v3plan-btn.on{background:#E8A04B; color:#fff; border-color:#E8A04B;}
   .sec-title .sub{font-size:12px; font-weight:600; opacity:.7; white-space:nowrap;}
   html{scroll-behavior:smooth; scroll-padding-top:64px;}
-  /* 顶部导航 */
-  .topnav{position:sticky; top:0; z-index:80; display:flex; gap:6px; overflow-x:auto; background:rgba(255,252,246,.96); backdrop-filter:blur(6px); padding:10px 14px; border-bottom:1px solid var(--line); scrollbar-width:none;}
-  .topnav::-webkit-scrollbar{display:none;}
-  .topnav a{flex:0 0 auto; background:var(--soft); color:#6b6152; text-decoration:none; font-size:13px; font-weight:700; padding:7px 14px; border-radius:999px; white-space:nowrap;}
-  .topnav a:hover{background:var(--primary); color:#fff;}
-  @media(min-width:1300px){
-    .topnav{position:fixed; left:calc(50% - 615px); top:50%; transform:translateY(-50%); flex-direction:column; gap:0; overflow:visible; background:transparent; padding:0; border:none; backdrop-filter:none;}
-    .topnav a{display:block; background:transparent; color:#a89d8a; padding:7px 14px; border-left:2px solid #e7ddc9; border-radius:0; font-size:13px; font-weight:700;}
-    .topnav a:hover{background:transparent; color:var(--primary); border-left-color:var(--primary);}
-    .topnav a.on{color:var(--primary); border-left-color:var(--primary); font-weight:800;}
-  }
   /* 每日折叠（日历缩略） */
   .day-body{display:none;}
   .day.open .day-body{display:block;}
@@ -239,22 +229,13 @@
   .cat-item.open .cat-body{display:block;}
   .cat-arrow{transition:transform .2s; color:#b3a88e;}
   .cat-item.open .cat-arrow{transform:rotate(180deg); color:var(--primary);}
+  .cat-card{background:#fffdf9; border:1px solid var(--line); border-radius:14px; padding:18px 16px; cursor:pointer; transition:transform .15s, box-shadow .15s;}
+  .cat-card:hover{transform:translateY(-3px); box-shadow:0 8px 18px rgba(232,86,47,.12); border-color:var(--primary);}
 </style>
 </head>
 <body>
 
 <a class="back" href="../">← 返回攻略集</a>
-<nav class="topnav">
-  <a href="#route">🗺️ 路线</a>
-  <a href="#overview">📅 总览</a>
-  <a href="#days">🌄 每日</a>
-  <a href="#hotels">🏨 酒店</a>
-  <a href="#activities">🎪 活动</a>
-  <a href="#prep">🧳 准备</a>
-  <a href="#budget">💰 预算</a>
-  <a href="#check">✅ 清单</a>
-  <a href="#duty">🧭 分工</a>
-</nav>
 <div class="hero">
   <div class="kicker">跟着阿薪去旅行 · 逆时针反穿版 · 独库精华段先行</div>
   <h1>反走北疆 + 伊犁大环线<br>13 天 12 晚 · 深秋自驾</h1>
@@ -272,9 +253,11 @@
 
 <div class="ver-switch">
   <span class="ver-label">📋 行程版本</span>
-  <button class="ver-btn" data-ver="1" onclick="switchVer(1)">V1 · 伊犁深挖版</button>
-  <button class="ver-btn" data-ver="2" onclick="switchVer(2)">V2 · 北疆喀纳斯版</button>
-  <button class="ver-btn on" data-ver="3" onclick="switchVer(3)">V3 · 先阿勒泰 · 后看独库<span class="ver-rec">本版采用</span></button>
+  <select id="ver-select" class="ver-select" onchange="switchVer(Number(this.value))">
+    <option value="1">V1 · 伊犁深挖版</option>
+    <option value="2">V2 · 北疆喀纳斯版</option>
+    <option value="3" selected>V3 · 先阿勒泰 · 后看独库（本版采用）</option>
+  </select>
 </div>
 
 <div class="view-tabs">
@@ -2239,20 +2222,6 @@ function deleteFeedback(id){
 })();
 function expandAll(){ document.querySelectorAll('#days .day').forEach(function(d){ d.classList.add('open'); }); }
 function collapseAll(){ document.querySelectorAll('#days .day').forEach(function(d){ d.classList.remove('open'); }); }
-// 左侧大纲滚动高亮（scrollspy）
-(function(){
-  var links = Array.prototype.slice.call(document.querySelectorAll('.topnav a'));
-  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
-  function spy(){
-    var y = window.scrollY + 140;
-    var cur = null;
-    for(var i=0;i<secs.length;i++){ if(secs[i] && secs[i].offsetTop <= y) cur = links[i]; }
-    links.forEach(function(a){ a.classList.remove('on'); });
-    if(cur) cur.classList.add('on');
-  }
-  window.addEventListener('scroll', spy, { passive: true });
-  spy();
-})();
 // Plan A/B 方案切换
 function switchPlan(t){
   document.getElementById('plan-A').style.display = (t==='A') ? '' : 'none';
@@ -2305,19 +2274,19 @@ var CAL_DAYS = [
   ['D13','10.6 周二','🛫 市区自由活动 · 下午返杭','住：—']
 ];
 var CAT_ITEMS = [
-  ['同行小伙伴','👥','overview','同行小伙伴'],
-  ['一图看懂路线','🗺️','overview','路线'],
-  ['13 天行程总览','📅','overview','总览'],
-  ['每日行程详情','🌄','calendar','每日'],
-  ['酒店预定单','🏨','calendar','酒店'],
-  ['行前准备 & 预约','🧳','category','准备'],
-  ['各地天气参考','🌦️','category','天气'],
-  ['特色活动体验','🎪','category','活动'],
-  ['行程取舍建议','✂️','category','取舍'],
-  ['预算参考','💰','category','预算'],
-  ['门票参考价','🎫','category','门票'],
-  ['待确认清单','✅','category','清单'],
-  ['人员分工','🧭','category','分工']
+  ['酒店预定单','🏨','calendar','酒店 · 每天多间/可增删'],
+  ['每日行程详情','🌄','calendar','每日 · 时间表/穿搭/住宿'],
+  ['待确认清单','✅','category','清单 · 勾选存本机'],
+  ['行前准备 & 预约','🧳','category','准备 · 门票/证件/装备'],
+  ['13 天行程总览','📅','overview','总览 · 驾车/夜宿'],
+  ['一图看懂路线','🗺️','overview','路线图 · V3 三档'],
+  ['预算参考','💰','category','预算 · 人均参考'],
+  ['门票参考价','🎫','category','门票 · 2025 参考'],
+  ['特色活动体验','🎪','category','活动 · 骑马/呼麦等'],
+  ['各地天气参考','🌦️','category','天气 · 10 月温度'],
+  ['人员分工','🧭','category','分工 · 4 人各司其职'],
+  ['同行小伙伴','👥','overview','小伙伴 · 头像'],
+  ['行程取舍建议','✂️','category','取舍 · 可砍空间']
 ];
 function curView(){ var t = document.querySelector('.view-tab.on'); return t ? t.getAttribute('data-v') : 'overview'; }
 function viewSections(v){ return document.querySelectorAll('section[data-v="' + v + '"]'); }
@@ -2346,8 +2315,9 @@ function buildCal(){
 function calPick(el){
   document.querySelectorAll('.cal-day').forEach(function(x){ x.classList.remove('on'); });
   el.classList.add('on');
-  var d = el.getAttribute('data-d');
-  // 找到 V3 对应 day 卡片，克隆进详情区（保留全部信息）
+  calShow(el.getAttribute('data-d'));
+}
+function calShow(d){
   var target = null;
   document.querySelectorAll('article.day.ver-v3').forEach(function(a){
     var badge = a.querySelector('.day-badge .d');
@@ -2358,33 +2328,40 @@ function calPick(el){
     var clone = target.cloneNode(true);
     clone.classList.add('open');
     clone.style.display = '';
+    var nav = document.createElement('div');
+    nav.style.cssText = 'display:flex;gap:10px;justify-content:center;padding:12px 0;';
+    var idx = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
+    if(idx>0) nav.innerHTML += '<button class="day-tools" style="margin:0" onclick="calShow(\''+CAL_DAYS[idx-1][0]+'\')">← '+CAL_DAYS[idx-1][0]+' '+CAL_DAYS[idx-1][1].split(' ')[0]+'</button>';
+    nav.innerHTML += '<button class="day-tools" style="margin:0" onclick="document.getElementById(\'cal-detail\').innerHTML=\'\'">✕ 关闭</button>';
+    if(idx<CAL_DAYS.length-1) nav.innerHTML += '<button class="day-tools" style="margin:0" onclick="calShow(\''+CAL_DAYS[idx+1][0]+'\')">'+CAL_DAYS[idx+1][0]+' '+CAL_DAYS[idx+1][1].split(' ')[0]+' →</button>';
     detail.innerHTML = '';
     detail.appendChild(clone);
+    detail.appendChild(nav);
     detail.style.display = '';
+    detail.scrollIntoView({behavior:'smooth', block:'start'});
   }
 }
-function curVer(){ var on = document.querySelector('.ver-btn.on'); return on ? Number(on.getAttribute('data-ver')) : 3; }
+function curVer(){ var sel = document.getElementById('ver-select'); return sel ? Number(sel.value) : 3; }
 function buildCat(){
   var box = document.getElementById('cat-box');
   if(!box || box.dataset.built) return;
-  box.innerHTML = CAT_ITEMS.map(function(c){
-    return '<div class="cat-item"><div class="cat-hd" onclick="catOpen(this)">'+c[1]+' '+c[2]+' <small>'+c[3]+'</small><span class="cat-arrow">▾</span></div><div class="cat-body"></div></div>';
-  }).join('');
+  box.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">'
+    + CAT_ITEMS.map(function(c){
+      return '<div class="cat-card" onclick="catOpen(this)" data-v="'+c[2]+'" data-label="'+escH(c[3])+'">'
+        + '<div style="font-size:26px">'+c[1]+'</div><div style="font-weight:800;font-size:14px;margin-top:6px">'+c[3]+'</div>'
+        + '<div style="font-size:11px;color:#9a8f7f;margin-top:2px">点击查看</div></div>';
+    }).join('') + '</div>';
   box.dataset.built = '1';
 }
-function catOpen(hd){
-  var item = hd.closest('.cat-item');
-  var open = item.classList.toggle('open');
-  if(open){
-    var label = hd.querySelector('small').textContent;
-    var sec = document.querySelector('section[data-v]');
-    var all = document.querySelectorAll('section[data-v]');
-    var match = null;
-    all.forEach(function(s){ var t = s.querySelector('h2'); if(t && t.textContent.indexOf(label)>-1) match = s; });
-    if(match && !item.querySelector('.cat-body').innerHTML){
-      item.querySelector('.cat-body').appendChild(match.cloneNode(true));
-    }
-  }
+function catOpen(card){
+  // 切到对应视图 + 滚到目标板块，模拟「放大」
+  var v = card.getAttribute('data-v');
+  var label = card.getAttribute('data-label');
+  switchView(v);
+  var all = document.querySelectorAll('section[data-v]');
+  var match = null;
+  all.forEach(function(s){ var t = s.querySelector('h2'); if(t && t.textContent.indexOf(label)>-1) match = s; });
+  if(match){ match.scrollIntoView({behavior:'smooth', block:'start'}); match.style.outline = '3px solid var(--primary)'; setTimeout(function(){ match.style.outline = ''; }, 2200); }
 }
 // 初始化视图 Tab
 switchView('overview');
@@ -2395,8 +2372,8 @@ var HOTEL_NIGHTS = [
   ['D9','10/2','特克斯'],['D10','10/3','伊宁'],['D11','10/4','赛里木湖/清水河'],['D12','10/5','乌鲁木齐']
 ];
 function hbCurVer(){
-  var on = document.querySelector('.ver-btn.on');
-  return on ? ('v' + on.getAttribute('data-ver')) : 'v3';
+  var sel = document.getElementById('ver-select');
+  return sel ? ('v' + sel.value) : 'v3';
 }
 function hbEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function hbHB(){ return { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' }; }
