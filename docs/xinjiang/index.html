@@ -212,6 +212,8 @@
   .day-tools{display:flex; gap:8px; margin:14px 0 -6px; flex-wrap:wrap;}
   .day-tools button{background:var(--soft); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:7px 16px; font-size:13px; font-weight:700; cursor:pointer;}
   .day-tools button:hover{background:var(--primary); color:#fff; border-color:var(--primary);}
+  .cal-nav-btn{background:var(--soft); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:7px 16px; font-size:13px; font-weight:700; cursor:pointer;}
+  .cal-nav-btn:hover{background:var(--primary); color:#fff; border-color:var(--primary);}
   /* 视图 Tab（总览/日历/分类） */
   /* 底部视图导航 Tab（覆盖 .view-tab 基础样式） */
   .view-tab{background:#fff; border:1.5px solid var(--line); color:#6b6152; font-size:14px; font-weight:800; padding:10px 20px; border-radius:12px; cursor:pointer;}
@@ -2340,7 +2342,7 @@ function calShow(d){
   }
   var idx = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
   function navBtn(label, fn){
-    return '<button class="day-tools" style="margin:0" onclick="'+fn+'">'+label+'</button>';
+    return '<button class="cal-nav-btn" style="margin:0" onclick="'+fn+'">'+label+'</button>';
   }
   var nav = '';
   if(idx>0) nav += navBtn('← 前一天 '+CAL_DAYS[idx-1][1].split(' ')[0], 'calShow(\''+CAL_DAYS[idx-1][0]+'\')');
@@ -2356,6 +2358,18 @@ function calShow(d){
   body.appendChild(clone);
   overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  // 支持左右滑动切换（触摸/鼠标拖动）
+  overlay.onmousedown = overlay.ontouchstart = function(e){ overlay._sx = e.touches ? e.touches[0].clientX : e.clientX; };
+  overlay.onmouseup = overlay.ontouchend = function(e){
+    if(overlay._sx == null) return;
+    var ex = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    var dx = ex - overlay._sx;
+    overlay._sx = null;
+    if(Math.abs(dx) < 40) return; // 阈值
+    var cur = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
+    if(dx > 0 && cur>0) calShow(CAL_DAYS[cur-1][0]);      // 右滑 = 前一天
+    if(dx < 0 && cur<CAL_DAYS.length-1) calShow(CAL_DAYS[cur+1][0]); // 左滑 = 后一天
+  };
 }
 function calClose(){
   var o = document.getElementById('cal-overlay');
