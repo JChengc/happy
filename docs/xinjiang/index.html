@@ -2351,23 +2351,68 @@ function curVer(){ var sel = document.getElementById('ver-select'); return sel ?
 function buildCat(){
   var box = document.getElementById('cat-box');
   if(!box || box.dataset.built) return;
-  box.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">'
+  box.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;">'
     + CAT_ITEMS.map(function(c){
+      var sec = catFindSec(c[3]);
+      var small = sec ? (sec.querySelector('.sec-title small') ? sec.querySelector('.sec-title small').textContent : '') : '';
+      var preview = sec ? catPreview(sec) : '';
       return '<div class="cat-card" onclick="catOpen(this)" data-v="'+c[2]+'" data-label="'+escH(c[3])+'">'
-        + '<div style="font-size:26px">'+c[1]+'</div><div style="font-weight:800;font-size:14px;margin-top:6px">'+c[3]+'</div>'
-        + '<div style="font-size:11px;color:#9a8f7f;margin-top:2px">点击查看</div></div>';
+        + '<div style="font-size:24px">'+c[1]+'</div>'
+        + '<div style="font-weight:800;font-size:15px;margin-top:6px">'+escH(c[3])+'</div>'
+        + (small ? '<div style="font-size:11.5px;color:#9a8f7f;margin-top:2px">'+escH(small)+'</div>' : '')
+        + (preview ? '<div style="font-size:12px;color:#7a6f5f;margin-top:8px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">'+preview+'</div>' : '')
+        + '<div style="font-size:11px;color:var(--primary);font-weight:700;margin-top:8px">点开看详情 →</div></div>';
     }).join('') + '</div>';
   box.dataset.built = '1';
 }
+function catFindSec(label){
+  var all = document.querySelectorAll('section[data-v]');
+  for(var i=0;i<all.length;i++){
+    var t = all[i].querySelector('h2');
+    if(t && t.textContent.indexOf(label)>-1) return all[i];
+  }
+  return null;
+}
+function catPreview(sec){
+  // 取板块里第一张卡片的文本前 90 字作为缩略
+  var card = sec.querySelector('.card, .mapcard, .duty, .crew');
+  var txt = '';
+  if(card){ txt = (card.innerText || card.textContent || '').replace(/\s+/g,' ').trim(); }
+  if(!txt){
+    var tbl = sec.querySelector('table');
+    if(tbl){ txt = (tbl.innerText || tbl.textContent || '').replace(/\s+/g,' ').trim(); }
+  }
+  return escH(txt.slice(0, 90) + (txt.length>90 ? '…' : ''));
+}
 function catOpen(card){
-  // 切到对应视图 + 滚到目标板块，模拟「放大」
   var v = card.getAttribute('data-v');
   var label = card.getAttribute('data-label');
-  switchView(v);
-  var all = document.querySelectorAll('section[data-v]');
-  var match = null;
-  all.forEach(function(s){ var t = s.querySelector('h2'); if(t && t.textContent.indexOf(label)>-1) match = s; });
-  if(match){ match.scrollIntoView({behavior:'smooth', block:'start'}); match.style.outline = '3px solid var(--primary)'; setTimeout(function(){ match.style.outline = ''; }, 2200); }
+  // 打开「详情弹窗」：克隆整个板块展示（保留全部功能）
+  var sec = catFindSec(label);
+  if(!sec) return;
+  var overlay = document.getElementById('cat-overlay');
+  if(!overlay){
+    overlay = document.createElement('div');
+    overlay.id = 'cat-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:200;background:rgba(30,25,18,.55);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 14px;';
+    overlay.innerHTML = '<div style="background:#fffdf9;max-width:860px;width:100%;border-radius:16px;padding:18px 20px;position:relative;">'
+      + '<button onclick="catClose()" style="position:sticky;top:0;float:right;background:var(--primary);color:#fff;border:none;border-radius:999px;padding:8px 14px;font-weight:800;cursor:pointer;z-index:5;">✕ 关闭</button>'
+      + '<div id="cat-overlay-body"></div></div>';
+    document.body.appendChild(overlay);
+  }
+  document.getElementById('cat-overlay-body').innerHTML = '';
+  var clone = sec.cloneNode(true);
+  clone.style.display = '';
+  document.getElementById('cat-overlay-body').appendChild(clone);
+  // 克隆后重新初始化板块内的交互（酒店登记/清单）
+  if(label.indexOf('酒店')>-1 && window.hbLoad) hbLoad();
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function catClose(){
+  var o = document.getElementById('cat-overlay');
+  if(o) o.style.display = 'none';
+  document.body.style.overflow = '';
 }
 // 初始化视图 Tab
 switchView('overview');
