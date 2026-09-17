@@ -2135,8 +2135,8 @@
       <h3>🎤 语音记账</h3>
       <p style="margin:4px 0 10px; color:#7a6f5f; font-size:13.5px">点输入框 → 手机键盘🎤说：<b>「今天加油 100 元」</b> 或 <b>「9月26日吃饭 85 块」</b>，自动识别日期/项目/金额。</p>
       <div class="hb-edit" style="display:flex; gap:8px; align-items:center;">
-        <input id="exp-input" type="text" placeholder="说或输入：今天加油 100 元" style="flex:1; min-width:0;" />
-        <button type="button" class="hb-save-btn" style="flex-shrink:0; white-space:nowrap;" onclick="expParse()">➤ 识别记账</button>
+        <input id="exp-input" type="text" placeholder="说或输入：今天加油 100 元" style="flex:1; min-width:0;" onkeydown="if(event.key==='Enter'){event.preventDefault();expParse();}" />
+        <button type="button" class="hb-save-btn" style="flex-shrink:0; white-space:nowrap;" onclick="expParse()" ontouchend="expParse()">➤ 识别记账</button>
       </div>
       <div id="exp-parse-result" style="margin-top:10px; display:none;">
         <div style="background:#f1f9f4; border:1px solid #cfe8d8; border-radius:10px; padding:10px 12px; font-size:13px; color:#2a5c40;">
@@ -2914,6 +2914,10 @@ function expParse(){
   box.style.display='block';
   box.style.background='#f1f9f4'; box.style.borderColor='#cfe8d8'; box.style.color='#2a5c40';
   expPending = { date: mm, item: item, amount: amount, note: note };
+  // 收起键盘 + 滚到结果区可见（手机上键盘常遮挡结果）
+  var inp = document.getElementById('exp-input');
+  if(inp && inp.blur) inp.blur();
+  if(box.scrollIntoView) box.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 var expPending = null;
 function expSave(){
