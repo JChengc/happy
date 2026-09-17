@@ -2127,6 +2127,35 @@
     </div>
   </section>
 
+  <!-- 公共支出表 -->
+  <section id="expense" data-v="category">
+    <div class="sec-title"><span class="ic">💰</span><h2>公共支出表</h2><small>语音记账 · 4 人共享 · 自动存库</small></div>
+
+    <div class="card">
+      <h3>🎤 语音记账</h3>
+      <p style="margin:4px 0 10px; color:#7a6f5f; font-size:13.5px">点输入框 → 手机键盘🎤说：<b>「今天加油 100 元」</b> 或 <b>「9月26日吃饭 85 块」</b>，自动识别日期/项目/金额。</p>
+      <div class="hb-edit" style="display:flex; gap:8px; align-items:center;">
+        <input id="exp-input" type="text" placeholder="说或输入：今天加油 100 元" style="flex:1; min-width:0;" />
+        <button type="button" class="hb-save-btn" style="flex-shrink:0; white-space:nowrap;" onclick="expParse()">➤ 识别记账</button>
+      </div>
+      <div id="exp-parse-result" style="margin-top:10px; display:none;">
+        <div style="background:#f1f9f4; border:1px solid #cfe8d8; border-radius:10px; padding:10px 12px; font-size:13px; color:#2a5c40;">
+          识别为：<b id="exp-r-date"></b> · <b id="exp-r-item"></b> · <b id="exp-r-amount"></b>元
+          <button type="button" class="hb-save-btn" style="margin-left:8px;" onclick="expSave()">✓ 确认存入</button>
+          <button type="button" class="hb-edit-btn" style="margin-left:6px;" onclick="expCancel()">改</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px;">
+        <h3 style="margin:0">📋 支出明细</h3>
+        <span style="font-size:12.5px; color:#7a6f5f">合计 <b id="exp-total" style="color:var(--primary); font-size:15px">¥0</b> · 人均 <b id="exp-per" style="color:var(--primary)">¥0</b>/4人</span>
+      </div>
+      <div id="exp-list" style="margin-top:10px"><span style="color:#9a8f7f">加载中…</span></div>
+    </div>
+  </section>
+
   <!-- 门票参考 -->
   <section id="tickets" data-v="category">
     <div class="sec-title"><span class="ic">🎫</span><h2>门票参考价（以景区为准）</h2><small>2025 参考，旺季实际以官方挂牌 / 小程序为准</small></div>
@@ -2388,6 +2417,7 @@ var CAL_DAYS = [
 ];
 var CAT_ITEMS = [
   ['酒店预定单','🏨','calendar','酒店 · 每天多间/可增删','hotels'],
+  ['公共支出表','💰','category','支出 · 语音记账/共享','expense'],
   ['待确认清单','✅','category','清单 · 勾选存本机','check'],
   ['行前准备 & 预约','🧳','category','准备 · 门票/证件/装备','prep'],
   ['一图看懂路线','🗺️','overview','路线图 · V3 三档','route'],
@@ -2801,6 +2831,160 @@ function hbLoad(targetId){
 }
 function hbLoadClone(){ hbLoad('hotelbook-body-clone'); }
 hbLoad();
+
+// ===== 公共支出表（语音记账 · Supabase 共享）=====
+var EXP_ITEMS = [
+  ['加油','⛽','油费'],['油费','⛽','油费'],['汽油','⛽','油费'],['加满','⛽','油费'],
+  ['过路费','🛣️','过路费'],['高速','🛣️','过路费'],['路费','🛣️','过路费'],['收费站','🛣️','过路费'],
+  ['吃饭','🍜','餐饮'],['午饭','🍜','餐饮'],['晚饭','🍜','餐饮'],['早餐','🍜','餐饮'],['餐','🍜','餐饮'],['干饭','🍜','餐饮'],['吃','🍜','餐饮'],
+  ['门票','🎫','门票'],['景区','🎫','门票'],['景点','🎫','门票'],['区间车','🚌','交通'],['车票','🚌','交通'],
+  ['停车','🅿️','停车'],['停车费','🅿️','停车'],
+  ['住宿','🏨','住宿'],['酒店','🏨','住宿'],['民宿','🏨','住宿'],['房费','🏨','住宿'],['住','🏨','住宿'],
+  ['打车','🚕','打车'],['滴滴','🚕','打车'],['出租','🚕','打车'],
+  ['购物','🛍️','购物'],['买','🛍️','购物'],['超市','🛍️','购物'],
+  ['修车','🔧','修车'],['洗车','🧼','洗车'],['租车','🚗','租车'],['罚款','📋','罚款'],['罚单','📋','罚款']
+];
+var EXP_CN = { '零':0,'一':1,'二':2,'两':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9 };
+function expCn2num(s){
+  // 支持「一百零五」「三百二」「一千八」等常见口语
+  if(!s) return null;
+  var units = { '十':10, '百':100, '千':1000, '万':10000 };
+  var total = 0, cur = 0, sec = 0;
+  for(var i=0;i<s.length;i++){
+    var ch = s[i];
+    if(ch in EXP_CN){ cur = EXP_CN[ch]; }
+    else if(ch in units){
+      var u = units[ch];
+      if(cur === 0) cur = 1;
+      if(ch === '万'){ total = (total + cur) * u; sec = 0; cur = 0; }
+      else { sec += cur * u; cur = 0; }
+    } else return null;
+  }
+  return total + sec + cur;
+}
+function expToday(){
+  var d = new Date(); d.setHours(0,0,0,0);
+  return d;
+}
+function expParse(){
+  var input = document.getElementById('exp-input').value.trim();
+  var box = document.getElementById('exp-parse-result');
+  if(!input){ box.style.display='none'; return; }
+  var date = expToday(), item = '其他', amount = null, note = input;
+  // 日期：今天/昨天/前天/几月几号
+  var dm = input.match(/(今天|今天上午|今天下午|今早|今晚|昨天|昨天上午|昨天下午|昨晚|前天)/);
+  if(dm){
+    if(dm[1].indexOf('今')===0){ date = expToday(); }
+    else if(dm[1].indexOf('昨')===0){ date = new Date(expToday().getTime() - 86400000); }
+    else { date = new Date(expToday().getTime() - 172800000); }
+  } else {
+    var dm2 = input.match(/(\d{1,2})\s*月\s*(\d{1,2})\s*日?/);
+    if(dm2){
+      var y = new Date().getFullYear();
+      date = new Date(y, Number(dm2[1])-1, Number(dm2[2])); date.setHours(0,0,0,0);
+      if(date.getTime() > expToday().getTime() + 86400000) date = new Date(y-1, Number(dm2[1])-1, Number(dm2[2]));
+    } else {
+      var dm3 = input.match(/(\d{1,2})\s*[\/-]\s*(\d{1,2})/);
+      if(dm3){ date = new Date(new Date().getFullYear(), Number(dm3[1])-1, Number(dm3[2])); date.setHours(0,0,0,0); }
+    }
+  }
+  // 金额：数字 + 元/块/钱
+  var am = input.match(/(\d+(?:\.\d+)?)\s*(?:元|块|钱|rmb|RMB)/) || input.match(/(\d+(?:\.\d+)?)/);
+  if(am){ amount = Math.round(Number(am[1])*100)/100; }
+  else {
+    var cm = input.match(/([一二两三四五六七八九十百千万零]+)\s*(?:元|块|块钱)/);
+    if(cm){ amount = expCn2num(cm[1]); }
+  }
+  // 费用项
+  for(var i=0;i<EXP_ITEMS.length;i++){
+    if(input.indexOf(EXP_ITEMS[i][0])>-1){ item = EXP_ITEMS[i][2]; break; }
+  }
+  if(amount == null){ 
+    document.getElementById('exp-r-date').textContent = '未识别';
+    document.getElementById('exp-r-item').textContent = '未识别';
+    document.getElementById('exp-r-amount').textContent = '未识别';
+    box.style.display='block';
+    box.style.background='#fdf3f0'; box.style.borderColor='#f0c9bd'; box.style.color='#8a3a2a';
+    return;
+  }
+  var mm = (date.getMonth()+1) + '月' + date.getDate() + '日';
+  document.getElementById('exp-r-date').textContent = mm;
+  document.getElementById('exp-r-item').textContent = item;
+  document.getElementById('exp-r-amount').textContent = amount;
+  box.style.display='block';
+  box.style.background='#f1f9f4'; box.style.borderColor='#cfe8d8'; box.style.color='#2a5c40';
+  expPending = { date: mm, item: item, amount: amount, note: note };
+}
+var expPending = null;
+function expSave(){
+  if(!expPending){ return; }
+  var p = expPending;
+  fetch(SUPA_URL + '/rest/v1/expense?select=id', { method:'POST', headers: Object.assign(hbHB(), { 'Prefer':'return=representation' }), body: JSON.stringify({ dest:'xinjiang', date: p.date, item: p.item, amount: p.amount, note: p.note, payer:'', deleted:false }) })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .then(function(arr){
+      document.getElementById('exp-input').value = '';
+      document.getElementById('exp-parse-result').style.display = 'none';
+      expPending = null;
+      expLoad();
+    });
+}
+function expCancel(){ document.getElementById('exp-parse-result').style.display='none'; expPending = null; }
+function expHB(){ return { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' }; }
+function expLoad(){
+  var box = document.getElementById('exp-list');
+  if(!box) return;
+  fetch(SUPA_URL + '/rest/v1/expense?select=*&dest=eq.xinjiang&deleted=is.false&order=date.asc', { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .catch(function(){ return []; })
+    .then(function(rows){
+      var total = 0;
+      rows.forEach(function(r){ total += Number(r.amount)||0; });
+      document.getElementById('exp-total').textContent = '¥' + total.toFixed(2).replace(/\.00$/,'');
+      document.getElementById('exp-per').textContent = '¥' + (total/4).toFixed(2).replace(/\.00$/,'');
+      if(!rows.length){ box.innerHTML = '<span style="color:#9a8f7f">还没有记录，说一句试试 🎤</span>'; return; }
+      var byDate = {};
+      rows.forEach(function(r){ (byDate[r.date] = byDate[r.date] || []).push(r); });
+      var out = '';
+      Object.keys(byDate).sort().forEach(function(d){
+        out += '<div style="font-weight:800;color:#9a8f7f;font-size:12px;margin:12px 0 6px">📅 ' + d + '</div>';
+        byDate[d].forEach(function(r){
+          out += '<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px;">'
+            + '<span style="flex:1">' + (r.item||'其他') + (r.note ? ' <span style="color:#b0a695;font-size:12px">('+escH(r.note)+')</span>' : '') + '</span>'
+            + '<b style="color:var(--primary)">¥' + (Number(r.amount)||0) + '</b>'
+            + '<button type="button" class="hb-del" style="padding:4px 8px;" onclick="expDel(' + r.id + ')">✕</button></div>';
+        });
+      });
+      box.innerHTML = out;
+    });
+}
+function expDel(id){
+  if(!window.confirm) { /* noop */ }
+  var m = document.getElementById('exp-confirm');
+  if(!m){
+    m = document.createElement('div');
+    m.id = 'exp-confirm';
+    m.style.cssText = 'position:fixed;inset:0;z-index:300;background:rgba(30,25,18,.5);display:flex;align-items:center;justify-content:center;';
+    m.innerHTML = '<div style="background:#fffdf9;border-radius:16px;padding:22px 24px;max-width:300px;width:90%;text-align:center;">'
+      + '<div style="font-weight:800;font-size:16px;margin-bottom:14px">删除这条支出？</div>'
+      + '<div style="display:flex;gap:10px;justify-content:center;">'
+      + '<button id="exp-confirm-no" style="flex:1;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;">取消</button>'
+      + '<button id="exp-confirm-yes" style="flex:1;background:#d64545;color:#fff;border:none;border-radius:999px;padding:10px 0;font-size:14px;font-weight:800;cursor:pointer;">删除</button>'
+      + '</div></div>';
+    document.body.appendChild(m);
+    m.querySelector('#exp-confirm-no').addEventListener('click', function(){ m.style.display='none'; });
+    m.querySelector('#exp-confirm-yes').addEventListener('click', function(){
+      m.style.display='none';
+      var id2 = m._id;
+      if(id2){
+        fetch(SUPA_URL + '/rest/v1/expense?id=eq.' + id2, { method:'PATCH', headers: Object.assign(expHB(), { 'Prefer':'return=minimal' }), body: JSON.stringify({ deleted:true }) })
+          .then(function(){ expLoad(); });
+      }
+    });
+  }
+  m._id = id;
+  m.style.display = 'flex';
+}
+expLoad();
 // 待确认清单（勾选状态存 localStorage）
 (function(){
   var key = 'ck_' + location.pathname.replace(/[^a-z0-9]+/gi, '_');
