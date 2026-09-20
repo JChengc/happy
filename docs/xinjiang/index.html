@@ -282,8 +282,8 @@
     <select id="ver-select" class="ver-select" onchange="switchVer(Number(this.value))">
       <option value="1">V1 · 伊犁深挖版</option>
       <option value="2">V2 · 北疆喀纳斯版</option>
-      <option value="3" selected>V3 · 先阿勒泰 · 后看独库</option>
-      <option value="4">V4 · 北疆金秋 12 天 · 含已订酒店</option>
+      <option value="3">V3 · 先阿勒泰 · 后看独库</option>
+      <option value="4" selected>V4 · 北疆金秋 12 天</option>
     </select>
   </div>
 </header>
@@ -650,7 +650,7 @@
 
   <!-- 行程总览 -->
   <section id="overview" data-v="overview">
-    <div class="sec-title"><span class="ic">📅</span><h2>行程总览</h2><small>精确到天 · <span id="ov-days">D1–D13</span>（V4 含已订酒店）</small></div>
+    <div class="sec-title"><span class="ic">📅</span><h2>行程总览</h2><small>精确到天 · <span id="ov-days">D1–D12</span></small></div>
     <div class="ov-scroll">
     <table class="ovtable ver-v1">
       <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>🚗 驾车</th><th>夜宿</th></tr>
@@ -2872,7 +2872,7 @@ function switchVer(v){
   if(ov) ov.textContent = (v === 4) ? 'D1–D12' : 'D1–D13';
   // 切换版本后重建月历（数据不同；初始化阶段 CAL_DAYS 尚未赋值时跳过）
   var cb = document.getElementById('cal-box');
-  if(cb && CAL_DAYS && CAL_DAYS.length){ delete cb.dataset.built; buildCal(); }
+  if(cb && ((v === 4 && CAL_DAYS_V4 && CAL_DAYS_V4.length) || (v !== 4 && CAL_DAYS && CAL_DAYS.length))){ delete cb.dataset.built; buildCal(); }
 }
 var v3Plan = 'main';
 function switchV3Plan(p){
@@ -2882,8 +2882,8 @@ function switchV3Plan(p){
   });
   document.querySelectorAll('.v3plan-btn').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-plan')===p); });
 }
-// 默认采用 V3 · 先阿勒泰 · 后看独库
-switchVer(3);
+// 默认采用 V4 · 北疆金秋 12 天
+switchVer(4);
 // ===== 视图切换（总览 / 日历 / 分类）=====
 var CAL_DAYS = [
   ['D1','9.24 周四','✈️ 杭州 → 乌鲁木齐 · 落地取车','住：乌鲁木齐'],
