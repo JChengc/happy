@@ -274,6 +274,7 @@
       <option value="1">V1 · 伊犁深挖版</option>
       <option value="2">V2 · 北疆喀纳斯版</option>
       <option value="3" selected>V3 · 先阿勒泰 · 后看独库</option>
+      <option value="4">V4 · 北疆金秋 12 天 · 含已订酒店</option>
     </select>
   </div>
 </header>
@@ -587,7 +588,7 @@
 
   <!-- 行程总览 -->
   <section id="overview" data-v="overview">
-    <div class="sec-title"><span class="ic">📅</span><h2>13 天行程总览</h2><small>精确到天 · D1–D13</small></div>
+    <div class="sec-title"><span class="ic">📅</span><h2>行程总览</h2><small>精确到天 · <span id="ov-days">D1–D13</span>（V4 含已订酒店）</small></div>
     <table class="ovtable ver-v1">
       <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>🚗 驾车</th><th>夜宿</th></tr>
       <tr><td class="d">D1</td><td class="wk">09-24 · 周四</td><td>落地乌鲁木齐 · 市区夜游 &amp; 大巴扎</td><td class="stay">—（落地）</td><td class="stay">乌鲁木齐</td></tr>
@@ -636,6 +637,21 @@
       <tr><td class="d">D12</td><td class="wk">10-05 · 周一</td><td>赛里木湖 → 乌鲁木齐</td><td class="stay">乌鲁木齐</td></tr>
       <tr><td class="d">D13</td><td class="wk">10-06 · 周二</td><td>市区自由活动 · 下午飞机返杭</td><td class="stay">—</td></tr>
     </table>
+    <table class="ovtable ver-v4" style="display:none">
+      <tr><th>天</th><th>日期 · 星期</th><th>当日主题</th><th>🚗 车程</th><th>夜宿（已订）</th></tr>
+      <tr><td class="d">D1</td><td class="wk">09-24 · 周四</td><td>落地乌鲁木齐 · 取车 · 市区逛吃</td><td class="stay">—（落地）</td><td class="stay">汉庭·红山门店</td></tr>
+      <tr><td class="d">D2</td><td class="wk">09-25 · 周五</td><td>乌市 → S21 → 海上魔鬼城 → 阿勒泰</td><td class="stay">约 530km / 6.5h</td><td class="stay">桔子水晶·阿勒泰</td></tr>
+      <tr><td class="d">D3</td><td class="wk">09-26 · 周六</td><td>阿勒泰 → 阿禾公路 → 贾登峪</td><td class="stay">约 220km / 4h+</td><td class="stay">金美佳（贾登峪）</td></tr>
+      <tr><td class="d">D4</td><td class="wk">09-27 · 周日</td><td>贾登峪 → 禾木（全天）→ 贾登峪</td><td class="stay">往返约 15km</td><td class="stay">鸿腾旅途酒店 · 不可取消</td></tr>
+      <tr><td class="d">D5</td><td class="wk">09-28 · 周一</td><td>贾登峪 → 铁贾公路 → 白哈巴</td><td class="stay">约 90km / 1.5–2h</td><td class="stay">白哈巴·林畔 + 青霁居（老村店）</td></tr>
+      <tr><td class="d">D6</td><td class="wk">09-29 · 周二</td><td>白哈巴 → 喀纳斯 → 白哈巴</td><td class="stay">接驳/徒步为主</td><td class="stay">新村将夜寻 + 哈巴河牧云山舍</td></tr>
+      <tr><td class="d">D7</td><td class="wk">09-30 · 周三</td><td>白哈巴 → 布尔津 · 五彩滩</td><td class="stay">约 170km / 3–3.5h</td><td class="stay">松果（布尔津）</td></tr>
+      <tr><td class="d">D8</td><td class="wk">10-01 · 周四 🎉</td><td>布尔津 → 乌尔禾魔鬼城 · 胡杨林 → 奎屯</td><td class="stay">约 530km / 6.5h</td><td class="stay">美居·奎屯（两间）</td></tr>
+      <tr><td class="d">D9</td><td class="wk">10-02 · 周五</td><td>奎屯 → 赛里木湖（15:00 进 · 点将台日落）</td><td class="stay">约 490km</td><td class="stay">天泉酒店（温泉县·两间）</td></tr>
+      <tr><td class="d">D10</td><td class="wk">10-03 · 周六</td><td>赛里木湖顺时针深度环湖 · 果子沟大桥 → 伊宁</td><td class="stay">约 330km</td><td class="stay">汉庭·喀赞其景区店</td></tr>
+      <tr><td class="d">D11</td><td class="wk">10-04 · 周日</td><td>伊宁（喀赞其）→ 特克斯</td><td class="stay">约 130km / 2.5h</td><td class="stay">全季·特克斯九宫新城</td></tr>
+      <tr><td class="d">D12</td><td class="wk">10-05 · 周一</td><td>特克斯 → 乌鲁木齐（G30 · 全程最长驾驶日）</td><td class="stay">约 820km / 9h</td><td class="stay">汉庭·友好南路店</td></tr>
+    </table>
   </section>
 
   <!-- 每日详情 -->
@@ -658,7 +674,7 @@
       <div class="day-body">
         <div class="blk"><div class="blk-label">⏱ 完整时间表</div>
           <ul class="timeline">
-            <li><b>15:00</b> 落地乌鲁木齐地窝堡机场，<b>机场租车点提车</b>（4 人 1 车，约 20 分钟车程进市区）</li>
+            <li><b>15:00</b> 落地乌鲁木齐天山机场，<b>机场租车点提车</b>（4 人 1 车，约 20 分钟车程进市区）</li>
             <li><b>16:00</b> 入住酒店，稍作休整</li>
             <li><b>18:00–20:00</b> 二道桥 <b>国际大巴扎</b> 夜景 + <b>和田二街</b> 夜市扫街（约 2–3h；烤包子、烤串、酸奶粽子、凉皮子）</li>
             <li><b>20:30</b> 若精力好，可登 <b>红山公园</b> 看乌市夜景（约 1h）</li>
@@ -1066,7 +1082,7 @@
           <ul class="timeline">
             <li><b>09:00–11:00</b> 睡到自然醒，<b>红山公园</b>晨景散心 + 大巴扎最后补货（约 2h）（馕、干果、薰衣草/手工品）；时间够可顺路看 维吾尔歌舞/麦西来甫</li>
             <li><b>11:30</b> 市区午餐</li>
-            <li><b>13:30</b> 从酒店退房出发去机场（返程为下午航班，地窝堡机场建议提前 2.5–3h 到）</li>
+            <li><b>13:30</b> 从酒店退房出发去机场（返程为下午航班，天山机场建议提前 2.5–3h 到）</li>
             <li><b>下午</b> ✈️ 乌鲁木齐 → 杭州，行程结束</li>
           </ul>
           <div class="alert">⏱️ 机场还车、安检、办托运都卡好时间；<b>回程航班按「下午」预留足够余量</b>，避免赶早。</div>
@@ -1923,6 +1939,405 @@
         </div>
       </div>
     </article>
+<!-- ===== V4 · 北疆金秋 12 天（9.24–10.5 · 含已订酒店）===== -->
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">1</span><span class="m">9.24</span></div>
+    <div class="day-hd-tt">
+      <div class="route">✈️ 落地乌鲁木齐 · 取车 · 市区逛吃（无长途）</div>
+      <div class="wk">周四 · 落地日</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>15:00</b> 落地天山机场，机场租车点提车（中型 SUV · 不计免赔 · 双驾驶员登记；验车拍照留证，确认备胎/玻璃水）</li>
+        <li><b>16:00</b> 进城入住休整（机场 → 红山：机场高速/外环路转河滩快速路，约 18km / 30 分钟）</li>
+        <li><b>18:00–21:00</b> 二道桥国际大巴扎夜景 + 和田二街夜市（精力好可登红山公园看夜景）</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">汉庭·红山门店（jjj 订 · 华住；23 号晚 11 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">烤包子</span><span class="tag">羊肉串</span><span class="tag">手抓饭</span><span class="tag">大盘鸡</span><span class="tag">酸奶粽子</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">新疆与内地作息差 2 小时，日落约 20:00 后；明早长途，今晚备好水和干粮</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">2</span><span class="m">9.25</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🛣️ 乌鲁木齐 → S21 → 海上魔鬼城 → 阿勒泰（约 530km / 6.5h）</div>
+      <div class="wk">周五 · S21 穿沙漠 + 乌伦古湖畔雅丹</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从汉庭·红山门店）</div>
+      <ul class="timeline">
+        <li>红山 → 河滩快速路向北 → 米东区上 S21 阿乌高速（市区到 S21 入口约 30–40 分钟）→ 穿古尔班通古特沙漠 → 福海方向出口 → 乌伦古湖海上魔鬼城（福海县城西北约 14km）→ 游毕经福海/北屯北上 → 阿勒泰</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>07:30</b> 出发（市区先加满油：S21 服务区间距大，部分只加油不营业）</li>
+        <li><b>12:30–13:00</b> 抵福海午餐补给；沿途卡拉麦里偶遇野马/鹅喉羚，不下车不投喂</li>
+        <li><b>13:30–15:00</b> 海上魔鬼城（雅丹+湖水同框，新疆唯一「海蚀魔鬼城」）</li>
+        <li><b>17:00</b> 抵阿勒泰入住；19:00 精力好可上将军山看日落（缆车约 ¥98）</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">桔子水晶·阿勒泰（jjj 订 · 华住；24 号晚 11 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">阿勒泰冷水鱼（清蒸细鳞鲑）</span><span class="tag">清炖羊肉</span><span class="tag">烤包子</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">9/25 冷锋过境，北疆大风降温（克拉玛依一带阵风 7–8 级），S21 沙漠段侧风大，握稳方向盘、控制车速；羽绒服放车上随手可取</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">3</span><span class="m">9.26</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🏔️ 阿勒泰 → 阿禾公路 → 贾登峪（约 220km / 4h+）</div>
+      <div class="wk">周六 · 阿禾公路景观日 · 风景天花板之一</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从桔子水晶·阿勒泰）</div>
+      <ul class="timeline">
+        <li>市区加满油（阿禾公路全程无加油站）→ 出市区西北上阿禾公路（导航「阿禾公路」，经克兰河谷/拉斯特乡）→ 克兰河峡谷观景台 → 野卡峡垭口 → 托勒海特草原 → 桦林溪流段（可抛肉喂老鹰）→ 禾木岔口不进 → 主线直抵贾登峪</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>09:00</b> 前赶到阿禾公路放行口（7 座及以下 9:30–15:00 放行；秋季可能调整，出发前一天务必电话/公众号确认时段）</li>
+        <li><b>15:00</b> 抵贾登峪入住金美佳，顺路踩点明天禾木门票站位置；傍晚森林公园外围散步</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">金美佳（贾登峪）（dd 订 · 去哪儿；25 号晚 11 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">贾登峪家常菜</span><span class="tag">哈萨克奶茶</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">今晚在「喀纳斯旅游」小程序把明天禾木门票+区间车买好（实名分时预约）；车保持满油。阿禾公路封路改走 G217 → 布尔津 → 冲乎尔 → 贾登峪（多 1.5–2h）</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">4</span><span class="m">9.27</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🌲 贾登峪 → 禾木（全天）→ 贾登峪（往返约 15km）</div>
+      <div class="wk">周日 · 禾木深度日 · 白桦林 + 哈登观景台日落</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从金美佳·贾登峪）</div>
+      <ul class="timeline">
+        <li>金美佳出发 → 禾木门票站仅几分钟车程（约 7–8km）→ 自驾车停门票站外停车场 → 换乘区间车进村（约 30km / 50 分钟–1h）；返程同路</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>07:30</b> 出发赶早班区间车（旺季排队约 1h）</li>
+        <li><b>09:30</b> 进村：白桦林、禾木河、援疆桥慢逛</li>
+        <li><b>12:00</b> 村上午餐（可带干粮）</li>
+        <li><b>14:00–16:00</b> 美丽峰骑马（约 2h）或河边栈道发呆</li>
+        <li><b>17:00</b> 登哈登观景台看禾木全景日落（木屋炊烟 + 金色白桦林）</li>
+        <li><b>19:30–20:00</b> 乘区间车返回，注意末班时间</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">鸿腾旅途酒店（贾登峪）（dd 订 · 去哪儿；不可取消，请勿变更）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">禾木村内简餐；回贾登峪吃热乎的</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">禾木看晨雾需住村里，本行程按「看日落不看日出」安排，省一晚国庆价木屋；今晚备好厚衣物，明天进白哈巴夜里更冷</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">5</span><span class="m">9.28</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🛣️ 贾登峪 → 铁贾公路 → 白哈巴（约 90km / 1.5–2h）</div>
+      <div class="wk">周一 · 进边境村 · 西北第一村黄昏</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从鸿腾旅途酒店·贾登峪）</div>
+      <ul class="timeline">
+        <li>沿 S232 往铁热克提方向西行（不进喀纳斯景区大门）→ 铁贾公路峡谷秋色段 → 铁热克提边防检查站（查验证件/自驾预约）→ 白哈巴村 → 新村停车场停车，步行/摆渡进老村入住</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>09:00</b> 出发，弯多路窄谨慎会车</li>
+        <li><b>10:30–11:00</b> 抵白哈巴，办入住（旺季自驾进村每天限 200 辆需提前预约；全员需边防证）</li>
+        <li><b>14:00–18:00</b> 村内慢逛：老村木屋群、白哈巴河、界河观景台远眺中哈边境大峡谷</li>
+        <li><b>20:30</b> 夜空（村小光污染少）</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">白哈巴·林畔（jjj 订 · 去哪儿；27 号晚 6 点前可免费取消）</span><span class="tag">青霁居民宿·老村店（jojo 订 · 去哪儿；27 号 12 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">村内家常菜</span><span class="tag">手抓肉</span><span class="tag">奶茶</span><span class="tag">奶疙瘩</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">边防证最稳做法是全员提前在「移民局 12367」App 申领电子证；铁热克提警务站凭身份证可现场补办。晚上木屋冷，问老板供暖时间</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">6</span><span class="m">9.29</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🐟 白哈巴 → 喀纳斯 → 白哈巴（接驳/区间车为主）</div>
+      <div class="wk">周二 · 喀纳斯核心日 · 观鱼台 + 三湾</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从白哈巴·林畔/青霁居·老村店）</div>
+      <ul class="timeline">
+        <li>从两间木屋出发，步行或村里摆渡至白哈巴换乘点 → 乘景区接驳车进喀纳斯换乘中心（约 1h；白哈巴↔喀纳斯无自驾通道）；返程同路接驳</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>07:30</b> 赶早班接驳车（约 1h 到喀纳斯）</li>
+        <li><b>09:00–11:00</b> 观鱼台（区间车至半山 + 1068 级台阶，约 2h）：俯瞰喀纳斯湖全景</li>
+        <li><b>11:30–13:00</b> 湖边栈道 + 换乘中心午餐</li>
+        <li><b>14:00–17:00</b> 三湾：神仙湾 → 月亮湾 → 卧龙湾（栈道徒步约 6km，走不动可乘区间车逐湾打卡）</li>
+        <li><b>17:30</b> 前务必到换乘点赶末班接驳回白哈巴；晚上白哈巴星空</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">新村将夜寻民宿（jojo 订 · 去哪儿；26 号 18 点前可免费取消）</span><span class="tag">哈巴河牧云山舍民宿（jjj 订 · 去哪儿；28 号 14 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">喀纳斯景区内简餐；返回村里吃晚餐</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">观鱼台区间车另购票，看天气再定（雾大放弃不亏）；若想看三湾晨雾，可与今天对调住宿顺序，但需与民宿沟通改期</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">7</span><span class="m">9.30</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🌅 白哈巴 → 布尔津 · 五彩滩（约 170km / 3–3.5h）</div>
+      <div class="wk">周三 · 出山缓冲日 · 五彩滩落日 + 老码头夜市</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从将夜寻·新村/牧云山舍）</div>
+      <ul class="timeline">
+        <li>早起拍完白哈巴晨雾后出发 → 村内摆渡/步行取车（新村停车场）→ 原路铁贾公路出山 → 铁热克提 → 哈巴河县城（可补给加油）→ 沿 S232/省道东南行 → 布尔津；途中顺路游五彩滩（县城西北 24km）</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>08:00–09:30</b> 白哈巴晨雾/日出（老村观景位，值得早起）</li>
+        <li><b>10:00</b> 前出村（避开检查站排队高峰）</li>
+        <li><b>13:30</b> 抵布尔津入住松果休整</li>
+        <li><b>16:30</b> 出发五彩滩（24km / 30 分钟；门票约 ¥45）：雅丹 + 额尔齐斯河落日，提前 40 分钟占位，日落约 19:00</li>
+        <li><b>20:00</b> 中俄老码头风情街 + 河堤夜市</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">松果（布尔津）（jojo 订 · 去哪儿；30 号晚 9 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">烤狗鱼（布尔津特色）</span><span class="tag">格瓦斯</span><span class="tag">烤羊蹄</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">布尔津是出山后最好的补给点——加油、买水果干果；明早起 530km 长途，早点休息</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">8</span><span class="m">10.1</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🏜️ 布尔津 → 乌尔禾魔鬼城 · 胡杨林 → 奎屯（约 530km / 6.5h）</div>
+      <div class="wk">周四 🎉 国庆 · 雅丹 + 胡杨</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从松果·布尔津）</div>
+      <ul class="timeline">
+        <li>县城上 G217 南下 → 经和什托洛盖 → 乌尔禾（约 300km / 4h）→ 游魔鬼城、胡杨林 → 上 G3014/G217 高速东南行 → 克拉玛依 → 奎屯市区（约 230km / 2.5h）</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>08:00</b> 出发（国庆日车流大，赶早）</li>
+        <li><b>12:00</b> 抵乌尔禾，镇上午餐</li>
+        <li><b>13:00–15:30</b> 乌尔禾魔鬼城（门票+小火车约 ¥60–90；线上提前买免排队）：雅丹土丘群小火车环线</li>
+        <li><b>15:30–16:30</b> 白杨河大峡谷/乌尔禾胡杨林（魔鬼城旁绕行约 20 分钟）：10 月初胡杨转黄</li>
+        <li><b>16:30</b> 出发奔奎屯，19:30 前后抵美居入住</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">美居·奎屯（jj 订 · 华住小程序；30 号晚 11 点前可免费取消；唧唧另登记一间同店）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">奎屯大盘鸡</span><span class="tag">拌面</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">魔鬼城风大干燥，围脖+墨镜；今天起连续三天高速为主，油箱过半就加</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">9</span><span class="m">10.2</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🌊 奎屯 → 赛里木湖（15:00 进 · 点将台日落）→ 温泉县（约 490km）</div>
+      <div class="wk">周五 · 大西洋最后一滴眼泪 · 精确卡点进湖看日落</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从美居·奎屯）</div>
+      <ul class="timeline">
+        <li>上 G30 连霍高速西行 → 经乌苏、精河 → 赛里木湖东门（约 300km / 3.5–4h）→ 15:00 东门进湖北上北岸 → 点将台看日落 → 原路东门出湖 → G30 西行转博乐方向 → 博乐市区 → 温泉县（东门至温泉县约 110–120km / 1.5–2h）</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>09:00</b> 出发，精河服务区午餐补给</li>
+        <li><b>14:00</b> 抵东门游客中心候场、购票（自驾车票若 24 小时限时票：今天 15:00 进、明天 15:00 前出，正好覆盖两天；购票时确认时限规则）</li>
+        <li><b>15:00</b> 东门进湖北上：北岸顺路停靠，正对西面湖面</li>
+        <li><b>17:00–20:00</b> 点将台（北岸西侧高地）：正对落日方向，日落约 19:30，湖面金色反光最佳</li>
+        <li><b>20:15</b> 出湖（东门出）→ G30 → 博乐 → 温泉县，22:00 前后抵天泉酒店</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">天泉酒店（温泉县）（jjj 订 · 去哪儿；1 号凌晨 4 点前可免费取消；dd 另登记一间同店）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">酒店或县城晚餐；高白鲑留给明天伊宁</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">湖边风大温度低（夜间近 0℃），点将台看日落羽绒服+帽子围脖全上；明早环湖为顺时针（南岸上午顺光）</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">10</span><span class="m">10.3</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🌉 赛里木湖顺时针深度环湖 · 果子沟大桥 → 伊宁（约 330km）</div>
+      <div class="wk">周六 · 环湖深度游 · 大桥打卡</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从天泉酒店·温泉县）</div>
+      <ul class="timeline">
+        <li>原路经博乐上 G30 东行 → 赛里木湖东门再进（用昨日 24 小时票，15:00 前须出湖）→ 顺时针完整环湖一圈（约 90km）→ 东门出湖 → G30 往果子沟/伊宁方向 → 果子沟大桥观景 → 霍城 → 伊宁市区（东门至伊宁约 130km / 2h）</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>08:30</b> 出发（温泉县 → 东门约 110km / 1.5–2h）</li>
+        <li><b>10:30</b> 东门进湖，顺时针：南岸月亮湾、亲水滩（上午顺光，天鹅常驻）→ 松树头 → 西岸西海草原、天鹅湖湿地 → 北岸点将台（昨日日落位白天补拍）→ 东门；环湖途中简餐</li>
+        <li><b>14:00–14:30</b> 东门出湖（卡在 24 小时票时限内）</li>
+        <li><b>15:00</b> 果子沟大桥：桥面禁停，走盘山老路/观景台拍桥 + 峡谷秋色（约 1h）</li>
+        <li><b>17:30</b> 抵伊宁入住；19:00 伊犁河大桥看日落（傍晚免费）</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">汉庭·喀赞其景区店（jj 订 · 华住小程序；2 号晚 11 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">喀赞其冰淇淋（古兰丹姆）</span><span class="tag">马肠子纳仁</span><span class="tag">六星街小吃</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">酒店就在喀赞其民俗旅游区旁，明早步行就能逛，不用挪车</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">11</span><span class="m">10.4</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🏙️ 伊宁（喀赞其）→ 特克斯（约 130km / 2.5h）</div>
+      <div class="wk">周日 · 伊宁慢生活 + 八卦城</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从汉庭·喀赞其景区店）</div>
+      <ul class="timeline">
+        <li>酒店出门步行即达喀赞其民俗旅游区（蓝色小巷、哈迪克马车，约 2h）→ 回酒店取车午餐后出发 → 走伊犁河谷南线南下（导航「特克斯八卦城」，约 130km / 2–2.5h）→ 抵特克斯县城</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>09:30–11:30</b> 喀赞其慢逛（步行，车停酒店）</li>
+        <li><b>12:00</b> 午餐（喀赞其/六星街解决）</li>
+        <li><b>13:00</b> 出发去特克斯</li>
+        <li><b>15:30</b> 抵特克斯，登八卦城观景塔/摩天轮看全城八卦布局</li>
+        <li><b>16:30–18:00</b> 离街慢逛（文创小店、咖啡馆）</li>
+        <li><b>19:00</b> 特克斯夜市：烤串、冰淇淋</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">全季·特克斯九宫新城（jj 订 · 华住小程序；1 号晚 11 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">特克斯烤串</span><span class="tag">马肠子</span><span class="tag">纳仁</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">八卦城街道无红绿灯、易绕晕，全程开导航；明早 820km 长途，今晚早睡、加满油</span></div>
+    </div>
+  </div>
+</article>
+<article class="day ver-v4" style="display:none">
+  <div class="day-head">
+    <div class="day-badge"><span class="n">DAY</span><span class="d">12</span><span class="m">10.5</span></div>
+    <div class="day-hd-tt">
+      <div class="route">🛫 特克斯 → 乌鲁木齐（约 820km / 9h · 全程最长驾驶日）</div>
+      <div class="wk">周一 · 返程长车日</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="blk"><div class="blk-label">🚗 出发路线（从全季·特克斯九宫新城）</div>
+      <ul class="timeline">
+        <li>北上回伊宁方向（约 130km / 2.5h）→ 上 G30 连霍高速东行 → 再过果子沟大桥（角度不同可停观景台）→ 精河（午餐+枸杞手信）→ 乌苏 → 奎屯 → 乌鲁木齐 → 友好路商圈酒店</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">⏱ 时间线</div>
+      <ul class="timeline">
+        <li><b>07:30–08:00</b> 必须出发（双司机轮换，全程驾驶约 9h + 休息 2 次）</li>
+        <li><b>10:30</b> 前后过伊宁上 G30</li>
+        <li><b>12:30</b> 精河服务区午餐（40 分钟）</li>
+        <li><b>15:00</b> 乌苏/奎屯服务区第二次大休</li>
+        <li><b>18:00–19:30</b> 抵乌鲁木齐入住；晚上友好路商圈/大巴扎散伙饭</li>
+      </ul>
+    </div>
+    <div class="blk"><div class="blk-label">🏨 本晚住宿（已预订）</div>
+      <div class="tags"><span class="tag">汉庭·友好南路店（jj 订 · 华住小程序；4 号晚 11 点前可免费取消）</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">🍽️ 吃什么</div>
+      <div class="tags"><span class="tag">大盘鸡（散伙饭）</span><span class="tag">手抓饭</span></div>
+    </div>
+    <div class="blk"><div class="blk-label">💡 贴士</div>
+      <div class="tags"><span class="tag">G30 国庆返程尾段车流仍大，不赶夜路；汉庭友好南路店到天山机场约 20km / 30–40 分钟，次日航班预留 2.5–3h 提前量；买干果馕手信（行李箱留 1/3 空间）</span></div>
+    </div>
+  </div>
+</article>
   </section>
 
   <section id="hotels" data-v="calendar">
@@ -2370,15 +2785,15 @@ function switchPlan(t){
   document.getElementById('plan-B').style.display = (t==='B') ? '' : 'none';
   document.querySelectorAll('.plan-tab').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-plan')===t); });
 }
-// 行程版本切换（V1 伊犁深挖 / V2 北疆喀纳斯 / V3 先阿勒泰·后看独库）
+// 行程版本切换（V1 伊犁深挖 / V2 北疆喀纳斯 / V3 先阿勒泰·后看独库 / V4 北疆金秋 12 天）
 function switchVer(v){
   document.querySelectorAll('.day').forEach(function(x){
     var show;
-    if(v === 1){ show = !x.classList.contains('ver-v2') && !x.classList.contains('ver-v3'); }
+    if(v === 1){ show = !x.classList.contains('ver-v2') && !x.classList.contains('ver-v3') && !x.classList.contains('ver-v4'); }
     else { show = x.classList.contains('ver-v' + v); }
     x.style.display = show ? '' : 'none';
   });
-  [1,2,3].forEach(function(i){
+  [1,2,3,4].forEach(function(i){
     var t = document.querySelector('.ovtable.ver-v' + i);
     if(t) t.style.display = (i === v) ? '' : 'none';
   });
@@ -2388,6 +2803,12 @@ function switchVer(v){
   });
   if(v === 3) switchV3Plan(v3Plan);
   if(window.hbLoad) hbLoad();
+  // 总览标题天数自适应（V4 = 12 天，其余 = 13 天）
+  var ov = document.getElementById('ov-days');
+  if(ov) ov.textContent = (v === 4) ? 'D1–D12' : 'D1–D13';
+  // 切换版本后重建月历（数据不同；初始化阶段 CAL_DAYS 尚未赋值时跳过）
+  var cb = document.getElementById('cal-box');
+  if(cb && CAL_DAYS && CAL_DAYS.length){ delete cb.dataset.built; buildCal(); }
 }
 var v3Plan = 'main';
 function switchV3Plan(p){
@@ -2415,6 +2836,21 @@ var CAL_DAYS = [
   ['D12','10.5 周一','🛫 赛里木湖 → 乌鲁木齐','住：乌鲁木齐'],
   ['D13','10.6 周二','🛫 市区自由活动 · 下午返杭','住：—']
 ];
+var CAL_DAYS_V4 = [
+  ['D1','9.24 周四','✈️ 落地乌鲁木齐 · 取车 · 市区逛吃','住：汉庭·红山门店'],
+  ['D2','9.25 周五','🛣️ S21 → 海上魔鬼城 → 阿勒泰','住：桔子水晶·阿勒泰'],
+  ['D3','9.26 周六','🏔️ 阿禾公路 → 贾登峪','住：金美佳（贾登峪）'],
+  ['D4','9.27 周日','🌲 禾木全天（白桦林 + 日落）→ 贾登峪','住：鸿腾旅途（贾登峪）'],
+  ['D5','9.28 周一','🛣️ 铁贾公路 → 白哈巴（边境村）','住：林畔 + 青霁居（老村店）'],
+  ['D6','9.29 周二','🐟 喀纳斯核心日：观鱼台 + 三湾','住：将夜寻 + 牧云山舍'],
+  ['D7','9.30 周三','🌅 白哈巴晨雾 → 布尔津 · 五彩滩','住：松果（布尔津）'],
+  ['D8','10.1 周四','🏜️ 乌尔禾魔鬼城 · 胡杨林 → 奎屯','住：美居·奎屯（两间）'],
+  ['D9','10.2 周五','🌊 赛里木湖（15:00 进 · 点将台日落）','住：天泉（温泉县·两间）'],
+  ['D10','10.3 周六','🌉 环湖顺时针 → 果子沟大桥 → 伊宁','住：汉庭·喀赞其景区店'],
+  ['D11','10.4 周日','🏙️ 伊宁（喀赞其）→ 特克斯','住：全季·特克斯九宫新城'],
+  ['D12','10.5 周一','🛫 特克斯 → 乌鲁木齐（G30 最长一天）','住：汉庭·友好南路店']
+];
+function calDays(){ return (curVer() === 4) ? CAL_DAYS_V4 : CAL_DAYS; }
 var CAT_ITEMS = [
   ['酒店预定单','🏨','calendar','酒店 · 每天多间/可增删','hotels'],
   ['公共支出表','💰','category','支出 · 语音记账/共享','expense'],
@@ -2456,7 +2892,7 @@ function buildCal(){
   if(!box || box.dataset.built) return;
   var YEAR = 2026; // 行程年份
   var days = [];
-  CAL_DAYS.forEach(function(d){
+  calDays().forEach(function(d){
     var p = d[1].split(' ')[0].split('.');
     days.push({
       id:d[0], date:new Date(YEAR, Number(p[0])-1, Number(p[1])),
@@ -2510,7 +2946,7 @@ function calPick(el){
 function calShow(d){
   var target = null;
   var num = String(d).replace(/^D/i, ''); // 兼容 'D1' 或 '1'
-  document.querySelectorAll('article.day.ver-v3').forEach(function(a){
+  document.querySelectorAll('article.day.ver-v' + curVer()).forEach(function(a){
     var badge = a.querySelector('.day-badge .d');
     if(badge && badge.textContent.trim() === num) target = a;
   });
@@ -2532,14 +2968,15 @@ function calShow(d){
     // 点击遮罩（非内容）关闭
     overlay.addEventListener('click', function(e){ if(e.target === overlay) calClose(); });
   }
-  var idx = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
+  var days = calDays();
+  var idx = days.findIndex(function(x){ return x[0]===d; });
   function navBtn(label, fn){
     var danger = (label.indexOf('关闭')>-1) ? ' danger' : '';
     return '<button class="cal-nav-btn'+danger+'" style="margin:0" onclick="'+fn+'">'+label+'</button>';
   }
   var nav = '';
-  if(idx>0) nav += navBtn('← 前一天 '+CAL_DAYS[idx-1][1].split(' ')[0], 'calShow(\''+CAL_DAYS[idx-1][0]+'\')');
-  if(idx<CAL_DAYS.length-1) nav += navBtn(CAL_DAYS[idx+1][1].split(' ')[0]+' 后一天 →', 'calShow(\''+CAL_DAYS[idx+1][0]+'\')');
+  if(idx>0) nav += navBtn('← 前一天 '+days[idx-1][1].split(' ')[0], 'calShow(\''+days[idx-1][0]+'\')');
+  if(idx<days.length-1) nav += navBtn(days[idx+1][1].split(' ')[0]+' 后一天 →', 'calShow(\''+days[idx+1][0]+'\')');
   document.getElementById('cal-overlay-nav').innerHTML = nav;
   document.getElementById('cal-overlay-nav2').innerHTML = nav;
   var body = document.getElementById('cal-overlay-body');
@@ -2565,9 +3002,9 @@ function calShow(d){
     // 下滑关闭：仅当内容已滚动到顶部（此时下拉不可能是滚动内容）、下拉明显大于横移且距离足够长时才触发，避免上滑回看内容时误关
     if(st <= 0 && dy > 90 && Math.abs(dy) > Math.abs(dx) * 1.5){ calClose(); return; }
     if(Math.abs(dx) < 40) return; // 阈值
-    var cur = CAL_DAYS.findIndex(function(x){ return x[0]===d; });
-    if(dx > 0 && cur>0) calShow(CAL_DAYS[cur-1][0]);      // 右滑 = 前一天
-    if(dx < 0 && cur<CAL_DAYS.length-1) calShow(CAL_DAYS[cur+1][0]); // 左滑 = 后一天
+    var cur = days.findIndex(function(x){ return x[0]===d; });
+    if(dx > 0 && cur>0) calShow(days[cur-1][0]);      // 右滑 = 前一天
+    if(dx < 0 && cur<days.length-1) calShow(days[cur+1][0]); // 左滑 = 后一天
   };
 }
 function calClose(){
