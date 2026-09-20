@@ -328,324 +328,72 @@
 
   <!-- 路线大图 -->
   <section id="route" data-v="overview">
-    <div class="sec-title"><span class="ic">🗺️</span><h2>一图看懂路线</h2><small>反走环线，避开国庆头两天去程车流</small></div>
+    <div class="sec-title"><span class="ic">🗺️</span><h2>一图看懂路线</h2><small>乌市进 · 乌市出 · 9.24–10.5 · 沿线酒店已订</small></div>
     <div class="mapcard">
-      <svg class="map-v1" style="display:none" viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V1 伊犁深挖版路线图">
-        <defs>
-          <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#E8562F" opacity=".7"/></marker>
-          <radialGradient id="lgrad" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#8FD8B6"/><stop offset="1" stop-color="#4FA98A"/></radialGradient>
-        </defs>
-        <rect width="1160" height="800" fill="#FBF4E8"/>
-        <!-- decorative -->
-        <text x="90" y="760" font-size="160" opacity=".07" fill="#E8562F">北疆·伊犁</text>
-        <!-- connection lines -->
-        <g fill="none" stroke="#C9B18F" stroke-width="3.5" opacity=".85" stroke-linecap="round" marker-end="url(#arr)">
-          <path d="M880,110 C900,260 920,470 940,630"/>                       <!-- U-A S21 -->
-          <path d="M710,55 C745,80 795,95 880,110"/>                           <!-- A-H 阿禾 -->
-          <path d="M545,45 C585,46 630,48 710,55"/>                            <!-- H-K -->
-          <path d="M590,210 C575,165 560,110 545,45"/>                         <!-- K-B -->
-          <path d="M595,330 C594,300 592,270 590,210"/>                        <!-- B-W -->
-          <path d="M660,440 C640,415 620,380 595,330"/>                        <!-- W-C -->
-          <path d="M370,420 C470,430 570,432 660,440"/>                        <!-- C-S -->
-          <path d="M315,480 C330,465 348,450 370,420"/>                        <!-- S-G -->
-          <path d="M255,565 C272,545 292,520 315,480"/>                        <!-- G-Y -->
-          <path d="M150,650 C175,625 215,592 255,565"/>                        <!-- Y-Z 伊昭 -->
-          <path d="M325,665 C285,665 235,662 150,650"/>                        <!-- Z-T -->
-          <path d="M405,735 C385,720 360,700 325,665"/>                        <!-- T-Q -->
-          <path d="M565,690 C525,710 480,725 405,735"/>                        <!-- Q-N -->
-          <path d="M745,600 C700,625 640,660 565,690"/>                        <!-- N-D 独库 -->
-          <path d="M940,630 C880,625 810,618 745,600"/>                        <!-- D-U -->
-        </g>
-        <!-- km labels -->
-        <g font-family="inherit" font-size="12" fill="#5B5144" text-anchor="middle">
-          <rect x="862" y="270" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="926" y="286" font-weight="800">S21 沙漠公路</text><text x="926" y="302">约 600km · 6.5h</text>
-          <rect x="638" y="86" width="130" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="703" y="102" font-weight="800">阿禾公路</text><text x="703" y="118">220km · 4h</text>
-          <rect x="470" y="90" width="122" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="531" y="106" font-weight="800">禾木-喀纳斯</text><text x="531" y="122">65km · 1.5h</text>
-          <rect x="500" y="128" width="122" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="561" y="144" font-weight="800">喀纳斯-布尔津</text><text x="561" y="160">约130km · 3h</text>
-          <rect x="500" y="258" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="564" y="274" font-weight="800">布尔津-魔鬼城</text><text x="564" y="290">约300km · 4.5h</text>
-          <rect x="470" y="380" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="534" y="396" font-weight="800">克拉玛依-赛里木</text><text x="534" y="412">450km · 5.5h</text>
-          <rect x="300" y="452" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="360" y="468" font-weight="800">赛里木-伊宁</text><text x="360" y="484">140km · 2h</text>
-          <rect x="52" y="556" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="116" y="572" font-weight="800">伊昭公路</text><text x="116" y="588">210km · 4.5h</text>
-          <rect x="420" y="640" width="126" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="483" y="656" font-weight="800">琼库什台-那拉提</text><text x="483" y="672">约300km · 6h</text>
-          <rect x="815" y="568" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="879" y="584" font-weight="800">独库北段</text><text x="879" y="600">约500km · 7h</text>
-        </g>
-        <!-- nodes -->
-        <g font-family="inherit">
-          <!-- special start/end -->
-          <g><circle cx="940" cy="630" r="17" fill="#E8562F"/><text x="940" y="626" font-size="12" fill="#fff" font-weight="800">始/终</text><text x="940" y="662" font-size="13" text-anchor="middle" font-weight="800" fill="#4A4035">乌鲁木齐</text></g>
-          <g><circle cx="880" cy="110" r="14" fill="url(#lgrad)"/><text x="880" y="90" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">阿勒泰</text><text x="880" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D12</text></g>
-          <g><circle cx="710" cy="55" r="14" fill="url(#lgrad)"/><text x="710" y="34" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">禾木</text><text x="710" y="88" font-size="11" text-anchor="middle" fill="#8a8071">D11</text></g>
-          <g><circle cx="545" cy="45" r="14" fill="url(#lgrad)"/><text x="545" y="24" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">喀纳斯</text><text x="545" y="78" font-size="11" text-anchor="middle" fill="#8a8071">D10</text></g>
-          <g><circle cx="590" cy="210" r="14" fill="url(#lgrad)"/><text x="590" y="248" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">布尔津</text><text x="590" y="270" font-size="11" text-anchor="middle" fill="#8a8071">D9</text></g>
-          <g><circle cx="595" cy="330" r="14" fill="url(#lgrad)"/><text x="595" y="368" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">魔鬼城</text><text x="595" y="386" font-size="11" text-anchor="middle" fill="#8a8071">D8</text></g>
-          <g><circle cx="660" cy="440" r="14" fill="url(#lgrad)"/><text x="660" y="478" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">克拉玛依/独山子</text><text x="660" y="496" font-size="11" text-anchor="middle" fill="#8a8071">D8</text></g>
-          <g><circle cx="370" cy="420" r="16" fill="url(#lgrad)"/><text x="410" y="414" font-size="15" text-anchor="middle" font-weight="800" fill="#2F8F6B">赛里木湖</text><text x="410" y="446" font-size="11" text-anchor="middle" fill="#8a8071">D7 夜宿</text></g>
-          <g><circle cx="315" cy="480" r="11" fill="#E8B04B"/><text x="315" y="516" font-size="12" text-anchor="middle" font-weight="800" fill="#9A6A00">果子沟大桥</text></g>
-          <g><circle cx="255" cy="565" r="14" fill="url(#lgrad)"/><text x="255" y="602" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">伊宁</text><text x="255" y="620" font-size="11" text-anchor="middle" fill="#8a8071">D6</text></g>
-          <g><circle cx="150" cy="650" r="14" fill="url(#lgrad)"/><text x="150" y="686" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">昭苏</text><text x="150" y="704" font-size="11" text-anchor="middle" fill="#8a8071">D5</text></g>
-          <g><circle cx="325" cy="665" r="13" fill="url(#lgrad)"/><text x="325" y="700" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">特克斯</text><text x="325" y="716" font-size="11" text-anchor="middle" fill="#8a8071">D4</text></g>
-          <g><circle cx="405" cy="735" r="14" fill="url(#lgrad)"/><text x="405" y="772" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">琼库什台</text><text x="405" y="788" font-size="11" text-anchor="middle" fill="#8a8071">D4 夜宿</text></g>
-          <g><circle cx="565" cy="690" r="14" fill="url(#lgrad)"/><text x="565" y="728" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">那拉提</text><text x="565" y="746" font-size="11" text-anchor="middle" fill="#8a8071">D2-3</text></g>
-          <g><circle cx="745" cy="600" r="12" fill="#E8B04B"/><text x="745" y="638" font-size="13" text-anchor="middle" font-weight="800" fill="#9A6A00">唐布拉</text><text x="745" y="654" font-size="11" text-anchor="middle" fill="#8a8071">D2 路过</text></g>
-        </g>
-      </svg>
-      <div class="v3plan">
-        <button class="v3plan-btn on" data-plan="main" onclick="switchV3Plan('main')">① 常规 · 独库能走</button>
-        <button class="v3plan-btn" data-plan="b1" onclick="switchV3Plan('b1')">② 封路 B1 · 轻松版</button>
-        <button class="v3plan-btn" data-plan="b2" onclick="switchV3Plan('b2')">③ 封路 B2 · 保留伊犁</button>
-      </div>
-      <svg class="map-v3 map-v3-main" viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V3 常规版路线图">
-        <defs>
-          <marker id="arr3" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#E8562F" opacity=".85"/></marker>
-          <radialGradient id="lgrad3" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#8FD8B6"/><stop offset="1" stop-color="#4FA98A"/></radialGradient>
-        </defs>
-        <rect width="1160" height="800" fill="#FBF4E8"/>
-        <text x="90" y="760" font-size="160" opacity=".07" fill="#E8562F">常规 · 独库能走</text>
-        <g fill="none" stroke="#C9B18F" stroke-width="3.5" opacity=".85" stroke-linecap="round" marker-end="url(#arr3)">
-          <path d="M940,630 C930,430 910,250 880,110"/>
-          <path d="M880,110 C825,95 768,72 710,55"/>
-          <path d="M710,55 C670,80 625,110 585,125"/>
-          <path d="M585,125 C545,115 505,105 470,95"/>
-          <path d="M470,95 C495,78 520,60 545,45"/>
-          <path d="M470,95 C505,175 545,255 595,330"/>
-          <path d="M595,330 C625,390 660,450 700,505"/>
-          <path d="M700,505 C715,540 730,570 745,600"/>
-          <path d="M745,600 C690,635 625,665 565,690"/>
-          <path d="M565,690 C485,685 405,675 325,665"/>
-          <path d="M325,665 C300,630 275,595 255,565"/>
-          <path d="M255,565 C275,535 295,505 315,480"/>
-          <path d="M315,480 C335,458 352,438 370,420"/>
-          <path d="M370,420 C560,470 760,560 940,630"/>
-        </g>
-        <g font-family="inherit" font-size="12" fill="#5B5144" text-anchor="middle">
-          <rect x="862" y="300" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="926" y="316" font-weight="800">S21 沙漠公路</text><text x="926" y="332">约600km · 6.5h</text>
-          <rect x="760" y="86" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="820" y="102" font-weight="800">阿禾公路</text><text x="820" y="118">220km · 4h</text>
-          <rect x="500" y="132" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="560" y="148" font-weight="800">铁贾公路</text><text x="560" y="164">约60km · 1.5h</text>
-          <rect x="470" y="196" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="534" y="212" font-weight="800">白哈巴-乌尔禾</text><text x="534" y="228">约450km · 6h</text>
-          <rect x="700" y="486" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="764" y="502" font-weight="800">独库北段</text><text x="764" y="518">250km · 4h</text>
-          <rect x="300" y="452" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="360" y="468" font-weight="800">赛里木-伊宁</text><text x="360" y="484">140km · 2h</text>
-        </g>
-        <g font-family="inherit">
-          <g><circle cx="940" cy="630" r="17" fill="#E8562F"/><text x="940" y="626" font-size="12" fill="#fff" font-weight="800">始/终</text><text x="940" y="662" font-size="13" text-anchor="middle" font-weight="800" fill="#4A4035">乌鲁木齐</text></g>
-          <g><circle cx="880" cy="110" r="14" fill="url(#lgrad3)"/><text x="880" y="90" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">阿勒泰</text><text x="880" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D2</text></g>
-          <g><circle cx="710" cy="55" r="13" fill="url(#lgrad3)"/><text x="710" y="34" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">禾木</text><text x="710" y="88" font-size="11" text-anchor="middle" fill="#8a8071">D3 看日落</text></g>
-          <g><circle cx="585" cy="125" r="13" fill="url(#lgrad3)"/><text x="585" y="164" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">贾登峪</text><text x="585" y="182" font-size="11" text-anchor="middle" fill="#8a8071">D3 夜宿</text></g>
-          <g><circle cx="470" cy="95" r="13" fill="url(#lgrad3)"/><text x="470" y="132" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">白哈巴</text><text x="470" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D4/D6</text></g>
-          <g><circle cx="545" cy="45" r="14" fill="url(#lgrad3)"/><text x="545" y="24" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">喀纳斯</text><text x="545" y="80" font-size="11" text-anchor="middle" fill="#8a8071">D5</text></g>
-          <g><circle cx="595" cy="330" r="13" fill="url(#lgrad3)"/><text x="595" y="368" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">乌尔禾魔鬼城</text><text x="595" y="386" font-size="11" text-anchor="middle" fill="#8a8071">D7</text></g>
-          <g><circle cx="700" cy="505" r="13" fill="url(#lgrad3)"/><text x="700" y="544" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">奎屯</text><text x="700" y="562" font-size="11" text-anchor="middle" fill="#8a8071">D7 夜宿</text></g>
-          <g><circle cx="745" cy="600" r="12" fill="#E8B04B"/><text x="745" y="638" font-size="13" text-anchor="middle" font-weight="800" fill="#9A6A00">唐布拉</text><text x="745" y="654" font-size="11" text-anchor="middle" fill="#8a8071">D8 百里画廊</text></g>
-          <g><circle cx="565" cy="690" r="13" fill="url(#lgrad3)"/><text x="565" y="728" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">那拉提</text><text x="565" y="746" font-size="11" text-anchor="middle" fill="#8a8071">D8 夜宿</text></g>
-          <g><circle cx="325" cy="665" r="13" fill="url(#lgrad3)"/><text x="325" y="700" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">特克斯</text><text x="325" y="716" font-size="11" text-anchor="middle" fill="#8a8071">D9</text></g>
-          <g><circle cx="255" cy="565" r="13" fill="url(#lgrad3)"/><text x="255" y="602" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">伊宁</text><text x="255" y="618" font-size="11" text-anchor="middle" fill="#8a8071">D10</text></g>
-          <g><circle cx="315" cy="480" r="11" fill="#E8B04B"/><text x="315" y="516" font-size="12" text-anchor="middle" font-weight="800" fill="#9A6A00">果子沟大桥</text></g>
-          <g><circle cx="370" cy="420" r="15" fill="url(#lgrad3)"/><text x="405" y="414" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">赛里木湖</text><text x="405" y="446" font-size="11" text-anchor="middle" fill="#8a8071">D11 夜宿</text></g>
-        </g>
-      </svg>
-      <svg class="map-v3 map-v3-b1" style="display:none" viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V3 封路 B1 轻松版路线图">
-        <defs>
-          <marker id="arr3b1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#E8A04B" opacity=".85"/></marker>
-          <radialGradient id="lgrad3b1" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#8FD8B6"/><stop offset="1" stop-color="#4FA98A"/></radialGradient>
-        </defs>
-        <rect width="1160" height="800" fill="#FBF4E8"/>
-        <text x="90" y="760" font-size="160" opacity=".07" fill="#E8A04B">封路 B1 · 轻松版</text>
-        <g fill="none" stroke="#C9B18F" stroke-width="2.5" opacity=".55" stroke-linecap="round" marker-end="url(#arr3b1)">
-          <path d="M940,630 C930,430 910,250 880,110"/>
-          <path d="M880,110 C825,95 768,72 710,55"/>
-          <path d="M710,55 C670,80 625,110 585,125"/>
-          <path d="M585,125 C545,115 505,105 470,95"/>
-          <path d="M470,95 C495,78 520,60 545,45"/>
-        </g>
-        <g fill="none" stroke="#E8A04B" stroke-width="3.5" opacity=".95" stroke-linecap="round" marker-end="url(#arr3b1)">
-          <path d="M470,95 C505,175 545,255 595,330"/>
-          <path d="M595,330 C560,360 490,400 370,420"/>
-          <path d="M370,420 C480,450 590,480 700,505"/>
-          <path d="M700,505 C780,545 860,585 940,630"/>
-          <path d="M940,630 C905,655 868,680 830,710"/>
-          <path d="M830,710 C868,680 905,655 940,630"/>
-        </g>
-        <g font-family="inherit" font-size="12" fill="#5B5144" text-anchor="middle">
-          <rect x="470" y="196" width="128" height="42" rx="21" fill="#fff" stroke="#E8C89B"/><text x="534" y="212" font-weight="800" fill="#B5761A">白哈巴-乌尔禾</text><text x="534" y="228" fill="#B5761A">约450km · 6h</text>
-          <rect x="430" y="352" width="128" height="42" rx="21" fill="#fff" stroke="#E8C89B"/><text x="494" y="368" font-weight="800" fill="#B5761A">乌尔禾-赛里木</text><text x="494" y="384" fill="#B5761A">约450km · 5.5h</text>
-          <rect x="730" y="548" width="128" height="42" rx="21" fill="#fff" stroke="#E8C89B"/><text x="794" y="564" font-weight="800" fill="#B5761A">奎屯-乌市</text><text x="794" y="580" fill="#B5761A">250km · 3h</text>
-          <rect x="860" y="600" width="128" height="42" rx="21" fill="#fff" stroke="#E8C89B"/><text x="924" y="616" font-weight="800" fill="#B5761A">乌市-吐鲁番</text><text x="924" y="632" fill="#B5761A">200km · 2.5h</text>
-        </g>
-        <g font-family="inherit">
-          <g><circle cx="940" cy="630" r="17" fill="#E8562F"/><text x="940" y="626" font-size="12" fill="#fff" font-weight="800">始/终</text><text x="940" y="662" font-size="13" text-anchor="middle" font-weight="800" fill="#4A4035">乌鲁木齐</text></g>
-          <g><circle cx="880" cy="110" r="13" fill="url(#lgrad3b1)"/><text x="880" y="90" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">阿勒泰</text><text x="880" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D2</text></g>
-          <g><circle cx="710" cy="55" r="12" fill="url(#lgrad3b1)"/><text x="710" y="34" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">禾木</text><text x="710" y="88" font-size="11" text-anchor="middle" fill="#8a8071">D3</text></g>
-          <g><circle cx="585" cy="125" r="12" fill="url(#lgrad3b1)"/><text x="585" y="164" font-size="12" text-anchor="middle" font-weight="800" fill="#2F8F6B">贾登峪</text><text x="585" y="182" font-size="11" text-anchor="middle" fill="#8a8071">D3</text></g>
-          <g><circle cx="470" cy="95" r="13" fill="url(#lgrad3b1)"/><text x="470" y="132" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">白哈巴</text><text x="470" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D4/D6</text></g>
-          <g><circle cx="545" cy="45" r="13" fill="url(#lgrad3b1)"/><text x="545" y="24" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">喀纳斯</text><text x="545" y="80" font-size="11" text-anchor="middle" fill="#8a8071">D5</text></g>
-          <g><circle cx="595" cy="330" r="13" fill="#E8A04B"/><text x="595" y="368" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">乌尔禾</text><text x="595" y="386" font-size="11" text-anchor="middle" fill="#B5761A">D7</text></g>
-          <g><circle cx="370" cy="420" r="14" fill="#E8A04B"/><text x="405" y="414" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">赛里木湖</text><text x="405" y="446" font-size="11" text-anchor="middle" fill="#B5761A">D8</text></g>
-          <g><circle cx="700" cy="505" r="13" fill="#E8A04B"/><text x="700" y="544" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">奎屯</text><text x="700" y="562" font-size="11" text-anchor="middle" fill="#B5761A">D9</text></g>
-          <g><circle cx="830" cy="710" r="13" fill="#E8A04B"/><text x="830" y="748" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">吐鲁番</text><text x="830" y="764" font-size="11" text-anchor="middle" fill="#B5761A">D11/12</text></g>
-        </g>
-        <g font-family="inherit" font-size="12" text-anchor="middle">
-          <rect x="30" y="24" width="300" height="40" rx="12" fill="#fff" stroke="#E8C89B"/><text x="180" y="40" font-weight="800" fill="#B5761A">封路 B1 · 轻松版</text><text x="180" y="55" fill="#B5761A">放弃伊犁 · 赛里木 + 吐鲁番</text>
-        </g>
-      </svg>
-      <svg class="map-v3 map-v3-b2" style="display:none" viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V3 封路 B2 保留伊犁版路线图">
-        <defs>
-          <marker id="arr3b2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#E8A04B" opacity=".85"/></marker>
-          <radialGradient id="lgrad3b2" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#8FD8B6"/><stop offset="1" stop-color="#4FA98A"/></radialGradient>
-        </defs>
-        <rect width="1160" height="800" fill="#FBF4E8"/>
-        <text x="90" y="760" font-size="160" opacity=".07" fill="#E8A04B">封路 B2 · 保留伊犁</text>
-        <g fill="none" stroke="#C9B18F" stroke-width="2.5" opacity=".55" stroke-linecap="round" marker-end="url(#arr3b2)">
-          <path d="M940,630 C930,430 910,250 880,110"/>
-          <path d="M880,110 C825,95 768,72 710,55"/>
-          <path d="M710,55 C670,80 625,110 585,125"/>
-          <path d="M585,125 C545,115 505,105 470,95"/>
-          <path d="M470,95 C495,78 520,60 545,45"/>
-        </g>
-        <g fill="none" stroke="#E8A04B" stroke-width="3.5" opacity=".95" stroke-linecap="round" marker-end="url(#arr3b2)">
-          <path d="M470,95 C505,175 545,255 595,330"/>
-          <path d="M595,330 C520,380 400,480 255,565"/>
-          <path d="M255,565 C278,598 300,632 325,665"/>
-          <path d="M325,665 C300,630 275,595 255,565"/>
-          <path d="M255,565 C275,535 295,505 315,480"/>
-          <path d="M315,480 C335,458 352,438 370,420"/>
-          <path d="M370,420 C560,470 760,560 940,630"/>
-          <path d="M940,630 C905,655 868,680 830,710"/>
-          <path d="M830,710 C868,680 905,655 940,630"/>
-        </g>
-        <g font-family="inherit" font-size="12" fill="#5B5144" text-anchor="middle">
-          <rect x="470" y="196" width="128" height="42" rx="21" fill="#fff" stroke="#E8C89B"/><text x="534" y="212" font-weight="800" fill="#B5761A">白哈巴-乌尔禾</text><text x="534" y="228" fill="#B5761A">约450km · 6h</text>
-          <rect x="380" y="560" width="120" height="42" rx="21" fill="#fff" stroke="#E8C89B"/><text x="440" y="576" font-weight="800" fill="#B5761A">乌尔禾-伊宁</text><text x="440" y="592" fill="#B5761A">约500km · 6h</text>
-          <rect x="300" y="452" width="120" height="42" rx="21" fill="#fff" stroke="#E8C89B"/><text x="360" y="468" font-weight="800" fill="#B5761A">伊宁-赛里木</text><text x="360" y="484" fill="#B5761A">140km · 2h</text>
-          <rect x="860" y="600" width="128" height="42" rx="21" fill="#fff" stroke="#E8C89B"/><text x="924" y="616" font-weight="800" fill="#B5761A">赛里木-乌市</text><text x="924" y="632" fill="#B5761A">550km · 6h</text>
-        </g>
-        <g font-family="inherit">
-          <g><circle cx="940" cy="630" r="17" fill="#E8562F"/><text x="940" y="626" font-size="12" fill="#fff" font-weight="800">始/终</text><text x="940" y="662" font-size="13" text-anchor="middle" font-weight="800" fill="#4A4035">乌鲁木齐</text></g>
-          <g><circle cx="880" cy="110" r="13" fill="url(#lgrad3b2)"/><text x="880" y="90" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">阿勒泰</text><text x="880" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D2</text></g>
-          <g><circle cx="710" cy="55" r="12" fill="url(#lgrad3b2)"/><text x="710" y="34" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">禾木</text><text x="710" y="88" font-size="11" text-anchor="middle" fill="#8a8071">D3</text></g>
-          <g><circle cx="585" cy="125" r="12" fill="url(#lgrad3b2)"/><text x="585" y="164" font-size="12" text-anchor="middle" font-weight="800" fill="#2F8F6B">贾登峪</text><text x="585" y="182" font-size="11" text-anchor="middle" fill="#8a8071">D3</text></g>
-          <g><circle cx="470" cy="95" r="13" fill="url(#lgrad3b2)"/><text x="470" y="132" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">白哈巴</text><text x="470" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D4/D6</text></g>
-          <g><circle cx="545" cy="45" r="13" fill="url(#lgrad3b2)"/><text x="545" y="24" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">喀纳斯</text><text x="545" y="80" font-size="11" text-anchor="middle" fill="#8a8071">D5</text></g>
-          <g><circle cx="595" cy="330" r="13" fill="#E8A04B"/><text x="595" y="368" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">乌尔禾</text><text x="595" y="386" font-size="11" text-anchor="middle" fill="#B5761A">D7</text></g>
-          <g><circle cx="255" cy="565" r="13" fill="#E8A04B"/><text x="255" y="602" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">伊宁</text><text x="255" y="618" font-size="11" text-anchor="middle" fill="#B5761A">D8/D10</text></g>
-          <g><circle cx="325" cy="665" r="13" fill="#E8A04B"/><text x="325" y="700" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">特克斯</text><text x="325" y="716" font-size="11" text-anchor="middle" fill="#B5761A">D9</text></g>
-          <g><circle cx="315" cy="480" r="11" fill="#E8B04B"/><text x="315" y="516" font-size="12" text-anchor="middle" font-weight="800" fill="#9A6A00">果子沟大桥</text></g>
-          <g><circle cx="370" cy="420" r="14" fill="#E8A04B"/><text x="405" y="414" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">赛里木湖</text><text x="405" y="446" font-size="11" text-anchor="middle" fill="#B5761A">D10</text></g>
-          <g><circle cx="830" cy="710" r="13" fill="#E8A04B"/><text x="830" y="748" font-size="13" text-anchor="middle" font-weight="800" fill="#B5761A">吐鲁番</text><text x="830" y="764" font-size="11" text-anchor="middle" fill="#B5761A">D12</text></g>
-        </g>
-        <g font-family="inherit" font-size="12" text-anchor="middle">
-          <rect x="30" y="24" width="300" height="40" rx="12" fill="#fff" stroke="#E8C89B"/><text x="180" y="40" font-weight="800" fill="#B5761A">封路 B2 · 保留伊犁</text><text x="180" y="55" fill="#B5761A">G30 绕行 · 特克斯/伊宁也去</text>
-        </g>
-      </svg>
-      <div class="maplg map-v3">🚗 V3 · 点上方按钮切换 <b>①常规</b> / <b style="color:#B5761A">②封路B1</b> / <b style="color:#B5761A">③封路B2</b> · D1–D6 三版完全一致</div>
-      <svg class="map-v2" style="display:none" viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V2 北疆喀纳斯版路线图">
-        <defs>
-          <marker id="arr2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#E8562F" opacity=".85"/></marker>
-          <radialGradient id="lgrad2" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#8FD8B6"/><stop offset="1" stop-color="#4FA98A"/></radialGradient>
-        </defs>
-        <rect width="1160" height="800" fill="#FBF4E8"/>
-        <text x="90" y="760" font-size="160" opacity=".07" fill="#E8562F">独库先行·北疆收尾</text>
-        <g fill="none" stroke="#C9B18F" stroke-width="3.5" opacity=".85" stroke-linecap="round" marker-end="url(#arr2)">
-          <path d="M940,630 C860,590 780,550 700,505"/>
-          <path d="M700,505 C715,540 730,570 745,600"/>
-          <path d="M745,600 C690,635 625,665 565,690"/>
-          <path d="M565,690 C485,685 405,675 325,665"/>
-          <path d="M325,665 C300,630 275,595 255,565"/>
-          <path d="M255,565 C275,535 295,505 315,480"/>
-          <path d="M315,480 C335,458 352,438 370,420"/>
-          <path d="M370,420 C440,400 520,365 595,330"/>
-          <path d="M595,330 C593,290 592,250 590,210"/>
-          <path d="M590,210 C548,170 510,130 470,95"/>
-          <path d="M470,95 C495,78 520,60 545,45"/>
-          <path d="M545,45 C560,72 572,98 585,125"/>
-          <path d="M585,125 C625,105 668,80 710,55"/>
-          <path d="M710,55 C768,72 825,95 880,110"/>
-          <path d="M880,110 C900,250 920,430 940,630"/>
-        </g>
-        <g font-family="inherit" font-size="12" fill="#5B5144" text-anchor="middle">
-          <rect x="770" y="520" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="830" y="536" font-weight="800">乌市-奎屯</text><text x="830" y="552">250km · 3h</text>
-          <rect x="815" y="568" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="879" y="584" font-weight="800">独库北段</text><text x="879" y="600">约500km · 7h</text>
-          <rect x="300" y="452" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="360" y="468" font-weight="800">赛里木-伊宁</text><text x="360" y="484">140km · 2h</text>
-          <rect x="420" y="360" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="484" y="376" font-weight="800">赛里木-乌尔禾</text><text x="484" y="392">450km · 5.5h</text>
-          <rect x="500" y="250" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="564" y="266" font-weight="800">布尔津-白哈巴</text><text x="564" y="282">约150km · 3h</text>
-          <rect x="760" y="86" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="820" y="102" font-weight="800">阿禾公路</text><text x="820" y="118">220km · 4h</text>
-          <rect x="862" y="300" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="926" y="316" font-weight="800">S21 沙漠公路</text><text x="926" y="332">约600km · 6.5h</text>
-        </g>
-        <g font-family="inherit">
-          <g><circle cx="940" cy="630" r="17" fill="#E8562F"/><text x="940" y="626" font-size="12" fill="#fff" font-weight="800">始/终</text><text x="940" y="662" font-size="13" text-anchor="middle" font-weight="800" fill="#4A4035">乌鲁木齐</text></g>
-          <g><circle cx="700" cy="505" r="13" fill="url(#lgrad2)"/><text x="700" y="544" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">奎屯</text><text x="700" y="562" font-size="11" text-anchor="middle" fill="#8a8071">D1 夜宿</text></g>
-          <g><circle cx="745" cy="600" r="12" fill="#E8B04B"/><text x="745" y="638" font-size="13" text-anchor="middle" font-weight="800" fill="#9A6A00">唐布拉</text><text x="745" y="654" font-size="11" text-anchor="middle" fill="#8a8071">D2 路过</text></g>
-          <g><circle cx="565" cy="690" r="13" fill="url(#lgrad2)"/><text x="565" y="728" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">那拉提</text><text x="565" y="746" font-size="11" text-anchor="middle" fill="#8a8071">D2 夜宿</text></g>
-          <g><circle cx="325" cy="665" r="13" fill="url(#lgrad2)"/><text x="325" y="700" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">特克斯</text><text x="325" y="716" font-size="11" text-anchor="middle" fill="#8a8071">D3</text></g>
-          <g><circle cx="255" cy="565" r="13" fill="url(#lgrad2)"/><text x="255" y="602" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">伊宁</text><text x="255" y="618" font-size="11" text-anchor="middle" fill="#8a8071">D4</text></g>
-          <g><circle cx="315" cy="480" r="11" fill="#E8B04B"/><text x="315" y="516" font-size="12" text-anchor="middle" font-weight="800" fill="#9A6A00">果子沟大桥</text></g>
-          <g><circle cx="370" cy="420" r="15" fill="url(#lgrad2)"/><text x="405" y="414" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">赛里木湖</text><text x="405" y="446" font-size="11" text-anchor="middle" fill="#8a8071">D5 夜宿</text></g>
-          <g><circle cx="595" cy="330" r="13" fill="url(#lgrad2)"/><text x="595" y="368" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">乌尔禾魔鬼城</text><text x="595" y="386" font-size="11" text-anchor="middle" fill="#8a8071">D6</text></g>
-          <g><circle cx="590" cy="210" r="12" fill="url(#lgrad2)"/><text x="590" y="248" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">布尔津</text><text x="590" y="266" font-size="11" text-anchor="middle" fill="#8a8071">D7 路过</text></g>
-          <g><circle cx="470" cy="95" r="13" fill="url(#lgrad2)"/><text x="470" y="132" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">白哈巴</text><text x="470" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D7/D9 夜宿</text></g>
-          <g><circle cx="545" cy="45" r="14" fill="url(#lgrad2)"/><text x="545" y="24" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">喀纳斯</text><text x="545" y="80" font-size="11" text-anchor="middle" fill="#8a8071">D8</text></g>
-          <g><circle cx="585" cy="125" r="12" fill="url(#lgrad2)"/><text x="585" y="164" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">贾登峪</text><text x="585" y="182" font-size="11" text-anchor="middle" fill="#8a8071">D10</text></g>
-          <g><circle cx="710" cy="55" r="13" fill="url(#lgrad2)"/><text x="710" y="34" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">禾木</text><text x="710" y="88" font-size="11" text-anchor="middle" fill="#8a8071">D11 路过</text></g>
-          <g><circle cx="880" cy="110" r="14" fill="url(#lgrad2)"/><text x="880" y="90" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">阿勒泰</text><text x="880" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D11 夜宿</text></g>
-        </g>
-      </svg>
-      <svg class="map-v4" style="display:none" viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V4 北疆金秋 12 天路线图">
+      <svg viewBox="0 0 1160 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V4 北疆金秋 12 天路线图">
         <defs>
           <marker id="arr4" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#E8562F" opacity=".85"/></marker>
           <radialGradient id="lgrad4" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#8FD8B6"/><stop offset="1" stop-color="#4FA98A"/></radialGradient>
         </defs>
         <rect width="1160" height="800" fill="#FBF4E8"/>
         <text x="90" y="760" font-size="160" opacity=".07" fill="#E8562F">北疆金秋 12 天</text>
-        <!-- connection lines -->
-        <g fill="none" stroke="#C9B18F" stroke-width="3.5" opacity=".85" stroke-linecap="round" marker-end="url(#arr4)">
-          <path d="M940,630 C930,430 910,250 880,110"/>                       <!-- U-A S21 -->
-          <path d="M880,110 C825,95 768,72 710,55"/>                           <!-- A-J 阿禾 -->
-          <path d="M710,55 C670,80 625,110 585,125"/>                          <!-- J-贾登峪 -->
-          <path d="M585,125 C545,115 505,105 470,95"/>                          <!-- 贾登峪-白哈巴 铁贾 -->
-          <path d="M470,95 C505,175 545,255 590,210"/>                          <!-- 白哈巴-布尔津 -->
-          <path d="M590,210 C595,270 600,300 595,330"/>                         <!-- 布尔津-乌尔禾 -->
-          <path d="M595,330 C625,390 660,450 700,505"/>                         <!-- 乌尔禾-奎屯 -->
-          <path d="M700,505 C540,490 420,455 370,420"/>                         <!-- 奎屯-赛里木 -->
-          <path d="M370,420 C335,458 295,510 255,565"/>                         <!-- 赛里木-伊宁 -->
-          <path d="M255,565 C275,600 300,632 325,665"/>                         <!-- 伊宁-特克斯 -->
-          <path d="M325,665 C500,660 720,648 940,630"/>                         <!-- 特克斯-乌鲁木齐 -->
-        </g>
-        <!-- km labels -->
-        <g font-family="inherit" font-size="12" fill="#5B5144" text-anchor="middle">
-          <rect x="862" y="300" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="926" y="316" font-weight="800">S21 沙漠公路</text><text x="926" y="332">约 530km · 6.5h</text>
-          <rect x="760" y="86" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="820" y="102" font-weight="800">阿禾公路</text><text x="820" y="118">220km · 4h</text>
-          <rect x="500" y="132" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="560" y="148" font-weight="800">铁贾公路</text><text x="560" y="164">约 90km · 2h</text>
-          <rect x="470" y="230" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="534" y="246" font-weight="800">白哈巴-布尔津</text><text x="534" y="262">约 170km · 3.5h</text>
-          <rect x="500" y="330" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="564" y="346" font-weight="800">布尔津-乌尔禾</text><text x="564" y="362">约 300km · 4h</text>
-          <rect x="700" y="486" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="764" y="502" font-weight="800">乌尔禾-奎屯</text><text x="764" y="518">约 230km · 2.5h</text>
-          <rect x="420" y="452" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="484" y="468" font-weight="800">奎屯-赛里木</text><text x="484" y="484">约 300km · 4h</text>
-          <rect x="300" y="452" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="360" y="468" font-weight="800">赛里木-伊宁</text><text x="360" y="484">约 130km · 2h</text>
-          <rect x="250" y="600" width="126" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="313" y="616" font-weight="800">伊宁-特克斯</text><text x="313" y="632">约 130km · 2.5h</text>
-          <rect x="530" y="620" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="594" y="636" font-weight="800">特克斯-乌鲁木齐</text><text x="594" y="652">约 820km · 9h</text>
-        </g>
-        <!-- nodes -->
-        <g font-family="inherit">
-          <g><circle cx="940" cy="630" r="17" fill="#E8562F"/><text x="940" y="626" font-size="12" fill="#fff" font-weight="800">始/终</text><text x="940" y="662" font-size="13" text-anchor="middle" font-weight="800" fill="#4A4035">乌鲁木齐</text></g>
-          <g><circle cx="880" cy="110" r="14" fill="url(#lgrad4)"/><text x="880" y="90" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">阿勒泰</text><text x="880" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D2 夜宿</text></g>
-          <g><circle cx="585" cy="125" r="13" fill="url(#lgrad4)"/><text x="585" y="164" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">贾登峪</text><text x="585" y="182" font-size="11" text-anchor="middle" fill="#8a8071">D3/D4 夜宿</text></g>
-          <g><circle cx="470" cy="95" r="13" fill="url(#lgrad4)"/><text x="470" y="132" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">白哈巴</text><text x="470" y="150" font-size="11" text-anchor="middle" fill="#8a8071">D5/D6 夜宿</text></g>
-          <g><circle cx="590" cy="210" r="12" fill="url(#lgrad4)"/><text x="590" y="248" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">布尔津</text><text x="590" y="266" font-size="11" text-anchor="middle" fill="#8a8071">D7 夜宿</text></g>
-          <g><circle cx="595" cy="330" r="13" fill="url(#lgrad4)"/><text x="595" y="368" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">乌尔禾</text><text x="595" y="386" font-size="11" text-anchor="middle" fill="#8a8071">D8 路过</text></g>
-          <g><circle cx="700" cy="505" r="13" fill="url(#lgrad4)"/><text x="700" y="544" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">奎屯</text><text x="700" y="562" font-size="11" text-anchor="middle" fill="#8a8071">D8 夜宿</text></g>
-          <g><circle cx="370" cy="420" r="15" fill="url(#lgrad4)"/><text x="405" y="414" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">赛里木湖</text><text x="405" y="446" font-size="11" text-anchor="middle" fill="#8a8071">D9/D10</text></g>
-          <g><circle cx="255" cy="565" r="13" fill="url(#lgrad4)"/><text x="255" y="602" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">伊宁</text><text x="255" y="620" font-size="11" text-anchor="middle" fill="#8a8071">D10 夜宿</text></g>
-          <g><circle cx="325" cy="665" r="13" fill="url(#lgrad4)"/><text x="325" y="700" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">特克斯</text><text x="325" y="716" font-size="11" text-anchor="middle" fill="#8a8071">D11 夜宿</text></g>
-          <g><circle cx="710" cy="55" r="13" fill="url(#lgrad4)"/><text x="710" y="34" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">禾木</text><text x="710" y="88" font-size="11" text-anchor="middle" fill="#8a8071">D4 白天往返</text></g>
-        </g>
         <g font-family="inherit" font-size="12" text-anchor="middle">
-          <rect x="30" y="24" width="300" height="40" rx="12" fill="#fff" stroke="#E4D5C0"/><text x="180" y="40" font-weight="800" fill="#B5761A">V4 · 北疆金秋 12 天</text><text x="180" y="55" fill="#B5761A">乌市进 · 阿勒泰线 · 伊犁赛里木线 · 乌市出</text>
+          <rect x="30" y="24" width="320" height="40" rx="12" fill="#fff" stroke="#E4D5C0"/><text x="190" y="40" font-weight="800" fill="#B5761A">V4 · 北疆金秋 12 天</text><text x="190" y="55" fill="#B5761A">乌市进 · 阿勒泰线 · 伊犁赛里木线 · 乌市出</text>
+        </g>
+        <!-- 主路线 -->
+        <g fill="none" stroke="#C9B18F" stroke-width="3.5" opacity=".85" stroke-linecap="round" marker-end="url(#arr4)">
+          <path d="M940,630 C930,480 900,330 855,190"/>
+          <path d="M855,190 C858,160 866,135 880,110"/>
+          <path d="M880,110 C800,85 660,95 585,125"/>
+          <path d="M585,125 C625,100 668,72 710,50"/>
+          <path d="M585,125 C545,115 505,105 470,95"/>
+          <path d="M470,95 C495,78 520,60 545,45"/>
+          <path d="M470,95 C505,140 545,185 585,225"/>
+          <path d="M600,215 C615,205 630,198 646,190"/>
+          <path d="M585,225 C590,260 592,300 595,335"/>
+          <path d="M595,335 C625,395 660,450 700,505"/>
+          <path d="M700,505 C620,470 480,435 370,420"/>
+          <path d="M370,420 C348,448 332,465 315,485"/>
+          <path d="M315,485 C292,518 272,540 255,565"/>
+          <path d="M255,565 C275,600 300,632 325,665"/>
+        </g>
+        <!-- D12 返程（G30 原路返回） -->
+        <path d="M325,665 C480,700 700,700 880,668 C905,662 925,648 940,630" fill="none" stroke="#C9B18F" stroke-width="3" stroke-dasharray="8 7" opacity=".65" marker-end="url(#arr4)"/>
+        <!-- km 标签 -->
+        <g font-family="inherit" font-size="12" fill="#5B5144" text-anchor="middle">
+          <rect x="720" y="235" width="150" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="795" y="251" font-weight="800">S21 沙漠公路</text><text x="795" y="267">约 530km · 6.5h</text>
+          <rect x="755" y="45" width="120" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="815" y="61" font-weight="800">阿禾公路</text><text x="815" y="77">220km · 4h</text>
+          <rect x="390" y="142" width="105" height="34" rx="17" fill="#fff" stroke="#E4D5C0"/><text x="442" y="156" font-weight="800">铁贾公路</text><text x="442" y="171">约 90km · 2h</text>
+          <rect x="445" y="218" width="120" height="40" rx="20" fill="#fff" stroke="#E4D5C0"/><text x="505" y="234" font-weight="800">白哈巴-布尔津</text><text x="505" y="250">约 170km · 3.5h</text>
+          <rect x="610" y="270" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="674" y="286" font-weight="800">布尔津-乌尔禾</text><text x="674" y="302">约 300km · 4h</text>
+          <rect x="720" y="470" width="128" height="42" rx="21" fill="#fff" stroke="#E4D5C0"/><text x="784" y="486" font-weight="800">乌尔禾-奎屯</text><text x="784" y="502">约 230km · 2.5h</text>
+          <rect x="470" y="398" width="130" height="36" rx="18" fill="#fff" stroke="#E4D5C0"/><text x="535" y="413" font-weight="800">奎屯-赛里木</text><text x="535" y="428">约 300km · 4h</text>
+          <rect x="100" y="510" width="120" height="36" rx="18" fill="#fff" stroke="#E4D5C0"/><text x="160" y="525" font-weight="800">赛里木-伊宁</text><text x="160" y="540">约 130km · 2h</text>
+          <rect x="150" y="595" width="120" height="40" rx="20" fill="#fff" stroke="#E4D5C0"/><text x="210" y="611" font-weight="800">伊宁-特克斯</text><text x="210" y="627">约 130km · 2.5h</text>
+          <rect x="505" y="700" width="150" height="40" rx="20" fill="#fff" stroke="#E4D5C0"/><text x="580" y="716" font-weight="800" fill="#B5761A">特克斯-乌鲁木齐</text><text x="580" y="732" fill="#B5761A">G30 · 约 820km · 9h</text>
+        </g>
+        <!-- 节点 -->
+        <g font-family="inherit">
+          <g><circle cx="940" cy="630" r="17" fill="#E8562F"/><text x="940" y="626" font-size="12" fill="#fff" font-weight="800">始/终</text><text x="940" y="662" font-size="13" text-anchor="middle" font-weight="800" fill="#4A4035">乌鲁木齐</text><text x="940" y="678" font-size="11" text-anchor="middle" fill="#8a8071">D1 / D12</text></g>
+          <g><circle cx="855" cy="190" r="12" fill="#E8B04B"/><text x="880" y="186" font-size="13" text-anchor="start" font-weight="800" fill="#9A6A00">海上魔鬼城</text><text x="880" y="202" font-size="11" text-anchor="start" fill="#8a8071">D2 路过 · 乌伦古湖</text></g>
+          <g><circle cx="880" cy="110" r="14" fill="url(#lgrad4)"/><text x="880" y="88" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">阿勒泰</text><text x="880" y="142" font-size="11" text-anchor="middle" fill="#8a8071">D2 夜宿</text></g>
+          <g><circle cx="710" cy="50" r="13" fill="url(#lgrad4)"/><text x="710" y="24" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">禾木</text><text x="710" y="78" font-size="11" text-anchor="middle" fill="#8a8071">D4 全天 · 白桦林+日落</text></g>
+          <g><circle cx="545" cy="45" r="14" fill="url(#lgrad4)"/><text x="545" y="20" font-size="14" text-anchor="middle" font-weight="800" fill="#2F8F6B">喀纳斯</text><text x="545" y="76" font-size="11" text-anchor="middle" fill="#8a8071">D6 观鱼台 · 三湾</text></g>
+          <g><circle cx="470" cy="95" r="13" fill="url(#lgrad4)"/><text x="452" y="92" font-size="13" text-anchor="end" font-weight="800" fill="#2F8F6B">白哈巴</text><text x="452" y="108" font-size="11" text-anchor="end" fill="#8a8071">D5/D6 夜宿</text></g>
+          <g><circle cx="585" cy="125" r="13" fill="url(#lgrad4)"/><text x="600" y="155" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">贾登峪</text><text x="600" y="171" font-size="11" text-anchor="middle" fill="#8a8071">D3/D4 夜宿</text></g>
+          <g><circle cx="646" cy="190" r="11" fill="#E8B04B"/><text x="646" y="166" font-size="12" text-anchor="middle" font-weight="800" fill="#9A6A00">五彩滩</text><text x="646" y="214" font-size="11" text-anchor="middle" fill="#8a8071">D7 傍晚日落</text></g>
+          <g><circle cx="585" cy="225" r="12" fill="url(#lgrad4)"/><text x="612" y="232" font-size="13" text-anchor="start" font-weight="800" fill="#2F8F6B">布尔津</text><text x="612" y="248" font-size="11" text-anchor="start" fill="#8a8071">D7 夜宿</text></g>
+          <g><circle cx="595" cy="335" r="13" fill="url(#lgrad4)"/><text x="615" y="332" font-size="13" text-anchor="start" font-weight="800" fill="#2F8F6B">乌尔禾魔鬼城</text><text x="615" y="348" font-size="11" text-anchor="start" fill="#8a8071">D8 · 魔鬼城+胡杨林</text></g>
+          <g><circle cx="700" cy="505" r="13" fill="url(#lgrad4)"/><text x="700" y="540" font-size="13" text-anchor="middle" font-weight="800" fill="#2F8F6B">奎屯</text><text x="700" y="556" font-size="11" text-anchor="middle" fill="#8a8071">D8 夜宿</text></g>
+          <g><circle cx="370" cy="420" r="15" fill="url(#lgrad4)"/><text x="392" y="400" font-size="14" text-anchor="start" font-weight="800" fill="#2F8F6B">赛里木湖</text><text x="392" y="446" font-size="11" text-anchor="start" fill="#8a8071">D9/D10 · 住温泉县</text></g>
+          <g><circle cx="315" cy="485" r="11" fill="#E8B04B"/><text x="345" y="492" font-size="12" text-anchor="start" font-weight="800" fill="#9A6A00">果子沟大桥</text><text x="345" y="507" font-size="11" text-anchor="start" fill="#8a8071">D10 路过</text></g>
+          <g><circle cx="255" cy="565" r="13" fill="url(#lgrad4)"/><text x="272" y="552" font-size="13" text-anchor="start" font-weight="800" fill="#2F8F6B">伊宁</text><text x="272" y="568" font-size="11" text-anchor="start" fill="#8a8071">D10 夜宿</text></g>
+          <g><circle cx="325" cy="665" r="13" fill="url(#lgrad4)"/><text x="340" y="658" font-size="13" text-anchor="start" font-weight="800" fill="#2F8F6B">特克斯</text><text x="325" y="700" font-size="11" text-anchor="middle" fill="#8a8071">D11 夜宿 · G30 返乌市</text></g>
         </g>
       </svg>
-      <div class="maplg map-v4" style="display:none">🚗 V4 · 全程约 3,300 km · 乌鲁木齐进 → 阿勒泰金秋线 → 伊犁赛里木湖线 → 乌鲁木齐出 · 含已订酒店</div>
-      <div class="maplg map-v2" style="display:none">🚗 V2 · 北疆喀纳斯版（朋友建议）· 独库北段先走 → 伊犁 → 赛里木湖 → 白哈巴/喀纳斯 · 禾木路过不住</div>
-      <div class="maplg map-v1" style="display:none">🚗 V1 · 全程约 3,300 km · 逆时针反穿环线 · <b>独库精华段开头先走</b> · 北疆枫林收尾</div>
+      <div class="maplg">🚗 V4 · 北疆金秋 12 天 · 全程约 3,300 km · 乌鲁木齐进 → S21 · 海上魔鬼城 → 阿勒泰 → 阿禾公路 → 禾木/喀纳斯/白哈巴 → 布尔津 · 五彩滩 → 乌尔禾 → 奎屯 → 赛里木湖 → 伊宁 → 特克斯 → G30 返乌市</div>
     </div>
-    <div class="note map-v1" style="margin-top:14px;display:none">💡 <b>V1 为什么「反走」：</b>独库公路 10 月初随时可能因降雪临时封闭，<b>行程开头就先走掉独库精华段</b>，不把最大变数留到最后；北疆喀纳斯、禾木放到 10 月初深秋，正值层林尽染最佳观赏期。</div>
-    <div class="note map-v3" style="margin-top:14px">💡 <b>V3 为什么「先阿勒泰」：</b>9 月底先走喀纳斯/禾木精华段（层林尽染最佳期 + 避开国庆抢房潮），把独库留到 10 月初。若独库北段<b>封路</b>，切到虚线备选：乌尔禾 → 赛里木湖 → 奎屯 → 乌鲁木齐 → 吐鲁番，多玩一天吐鲁番。</div>
-    <div class="note map-v2" style="margin-top:14px;display:none">💡 <b>V2（朋友建议）：</b>独库北段先走抢时间，伊犁轻玩（特克斯→伊宁），赛里木湖后直奔白哈巴+喀纳斯，禾木仅路过不住（省住宿）。</div>
+    <div class="note" style="margin-top:14px">💡 <b>V4 行程看点：</b>阿禾公路进禾木（D3）+ <b>禾木全天</b>（D4）+ 喀纳斯观鱼台/三湾（D6）+ 白哈巴晨雾（D7）→ 布尔津<b>五彩滩日落</b>（D7 傍晚）；D8 乌尔禾魔鬼城+胡杨林；<b>D9 赛里木湖 15:00 后进湖、点将台看日落，夜宿温泉县</b>；D12 特克斯 → 乌鲁木齐走 G30 约 820km，<b>全程最长一天，务必早出发</b>。</div>
   </section>
 
   <!-- 行程总览 -->
@@ -2525,25 +2273,25 @@
   <section id="hidden" data-v="category">
     <div class="sec-title"><span class="ic">🧿</span><h2>小众景点 · 顺路彩蛋</h2><small>不绕远路 · 人少 · 不加进日程，赶路就跳过</small></div>
     <div class="card">
-      <div class="drop" style="margin-top:0">📌 <b>使用说明：</b>这些都是主路线<b>沿途或出口附近</b>的备选点，<b>不冲进 D1–D13 日程</b>——天气好、时间富余就顺手停一个，赶路直接略过。若独库封路走备选方案，乌尔禾 / 安集海点位不受影响。10 月部分景点转淡季，开放时间以现场为准。</div>
+      <div class="drop" style="margin-top:0">📌 <b>使用说明：</b>这些都是主路线<b>沿途或出口附近</b>的备选点，<b>不冲进 D1–D13 日程</b>——天气好、时间富余就顺手停一个，赶路直接略过。标注「V3 线路」的两个点在 V4 路线之外，仅作存档参考。10 月部分景点转淡季，开放时间以现场为准。</div>
       <table class="tbl" style="margin-top:12px">
         <tr><th style="width:96px">推荐</th><th style="width:150px">点位</th><th style="width:170px">顺路程度</th><th>亮点</th></tr>
-        <tr><td><span class="chip2 g2">强推</span></td><td><b>白杨河大峡谷</b><br><small class="cal-stay">D7 · 乌尔禾</small></td><td>离魔鬼城仅 10 余 km，绕行约 20 分钟</td><td>魔鬼城同款雅丹 + 金黄胡杨 + 河水，<b>自己的车能开进谷</b>（约 12km），人少价低，10 月胡杨正黄，本地人强推的「魔鬼城平替」</td></tr>
-        <tr><td><span class="chip2 g2">强推</span></td><td><b>那拉提国家湿地公园</b><br><small class="cal-stay">D8 傍晚 / D9 早上 · 那拉提</small></td><td>镇边 G218 旁，零绕路</td><td>秋天芦苇金黄、河道蜿蜒，门票便宜、游客极少，比空中草原清净得多，光线好的傍晚能拍出大片</td></tr>
+        <tr><td><span class="chip2 g2">强推</span></td><td><b>白杨河大峡谷</b><br><small class="cal-stay">D8 · 乌尔禾</small></td><td>离魔鬼城仅 10 余 km，绕行约 20 分钟</td><td>魔鬼城同款雅丹 + 金黄胡杨 + 河水，<b>自己的车能开进谷</b>（约 12km），人少价低，10 月胡杨正黄，本地人强推的「魔鬼城平替」</td></tr>
+        <tr><td><span class="chip2 g2">强推</span></td><td><b>那拉提国家湿地公园</b><br><small class="cal-stay">V3 线路 · 那拉提（V4 不经过）</small></td><td>镇边 G218 旁，零绕路</td><td>秋天芦苇金黄、河道蜿蜒，门票便宜、游客极少，比空中草原清净得多，光线好的傍晚能拍出大片</td></tr>
         <tr><td><span class="chip2 g2">强推</span></td><td><b>伊犁河大桥落日</b><br><small class="cal-stay">D10 傍晚 · 伊宁</small></td><td>市区内，零绕路</td><td>本地人的浪漫：长桥、落日、渔舟，免费。喀赞其逛完傍晚正好过去</td></tr>
         <tr><td><span class="chip2 g2">强推</span></td><td><b>克拉美丽沙漠公园</b><br><small class="cal-stay">D2 · S21 中段</small></td><td>就在服务区里，零绕路</td><td>新疆首个「服务区+景区」，沙漠腹地随便拍，休整、加油、玩沙一步到位；D2 全天高速，这里是最佳喘口气点</td></tr>
         <tr><td><span class="chip2 g2">强推</span></td><td><b>克兰河峡谷观景台</b><br><small class="cal-stay">D3 · 阿禾公路</small></td><td>公路中途，零绕路</td><td>阿禾公路全线最大观景台，峡谷+桦林的第一波高潮；阿禾公路本身就是「油画长廊」，每隔几公里都有临时停车点</td></tr>
         <tr><td><span class="chip2 w2">看时间</span></td><td><b>野卡峡</b><br><small class="cal-stay">D3 · 阿禾公路</small></td><td>公路节点，零绕路</td><td>高山草甸垭口，9 月底秋色浓烈；注意时段管制（往年野卡峡—禾木段 15 时后禁行），以现场公告为准</td></tr>
-        <tr><td><span class="chip2 w2">看时间</span></td><td><b>鸭泽湖</b><br><small class="cal-stay">D5 · 喀纳斯</small></td><td>三湾沿途，零绕路</td><td>多数人直奔三湾打卡，这片草甸湖沼牛马悠闲、晨雾极美，是喀纳斯里的「安静角落」</td></tr>
-        <tr><td><span class="chip2 w2">看时间</span></td><td><b>惠远古城</b><br><small class="cal-stay">D11 · 伊宁→赛里木湖途中</small></td><td>G30 清水河附近，绕行约 30 分钟</td><td>伊犁将军府 + 钟鼓楼，清代伊犁的政治中心，游客稀少、历史感拉满，顺路补个文化点</td></tr>
-        <tr><td><span class="chip2 w2">看时间</span></td><td><b>新疆古生态园</b><br><small class="cal-stay">D1 或 D13 · 乌鲁木齐</small></td><td>市区西北，去机场顺路</td><td>汗血宝马基地 + 硅化木 + 胡杨枯木林，市区最出片的冷门点；D13 送机前顺路正好</td></tr>
-        <tr><td><span class="chip2 w2">看时间</span></td><td><b>野核桃沟</b><br><small class="cal-stay">D9 · 巩留</small></td><td>那拉提→特克斯走巩留方向，绕行约 15 分钟</td><td>国家级野核桃林保护区，10 月初满沟金黄，几乎只有本地人去</td></tr>
+        <tr><td><span class="chip2 w2">看时间</span></td><td><b>鸭泽湖</b><br><small class="cal-stay">D6 · 喀纳斯</small></td><td>三湾沿途，零绕路</td><td>多数人直奔三湾打卡，这片草甸湖沼牛马悠闲、晨雾极美，是喀纳斯里的「安静角落」</td></tr>
+        <tr><td><span class="chip2 w2">看时间</span></td><td><b>惠远古城</b><br><small class="cal-stay">D10/D11 · 伊宁周边</small></td><td>G30 清水河附近，绕行约 30 分钟</td><td>伊犁将军府 + 钟鼓楼，清代伊犁的政治中心，游客稀少、历史感拉满，顺路补个文化点</td></tr>
+        <tr><td><span class="chip2 w2">看时间</span></td><td><b>新疆古生态园</b><br><small class="cal-stay">D1 / 返程日 · 乌鲁木齐</small></td><td>市区西北，去机场顺路</td><td>汗血宝马基地 + 硅化木 + 胡杨枯木林，市区最出片的冷门点；D13 送机前顺路正好</td></tr>
+        <tr><td><span class="chip2 w2">看时间</span></td><td><b>野核桃沟</b><br><small class="cal-stay">V3 线路 · 巩留（V4 不经过）</small></td><td>那拉提→特克斯走巩留方向，绕行约 15 分钟</td><td>国家级野核桃林保护区，10 月初满沟金黄，几乎只有本地人去</td></tr>
         <tr><td><span class="chip2 b2">碰运气</span></td><td><b>卡拉麦里野生动物</b><br><small class="cal-stay">D2 · S21 沿线</small></td><td>车窗观赏，零绕路</td><td>保护区就在公路沿线，普氏野马 / 鹅喉羚靠偶遇（野马集中区在 G216 侧，S21 更多走野生动物通道附近）；<b>看到也别下车、别投喂</b></td></tr>
-        <tr><td><span class="chip2 b2">碰运气</span></td><td><b>艾里克湖</b><br><small class="cal-stay">D7 · 乌尔禾北侧</small></td><td>绕行约 30 分钟</td><td>沙漠边缘的小海子，芦苇+落日，几乎没有游客；和白杨河二选一即可</td></tr>
+        <tr><td><span class="chip2 b2">碰运气</span></td><td><b>艾里克湖</b><br><small class="cal-stay">D8 · 乌尔禾北侧</small></td><td>绕行约 30 分钟</td><td>沙漠边缘的小海子，芦苇+落日，几乎没有游客；和白杨河二选一即可</td></tr>
         <tr><td><span class="chip2 b2">碰运气</span></td><td><b>安集海大峡谷</b><br><small class="cal-stay">D12 · G30 途中</small></td><td>沙湾出口下，往返绕行约 1.5 小时</td><td>「大地裂缝」级景观，比独山子大峡谷更野、人更少；<b>崖边无护栏，千万别贴边拍照</b>。绕行最多，仅当天不赶时考虑</td></tr>
         <tr><td><span class="chip2 b2">碰运气</span></td><td><b>北庭故城</b><br><small class="cal-stay">D2 · 吉木萨尔</small></td><td>S21 吉木萨尔出口下，往返绕行约 1 小时</td><td>唐代北庭都护府遗址，世界文化遗产，几乎无人；历史迷狂喜，赶路就跳过</td></tr>
       </table>
-      <div class="drop">🎒 <b>进阶彩蛋（愿意多绕才去）：</b>① <b>那仁牧场</b>——白哈巴再往里 30km 山路，秋色天花板级、基本无人，但路况一般；② <b>库尔德宁</b>——巩留再进山约 50km，世界自然遗产雪岭云杉，往返多花 2h+；③ 阿勒泰市区<b>桦林公园</b>，D2 傍晚或 D3 早起顺路散步。绕路原则：单程超出 40 分钟就不如把时间留给主景点。</div>
+      <div class="drop">🎒 <b>进阶彩蛋（愿意多绕才去）：</b>① <b>那仁牧场</b>——白哈巴再往里 30km 山路，秋色天花板级、基本无人，但路况一般；② <b>库尔德宁</b>（V3 线路）——巩留再进山约 50km，世界自然遗产雪岭云杉，往返多花 2h+；③ 阿勒泰市区<b>桦林公园</b>，D2 傍晚或 D3 早起顺路散步。绕路原则：单程超出 40 分钟就不如把时间留给主景点。</div>
     </div>
   </section>
 
@@ -2920,7 +2668,7 @@ var CAT_ITEMS = [
   ['公共支出表','💰','category','支出 · 语音记账/共享','expense'],
   ['待确认清单','✅','category','清单 · 勾选存本机','check'],
   ['行前准备 & 预约','🧳','category','准备 · 门票/证件/装备','prep'],
-  ['一图看懂路线','🗺️','overview','路线图 · V3 三档','route'],
+  ['一图看懂路线','🗺️','overview','路线图 · V4 全程','route'],
   ['特色活动体验','🎪','category','活动 · 骑马/呼麦等','activities'],
   ['各地天气参考','🌦️','category','天气 · 含最新预报','weather'],
   ['必带好物','🎒','category','必带 · 深秋打包清单','mustbring'],
