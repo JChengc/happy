@@ -201,6 +201,13 @@
   .hb-save-btn{background:var(--primary); color:#fff; border:none; border-radius:999px; padding:7px 16px; font-size:12.5px; font-weight:700; cursor:pointer;}
   .hb-del{background:none; border:none; color:#c87d62; font-size:15px; cursor:pointer; padding:4px 6px; line-height:1;}
   .hb-del:hover{color:#e8562f;}
+  /* 吃吃吃 · 种草清单 */
+  .food-in{border:1px solid var(--line); border-radius:6px; padding:6px 9px; font-size:13px; background:#fff; color:#3a342b;}
+  .food-in:focus{outline:none; border-color:var(--primary);}
+  .food-item{display:flex; align-items:center; gap:10px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin-bottom:8px;}
+  .food-st{border:none; cursor:pointer; font-size:11.5px; font-weight:800; padding:4px 12px; border-radius:999px; white-space:nowrap;}
+  .food-st.wish{background:#fdeee8; color:#d95b2b;}
+  .food-st.done{background:#e5f4ec; color:#2f8f6b;}
   @media(max-width:640px){
     .hb-f{width:100%; min-width:0;}
     .hb-edit-actions{width:100%; justify-content:flex-end; margin-top:2px;}
@@ -2269,6 +2276,21 @@
     </div>
   </section>
 
+  <!-- 吃吃吃 · 种草清单（Supabase 共享） -->
+  <section id="food" data-v="category">
+    <div class="sec-title"><span class="ic">🍜</span><h2>吃吃吃 · 种草清单</h2><small>4 人共享 · 种草 = 想去 · 拔草 = 吃过</small></div>
+    <div class="card">
+      <p style="margin:4px 0 12px; color:#7a6f5f; font-size:14px">看到想吃的先<b>种草</b>，吃过了点状态按钮变<b>拔草</b>；支持随手<b>新增 / 编辑 / 删除</b>，四人数据实时共享。</p>
+      <div class="hb-row">
+        <input class="food-in" data-f="place" placeholder="地点（如：伊宁）" style="flex:1; min-width:90px;">
+        <input class="food-in" data-f="shop" placeholder="门店（如：某某烤包子）" style="flex:2; min-width:140px;">
+        <button type="button" class="hb-save-btn food-add-btn">＋ 新增</button>
+      </div>
+      <div class="food-list"></div>
+      <div class="fb-empty food-empty" style="display:none">还没有种草的店，先加一家👇</div>
+    </div>
+  </section>
+
   <!-- 小众景点（顺路彩蛋，不进日程） -->
   <section id="hidden" data-v="category">
     <div class="sec-title"><span class="ic">🧿</span><h2>小众景点 · 顺路彩蛋</h2><small>不绕远路 · 人少 · 不加进日程，赶路就跳过</small></div>
@@ -2666,6 +2688,7 @@ function calDays(){ return (curVer() === 4) ? CAL_DAYS_V4 : CAL_DAYS; }
 var CAT_ITEMS = [
   ['酒店预定单','🏨','calendar','酒店 · 每天多间/可增删','hotels'],
   ['公共支出表','💰','category','支出 · 语音记账/共享','expense'],
+  ['吃吃吃','🍜','category','种草/拔草 · 共享','food'],
   ['待确认清单','✅','category','清单 · 勾选存本机','check'],
   ['行前准备 & 预约','🧳','category','准备 · 门票/证件/装备','prep'],
   ['一图看懂路线','🗺️','overview','路线图 · V4 全程','route'],
@@ -2888,6 +2911,9 @@ function catOpen(card){
     if(cloneBody){ cloneBody.id = 'hotelbook-body-clone'; }
     document.getElementById('cat-overlay-body').appendChild(clone);
     if(window.hbLoadClone) hbLoadClone();
+  } else if(label.indexOf('吃吃吃')>-1){
+    document.getElementById('cat-overlay-body').appendChild(clone);
+    foodLoad(clone);
   } else {
     document.getElementById('cat-overlay-body').appendChild(clone);
     if(window.hbLoad && label.indexOf('酒店')>-1) hbLoad();
@@ -3079,6 +3105,97 @@ function hbLoad(targetId){
     });
 }
 function hbLoadClone(){ hbLoad('hotelbook-body-clone'); }
+
+// ===== 吃吃吃 · 种草清单（Supabase expense 表 · dest='xinjiang_food' · 4 人共享）=====
+function foodLoad(box){
+  if(!box) return;
+  fetch(SUPA_URL + '/rest/v1/expense?select=*&dest=eq.xinjiang_food&deleted=is.false&order=id.asc', { headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY } })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .catch(function(){ return []; })
+    .then(function(rows){
+      rows = (rows||[]).sort(function(a,b){ return (a.note==='done'?1:0) - (b.note==='done'?1:0) || a.id - b.id; });
+      var list = box.querySelector('.food-list'), empty = box.querySelector('.food-empty');
+      if(!list) return;
+      list.innerHTML = rows.map(function(r){
+        var wish = r.note !== 'done';
+        return '<div class="food-item" data-id="'+r.id+'">'
+          + '<span class="hb-v-main">'+escH(r.date||'—')+'</span>'
+          + '<span class="hb-v-sub">'+escH(r.item||'')+'</span>'
+          + '<button type="button" class="food-st '+(wish?'wish':'done')+'" title="点击切换种草/拔草">'+(wish?'🌱 种草':'✅ 拔草')+'</button>'
+          + '<button type="button" class="hb-edit-btn">✎ 编辑</button>'
+          + '<button type="button" class="hb-del">✕</button></div>';
+      }).join('');
+      if(empty) empty.style.display = rows.length ? 'none' : 'block';
+      foodBind(box);
+    });
+}
+function foodPatch(id, fields, box, silent){
+  fetch(SUPA_URL + '/rest/v1/expense?id=eq.' + id, { method:'PATCH', headers: Object.assign(hbHB(), { 'Prefer':'return=minimal' }), body: JSON.stringify(fields) })
+    .then(function(r){ if(!r.ok && !silent) alert('⚠️ 操作失败（HTTP ' + r.status + '）'); foodLoad(box); });
+}
+function foodAdd(box){
+  var place = box.querySelector('.food-in[data-f="place"]'), shop = box.querySelector('.food-in[data-f="shop"]');
+  if(!shop || !shop.value.trim()){ if(shop) shop.focus(); return; }
+  fetch(SUPA_URL + '/rest/v1/expense?select=id', { method:'POST', headers: Object.assign(hbHB(), { 'Prefer':'return=representation' }), body: JSON.stringify({ dest:'xinjiang_food', date: (place && place.value.trim()) || '未填地点', item: shop.value.trim(), amount: 0, note: 'wish', payer: '', deleted: false }) })
+    .then(function(r){ if(!r.ok){ alert('⚠️ 保存失败（HTTP ' + r.status + '）'); return null; } if(place) place.value=''; shop.value=''; return r.json(); })
+    .then(function(){ foodLoad(box); });
+}
+function foodEdit(row, box){
+  var main = row.querySelector('.hb-v-main'), sub = row.querySelector('.hb-v-sub');
+  if(main.querySelector('input')) return;
+  var p0 = main.textContent, s0 = sub.textContent;
+  main.innerHTML = '<input class="food-in" data-f="place" value="'+escH(p0)+'" style="width:110px;">';
+  sub.innerHTML = '<input class="food-in" data-f="shop" value="'+escH(s0)+'" style="width:100%;">';
+  var btn = row.querySelector('.hb-edit-btn');
+  btn.textContent = '✓ 保存';
+  btn.onclick = function(){
+    var np = main.querySelector('input').value.trim() || p0;
+    var ns = sub.querySelector('input').value.trim() || s0;
+    foodPatch(row.getAttribute('data-id'), { date: np, item: ns }, box);
+  };
+}
+function foodConfirmDelete(row, box){
+  // 自绘确认弹层（与酒店删除同款，原生 confirm 移动端不可靠）
+  var m = document.getElementById('food-confirm');
+  if(!m){
+    m = document.createElement('div');
+    m.id = 'food-confirm';
+    m.style.cssText = 'position:fixed;inset:0;z-index:300;background:rgba(30,25,18,.5);display:flex;align-items:center;justify-content:center;';
+    m.innerHTML = '<div style="background:#fffdf9;border-radius:16px;padding:22px 24px;max-width:300px;width:90%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.18);">'
+      + '<div style="font-size:26px;margin-bottom:8px">🗑️</div>'
+      + '<div style="font-weight:800;font-size:16px;margin-bottom:4px">删除这家店？</div>'
+      + '<div style="font-size:12.5px;color:#9a8f7f;margin-bottom:16px">删除后不可恢复</div>'
+      + '<div style="display:flex;gap:10px;justify-content:center;">'
+      + '<button id="food-confirm-no" style="flex:1;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:10px 0;font-size:14px;font-weight:700;cursor:pointer;">取消</button>'
+      + '<button id="food-confirm-yes" style="flex:1;background:#d64545;color:#fff;border:none;border-radius:999px;padding:10px 0;font-size:14px;font-weight:800;cursor:pointer;">删除</button>'
+      + '</div></div>';
+    document.body.appendChild(m);
+    m.querySelector('#food-confirm-no').addEventListener('click', function(){ m.style.display='none'; });
+    m.querySelector('#food-confirm-yes').addEventListener('click', function(){
+      m.style.display='none';
+      if(m._id) foodPatch(m._id, { deleted: true }, box);
+    });
+  }
+  m._id = row.getAttribute('data-id');
+  m.style.display = 'flex';
+}
+function foodBind(box){
+  box.querySelectorAll('.food-item').forEach(function(row){
+    row.querySelector('.food-st').onclick = function(){
+      var wish = this.classList.contains('wish');
+      this.className = 'food-st ' + (wish ? 'done' : 'wish');
+      this.textContent = wish ? '✅ 拔草' : '🌱 种草';
+      foodPatch(row.getAttribute('data-id'), { note: wish ? 'done' : 'wish' }, box, true);
+    };
+    row.querySelector('.hb-del').onclick = function(){ foodConfirmDelete(row, box); };
+    row.querySelector('.hb-edit-btn').onclick = function(){ foodEdit(row, box); };
+  });
+  box.querySelectorAll('.food-in').forEach(function(inp){
+    inp.onkeydown = function(e){ if(e.key === 'Enter') foodAdd(box); };
+  });
+  var addBtn = box.querySelector('.food-add-btn');
+  if(addBtn) addBtn.onclick = function(){ foodAdd(box); };
+}
 hbLoad();
 
 // ===== 公共支出表（语音记账 · Supabase 共享）=====
