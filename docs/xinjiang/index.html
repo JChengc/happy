@@ -106,7 +106,7 @@
   .fab{position:fixed; right:18px; bottom:20px; z-index:99; background:var(--primary); color:#fff; border:none; border-radius:999px; padding:12px 20px; font-size:15px; font-weight:700; box-shadow:0 6px 20px rgba(232,86,47,.42); cursor:pointer;}
   .fb-modal{position:fixed; inset:0; background:rgba(40,28,18,.45); z-index:100; display:none;}
   .fb-modal.on{display:block;}
-  .fb-panel{position:absolute; top:0; right:0; height:100vh; width:100%; max-width:420px; background:#fff; padding:22px 20px 28px; overflow:auto; box-shadow:-10px 0 32px rgba(0,0,0,.18); border-radius:0;}
+  .fb-panel{position:absolute; top:0; right:0; height:100vh; height:100dvh; width:100%; max-width:420px; background:#fff; padding:22px 20px 28px; overflow:auto; box-shadow:-10px 0 32px rgba(0,0,0,.18); border-radius:0;}
   .fb-modal.on .fb-panel{animation:fbSlideIn .25s ease;}
   @keyframes fbSlideIn{from{transform:translateX(100%);}to{transform:translateX(0);}}
   @media(min-width:700px){.fb-panel{width:420px;}}
@@ -281,6 +281,33 @@
   .bottomnav .view-tab .ic{font-size:19px;}
   .bottomnav .view-tab.on{background:transparent; color:var(--primary);}
   .bottomnav .view-tab.on::after{content:''; display:block; width:34px; height:3px; background:var(--primary); border-radius:3px; margin-top:2px;}
+  /* ===== 手机 / Pad 体验优化 ===== */
+  button, .day-head, .cal-day, .cal-empty, .cat-hd, .cat-card, .ck li, .view-tab, .ver-select, .plan-tab, .v3plan-btn{ touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+  .tbl-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  @media(max-width:700px){
+    /* 路线图：手机上放大 + 可横向平移（原比例缩到一屏文字太小） */
+    .mapcard{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .mapcard svg{ min-width:640px; }
+    /* 卡片内表格：可横向滑动，避免挤压 */
+    .card .tbl{ min-width:540px; }
+    .hero{ padding:32px 16px 28px; border-radius:0 0 22px 22px; }
+    .hero h1{ font-size:26px; }
+    .hero .sub{ font-size:13.5px; }
+    .hero .chip{ font-size:12px; padding:5px 10px; }
+    .hero .dots span{ font-size:11px; padding:4px 9px; }
+    .sec-title h2{ font-size:19px; white-space:nowrap; }
+    .sec-title .ic{ font-size:22px; }
+    .wrap{ padding:0 14px 80px; }
+    .card{ padding:16px 14px; }
+    .day-head{ padding:14px 14px 10px; gap:10px; }
+    .day-body{ padding:4px 14px 16px; }
+    .ov-panel{ padding-top:12px; padding-left:14px; padding-right:14px; }
+    .bottomnav .view-tab{ padding:10px 4px 8px; }
+  }
+  /* 触屏设备：输入框 16px 防 iOS 聚焦自动放大 */
+  @media(pointer:coarse){
+    .hb-f input, .food-in, .hb-row input, .fb-field input, .ver-select{ font-size:16px; }
+  }
 </style>
 </head>
 <body>
@@ -2947,6 +2974,14 @@ function catClose(){
   if(o) o.style.display = 'none';
   document.body.style.overflow = '';
 }
+// 卡片内表格包一层横滚容器（手机上可左右滑动，避免挤压）
+document.querySelectorAll('.tbl').forEach(function(t){
+  if(t.parentNode && t.parentNode.classList.contains('tbl-wrap')) return;
+  var w = document.createElement('div');
+  w.className = 'tbl-wrap';
+  t.parentNode.insertBefore(w, t);
+  w.appendChild(t);
+});
 // 初始化视图 Tab
 switchView('overview');
 // 酒店预定信息登记（Supabase · 每天可多行备选 · 全版本共享一份数据）
