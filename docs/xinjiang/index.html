@@ -3197,13 +3197,13 @@ function foodLoad(box){
     });
 }
 function foodPatch(id, fields, box, silent){
-  fetch(SUPA_URL + '/rest/v1/expense?id=eq.' + id, { method:'PATCH', headers: Object.assign(hbHB(), { 'Prefer':'return=minimal' }), body: JSON.stringify(fields) })
+  fetch(SUPA_URL + '/rest/v1/food?id=eq.' + id, { method:'PATCH', headers: Object.assign(hbHB(), { 'Prefer':'return=minimal' }), body: JSON.stringify(fields) })
     .then(function(r){ if(!r.ok && !silent) alert('⚠️ 操作失败（HTTP ' + r.status + '）'); foodLoad(box); });
 }
 function foodAdd(box){
   var place = box.querySelector('.food-in[data-f="place"]'), shop = box.querySelector('.food-in[data-f="shop"]');
   if(!shop || !shop.value.trim()){ if(shop) shop.focus(); return; }
-  fetch(SUPA_URL + '/rest/v1/expense?select=id', { method:'POST', headers: Object.assign(hbHB(), { 'Prefer':'return=representation' }), body: JSON.stringify({ place: (place && place.value.trim()) || '未填地点', shop: shop.value.trim(), status: 'wish', deleted: false }) })
+  fetch(SUPA_URL + '/rest/v1/food?select=id', { method:'POST', headers: Object.assign(hbHB(), { 'Prefer':'return=representation' }), body: JSON.stringify({ place: (place && place.value.trim()) || '未填地点', shop: shop.value.trim(), status: 'wish', deleted: false }) })
     .then(function(r){ if(!r.ok){ alert('⚠️ 保存失败（HTTP ' + r.status + '）'); return null; } if(place) place.value=''; shop.value=''; return r.json(); })
     .then(function(){ foodLoad(box); });
 }
@@ -3257,7 +3257,7 @@ function foodBind(box){
     row.querySelector('.hb-del').onclick = function(){ foodConfirmDelete(row, box); };
     row.querySelector('.hb-edit-btn').onclick = function(){ foodEdit(row, box); };
   });
-  box.querySelectorAll('.food-in').forEach(function(inp){
+  box.querySelectorAll('.hb-row .food-in').forEach(function(inp){
     inp.onkeydown = function(e){ if(e.key === 'Enter') foodAdd(box); };
   });
   var addBtn = box.querySelector('.food-add-btn');
@@ -3354,7 +3354,7 @@ function photoBind(box){
     row.querySelector('.hb-del').onclick = function(){ photoConfirmDelete(row, box); };
     row.querySelector('.hb-edit-btn').onclick = function(){ photoEdit(row, box); };
   });
-  box.querySelectorAll('.food-in').forEach(function(inp){
+  box.querySelectorAll('.hb-row .food-in').forEach(function(inp){
     inp.onkeydown = function(e){ if(e.key === 'Enter') photoAdd(box); };
   });
   var addBtn = box.querySelector('.photo-add-btn');
