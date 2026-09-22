@@ -3180,7 +3180,10 @@ function foodLoad(box){
     .then(function(r){ return r.ok ? r.json() : []; })
     .catch(function(){ return []; })
     .then(function(rows){
-      rows = (rows||[]).sort(function(a,b){ return (a.status==='done'?1:0) - (b.status==='done'?1:0) || a.id - b.id; });
+      rows = (rows||[]).sort(function(a,b){
+        var p = String(a.place||'').localeCompare(String(b.place||''), 'zh-Hans-CN');
+        return p || (a.status==='done'?1:0) - (b.status==='done'?1:0) || a.id - b.id;
+      });
       var list = box.querySelector('.food-list'), empty = box.querySelector('.food-empty');
       if(!list) return;
       list.innerHTML = rows.map(function(r){
@@ -3271,6 +3274,7 @@ function photoLoad(box){
     .then(function(r){ return r.ok ? r.json() : []; })
     .catch(function(){ return []; })
     .then(function(rows){
+      rows = (rows||[]).sort(function(a,b){ return String(a.place||'').localeCompare(String(b.place||''), 'zh-Hans-CN') || a.id - b.id; });
       var list = box.querySelector('.photo-list'), empty = box.querySelector('.photo-empty');
       if(!list) return;
       list.innerHTML = (rows||[]).map(function(r){
